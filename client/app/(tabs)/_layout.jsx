@@ -8,10 +8,12 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  // if no auth, redirect to login page
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tertiary,
         // headerShown: false,
       }}
     >
