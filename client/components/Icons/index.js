@@ -1,0 +1,1 @@
+export { FaceIDIcon } from "./FaceIDIcon";

@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router";
-import React from "react";
+import { Link, Redirect, Tabs } from "expo-router";
+import React, { useState } from "react";
 
 import { Colors } from "@/constants/colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -7,8 +7,11 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const [user, setUser] = useState(false);
 
-  // if no auth, redirect to login page
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
 
   return (
     <Tabs

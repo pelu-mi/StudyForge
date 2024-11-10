@@ -1,10 +1,6 @@
 import { useColorScheme } from "react-native";
 import { useFonts } from "expo-font";
-import {
-  PaperProvider,
-  Text as PaperText,
-  adaptNavigationTheme,
-} from "react-native-paper";
+import { PaperProvider, Text, adaptNavigationTheme } from "react-native-paper";
 import {
   ThemeProvider as ReactNativeThemeProvider,
   DarkTheme as NavigationDarkTheme,
@@ -32,7 +28,7 @@ export const ThemeProvider = ({ children }) => {
   );
 
   if (!fontsLoaded) {
-    return <PaperText>Loading...</PaperText>;
+    return <Text>Loading...</Text>;
   }
 
   return (
