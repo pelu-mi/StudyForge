@@ -14,7 +14,7 @@ export const Colors = {
     onTertiary: "rgb(255, 255, 255)",
     tertiaryContainer: "rgb(230, 222, 255)",
     onTertiaryContainer: "rgb(27, 1, 97)",
-    error: "rgb(186, 26, 26)",
+    error: "#E95252",
     onError: "rgb(255, 255, 255)",
     errorContainer: "rgb(255, 218, 214)",
     onErrorContainer: "rgb(65, 0, 2)",

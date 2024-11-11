@@ -6,14 +6,18 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    gap: 20,
+    gap: 12,
   },
   logo: {
     width: 220,
+    height: 184,
     marginBottom: 60,
+    objectFit: "contain",
   },
-  button: {
-    marginTop: 32,
+  buttonWrapper: {
+    width: "100%",
+    marginTop: 28,
+    gap: 24,
   },
   signUpWrapper: {
     flexDirection: "row",
