@@ -1,18 +1,17 @@
-import { useState } from "react";
 import { Image, useColorScheme, View } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./LoginPage.styles";
-import { TextInput } from "@/components/TextInput";
 import { Button } from "@/components/Button";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { FaceIDIcon } from "@/components/Icons";
 import { Link } from "expo-router";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
+import { FormTextInput } from "@/components/Form/FormTextInput";
+import { useLoginForm } from "./hooks/useLoginForm";
 
 export const LoginPage = () => {
   const colorScheme = useColorScheme();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { control, handleSubmit } = useLoginForm();
 
   return (
     <SafeKeyboardScrollView>
@@ -27,22 +26,21 @@ export const LoginPage = () => {
         />
 
         {/* Email input field */}
-        <TextInput
+        <FormTextInput
+          name="email"
           label="Email"
           placeholder="example@mail.com"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
           keyboardType="email-address"
           autoCapitalize="none"
+          {...{ control }}
         />
 
         {/* Password input field */}
-        <TextInput
+        <FormTextInput
+          name="password"
           label="Password"
-          mode="outlined"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
           secureTextEntry
+          {...{ control }}
         />
 
         {/* Buttons */}
@@ -56,7 +54,7 @@ export const LoginPage = () => {
               />
             )}
             iconRight
-            onPress={() => console.log("Login pressed")}
+            onPress={handleSubmit}
           >
             Login
           </Button>
