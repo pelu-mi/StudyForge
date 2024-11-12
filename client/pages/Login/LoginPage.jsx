@@ -7,7 +7,7 @@ import { Button } from "@/components/Button";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { FaceIDIcon } from "@/components/Icons";
 import { Link } from "expo-router";
-import { SafeAreaView } from "@/components/SafeAreaView";
+import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 
 export const LoginPage = () => {
   const colorScheme = useColorScheme();
@@ -15,7 +15,7 @@ export const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <SafeAreaView>
+    <SafeKeyboardScrollView>
       <View style={styles.container}>
         <Image
           source={
@@ -78,6 +78,6 @@ export const LoginPage = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </SafeKeyboardScrollView>
   );
 };

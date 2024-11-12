@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   logo: {
     width: 214,
     height: 70,
-    marginBottom: 60,
+    marginVertical: 40,
     objectFit: "contain",
   },
 });

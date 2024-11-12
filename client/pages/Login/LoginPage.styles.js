@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   logo: {
     width: 220,
     height: 184,
+    marginTop: 52,
     marginBottom: 60,
     objectFit: "contain",
   },
