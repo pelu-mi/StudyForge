@@ -1,18 +1,16 @@
-import { useState } from "react";
 import { Image, useColorScheme, View } from "react-native";
 import { Text } from "react-native-paper";
 import { styles as loginStyles } from "../Login/LoginPage.styles";
 import { styles } from "./SignUpPage.styles";
-import { TextInput } from "@/components/TextInput";
 import { Button } from "@/components/Button";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
+import { FormTextInput } from "@/components/Form/FormTextInput";
+import { useSignUpForm } from "./hooks/useSignUpForm";
 
 export const SignUpPage = () => {
   const colorScheme = useColorScheme();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { control, handleSubmit } = useSignUpForm();
 
   return (
     <SafeKeyboardScrollView>
@@ -26,49 +24,46 @@ export const SignUpPage = () => {
           style={styles.logo}
         />
 
-        <TextInput
+        <FormTextInput
+          name="firstName"
           label="First Name *"
           placeholder="e.g. John"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          {...{ control }}
         />
 
-        <TextInput
+        <FormTextInput
+          name="lastName"
           label="Last Name *"
           placeholder="e.g. Smith"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          {...{ control }}
         />
 
-        <TextInput
+        <FormTextInput
+          name="email"
           label="Email *"
           placeholder="email@mail.com"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
           keyboardType="email-address"
           autoCapitalize="none"
+          {...{ control }}
         />
 
-        <TextInput
+        <FormTextInput
+          name="password"
           label="Password *"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
           secureTextEntry
+          {...{ control }}
         />
 
-        <TextInput
+        <FormTextInput
+          name="confirmPassword"
           label="Confirm Password *"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
           secureTextEntry
+          {...{ control }}
         />
 
         {/* Buttons */}
         <View style={loginStyles.buttonWrapper}>
-          <Button
-            onPress={() => console.log("Login pressed")}
-            style={loginStyles.button}
-          >
+          <Button onPress={handleSubmit} style={loginStyles.button}>
             Sign Up
           </Button>
 
