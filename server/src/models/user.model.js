@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const userSchema = mongoose.Schema(
   {
     firstName: {
@@ -14,10 +13,24 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    publicKeyCredential: {
+      type: String,
+    },
+    studyAlert: {
+      day: [
+        {
+          type: String,
+        },
+      ],
+      time: {
+        type: String ,
+      },
     },
   },
 
@@ -25,6 +38,5 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
 
 export default mongoose.model("User", userSchema);
