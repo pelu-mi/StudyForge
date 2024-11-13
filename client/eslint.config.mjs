@@ -1,5 +1,6 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
+import pluginImport from "eslint-plugin-import";
 import pluginReact from "eslint-plugin-react";
 import pluginReactNative from "eslint-plugin-react-native";
 import babelParser from "@babel/eslint-parser";
@@ -30,6 +31,7 @@ export default [
     plugins: {
       react: pluginReact,
       "react-native": pluginReactNative,
+      import: pluginImport,
     },
     settings: {
       react: {

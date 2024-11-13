@@ -2,6 +2,7 @@
  * Import Modules
  */
 // import { useUser } from "context";
+import { useUser } from "@/context/UserProvider";
 import { useForm } from "@/hooks/useForm";
 import { object, ref, string } from "yup";
 
@@ -22,7 +23,7 @@ const validationSchema = object({
 });
 
 export const useSignUpForm = () => {
-  // const { createAccount } = useUser();
+  const { signUp } = useUser();
 
   const form = useForm({
     validationSchema,
@@ -40,6 +41,7 @@ export const useSignUpForm = () => {
 
     // await createAccount(payload);
     console.log("signup payload", payload);
+    await signUp(payload);
   };
 
   return {
