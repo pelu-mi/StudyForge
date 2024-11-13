@@ -1,4 +1,5 @@
 import { ScrollViewStyleReset } from "expo-router/html";
+import PropTypes from "prop-types";
 
 /**
  * This file is web-only and used to configure the root HTML for every web page during static rendering.
@@ -39,3 +40,7 @@ body {
     background-color: #000;
   }
 }`;
+
+Root.propTypes = {
+  children: PropTypes.node,
+};

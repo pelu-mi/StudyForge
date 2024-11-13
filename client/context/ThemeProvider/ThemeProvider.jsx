@@ -9,6 +9,7 @@ import {
 
 import { createCustomTheme } from "./theme";
 import merge from "deepmerge";
+import PropTypes from "prop-types";
 
 export const ThemeProvider = ({ children }) => {
   const [fontsLoaded] = useFonts({
@@ -38,4 +39,8 @@ export const ThemeProvider = ({ children }) => {
       </ReactNativeThemeProvider>
     </PaperProvider>
   );
+};
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node,
 };

@@ -1,5 +1,6 @@
 import { TextInput } from "@/components/TextInput";
 import { Controller } from "react-hook-form";
+import PropTypes from "prop-types";
 
 export const FormTextInput = ({
   control,
@@ -26,4 +27,12 @@ export const FormTextInput = ({
       )}
     />
   );
+};
+
+FormTextInput.propTypes = {
+  control: PropTypes.object,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
 };

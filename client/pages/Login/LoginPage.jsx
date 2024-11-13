@@ -14,7 +14,7 @@ export const LoginPage = () => {
   const { control, handleSubmit } = useLoginForm();
 
   return (
-    <SafeKeyboardScrollView>
+    <SafeKeyboardScrollView edges={["top"]}>
       <View style={styles.container}>
         <Image
           source={
@@ -69,7 +69,7 @@ export const LoginPage = () => {
           </Button>
 
           <View style={styles.signUpWrapper}>
-            <Text variant="bodyMedium">Don't have an account?</Text>
+            <Text variant="bodyMedium">Don&apos;t have an account?</Text>
             <Button variant="link" labelStyle={styles.signUpLink}>
               <Link href="/signup">Sign Up</Link>
             </Button>

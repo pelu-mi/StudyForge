@@ -1,4 +1,5 @@
 import Svg, { Path } from "react-native-svg";
+import PropTypes from "prop-types";
 
 export const FaceIDIcon = ({
   fill = "#2794D8",
@@ -19,3 +20,9 @@ export const FaceIDIcon = ({
     />
   </Svg>
 );
+
+FaceIDIcon.propTypes = {
+  fill: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};

@@ -1,4 +1,6 @@
 import { Button as PaperButton, useTheme } from "react-native-paper";
+import PropTypes from "prop-types";
+import { getLabelStyle, getMode, getTheme } from "./Button.styles";
 
 export const Button = ({
   variant = "primary",
@@ -11,67 +13,6 @@ export const Button = ({
   ...props
 }) => {
   const themeContext = useTheme();
-
-  const getMode = (variant) => {
-    switch (variant) {
-      case "primary":
-        return "contained";
-
-      case "secondary":
-        return "outlined";
-
-      case "tertiary":
-        return "contained-tonal";
-
-      case "black-outlined":
-        return "outlined";
-
-      case "text":
-        return "text";
-
-      case "link":
-        return "text";
-
-      default:
-        return "contained";
-    }
-  };
-
-  const getLabelStyle = (variant) => {
-    switch (variant) {
-      case "link":
-        return { textDecorationLine: "underline" };
-
-      default:
-        return {};
-    }
-  };
-
-  const getTheme = (variant) => {
-    switch (variant) {
-      case "primary":
-        return { colors: { onSurfaceDisabled: "white" } };
-
-      case "secondary":
-        return { colors: { outline: themeContext.colors.primary } };
-
-      case "tertiary":
-        return {
-          colors: {
-            secondaryContainer: themeContext.colors.primaryContainer,
-            onSecondaryContainer: themeContext.colors.primary,
-          },
-        };
-
-      case "black-outlined":
-        return {
-          colors: { primary: themeContext.colors.text },
-        };
-
-      default:
-        return {};
-    }
-  };
 
   return (
     <PaperButton
@@ -89,8 +30,31 @@ export const Button = ({
         contentStyle,
       ]}
       style={[variant !== "link" && { width: "100%" }, style]}
-      theme={{ roundness: 2, ...getTheme(variant), ...theme }}
+      theme={{ roundness: 2, ...getTheme(variant, themeContext), ...theme }}
       {...props}
     />
   );
+};
+
+Button.propTypes = {
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "black-outlined",
+    "text",
+    "link",
+  ]),
+  mode: PropTypes.oneOf([
+    "text",
+    "outlined",
+    "contained",
+    "elevated",
+    "contained-tonal",
+  ]),
+  iconRight: PropTypes.bool,
+  labelStyle: PropTypes.object,
+  contentStyle: PropTypes.object,
+  style: PropTypes.object,
+  theme: PropTypes.object,
 };

@@ -1,4 +1,5 @@
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
+import PropTypes from "prop-types";
 
 export const KeyboardDismiss = ({ children }) => {
   return (
@@ -6,4 +7,8 @@ export const KeyboardDismiss = ({ children }) => {
       <View style={{ flex: 1 }}>{children}</View>
     </TouchableWithoutFeedback>
   );
+};
+
+KeyboardDismiss.propTypes = {
+  children: PropTypes.node,
 };

@@ -1,5 +1,6 @@
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "../SafeAreaView";
+import PropTypes from "prop-types";
 
 export const SafeKeyboardScrollView = ({
   children,
@@ -30,4 +31,14 @@ export const SafeKeyboardScrollView = ({
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+};
+
+SafeKeyboardScrollView.propTypes = {
+  children: PropTypes.node,
+  showsVerticalScrollIndicator: PropTypes.bool,
+  safeAreaStyle: PropTypes.object,
+  contentContainerStyle: PropTypes.object,
+  style: PropTypes.object,
+  ignoreSafeArea: PropTypes.bool,
+  edges: PropTypes.arrayOf(PropTypes.oneOf(["right", "left", "top", "bottom"])),
 };

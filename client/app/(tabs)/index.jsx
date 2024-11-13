@@ -1,5 +1,4 @@
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "react-native-paper";
 
 export default function HomeScreen() {
@@ -28,5 +27,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

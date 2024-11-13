@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function ForgeScreen() {
   return (
@@ -7,5 +7,3 @@ export default function ForgeScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});
