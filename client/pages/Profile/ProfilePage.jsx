@@ -14,6 +14,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
 import { useColorMode } from "@/context/ColorModeProvider";
+import { useRouter } from "expo-router";
 
 export const ProfilePage = () => {
   const { user, logout } = useUser();
@@ -21,6 +22,7 @@ export const ProfilePage = () => {
     useSettings();
   const theme = useTheme();
   const { colorMode, changeColorMode } = useColorMode();
+  const router = useRouter();
 
   const [showThemeMenu, setShowThemeMenu] = useState(false);
 
@@ -30,7 +32,7 @@ export const ProfilePage = () => {
   };
 
   const handleLogout = () => {
-    Alert.alert("Logout", "Are you sure you want to log out?", [
+    Alert.alert("Log out", "Are you sure you want to log out?", [
       { text: "Cancel", style: "cancel" },
       { text: "Log out", onPress: logout, style: "destructive" },
     ]);
@@ -73,7 +75,9 @@ export const ProfilePage = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => router.push("/profile/changePassword")}
+        >
           <View
             style={[
               styles.listContainer,
@@ -208,8 +212,7 @@ export const ProfilePage = () => {
       {/* Logout button */}
       <TouchableOpacity onPress={handleLogout}>
         <Button
-          variant="text"
-          labelStyle={{ color: theme.colors.error }}
+          variant="red-outlined"
           icon={({ color }) => (
             <Feather name="log-out" size={24} color={color} />
           )}

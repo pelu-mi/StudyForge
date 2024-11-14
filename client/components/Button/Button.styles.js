@@ -12,6 +12,9 @@ export const getMode = (variant) => {
     case "black-outlined":
       return "outlined";
 
+    case "red-outlined":
+      return "outlined";
+
     case "text":
       return "text";
 
@@ -52,6 +55,14 @@ export const getTheme = (variant, theme) => {
     case "black-outlined":
       return {
         colors: { primary: theme.colors.text },
+      };
+
+    case "red-outlined":
+      return {
+        colors: {
+          primary: theme.colors.error,
+          outline: theme.colors.error,
+        },
       };
 
     default:
