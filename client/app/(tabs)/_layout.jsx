@@ -17,14 +17,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorMode ?? "light"].tertiary,
-        // headerShown: false,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" size={24} color={color} />
           ),
         }}
@@ -33,7 +33,7 @@ export default function TabLayout() {
         name="library"
         options={{
           title: "Library",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="book-open-variant"
               size={24}
@@ -46,7 +46,7 @@ export default function TabLayout() {
         name="forge"
         options={{
           title: "Forge",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="plus-circle"
               size={24}
@@ -59,7 +59,7 @@ export default function TabLayout() {
         name="sessions"
         options={{
           title: "Sessions",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="notebook" size={24} color={color} />
           ),
         }}
@@ -68,7 +68,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" size={24} color={color} />
           ),
         }}
