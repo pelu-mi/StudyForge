@@ -2,11 +2,12 @@ export const Colors = {
   light: {
     text: "#313131",
     textSecondary: "#9B9B9B",
+    textDarkGrey: "#696969",
     primary: "#2794D8",
     onPrimary: "rgb(255, 255, 255)",
     primaryContainer: "#E5F3FF",
     onPrimaryContainer: "rgb(0, 30, 47)",
-    secondary: "rgb(171, 48, 76)",
+    secondary: "#D8526C",
     onSecondary: "rgb(255, 255, 255)",
     secondaryContainer: "rgb(255, 217, 221)",
     onSecondaryContainer: "rgb(64, 0, 18)",
@@ -44,10 +45,12 @@ export const Colors = {
     backdrop: "rgba(43, 49, 55, 0.4)",
     toastBackground: "rgb(252, 252, 255)",
     success: "#20C11D",
+    warning: "#FACB5C",
   },
   dark: {
     text: "#FFFFFF",
     textSecondary: "#ECECEC",
+    textDarkGrey: "#ECECEC",
     primary: "rgb(139, 206, 255)",
     onPrimary: "rgb(0, 52, 78)",
     primaryContainer: "#00334B",
@@ -90,5 +93,6 @@ export const Colors = {
     backdrop: "rgba(43, 49, 55, 0.4)",
     toastBackground: "rgb(38, 48, 55)",
     success: "#20C11D",
+    warning: "#FACB5C",
   },
 };

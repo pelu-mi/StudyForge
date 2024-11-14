@@ -3,41 +3,45 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 26,
+    paddingBottom: 32,
+    justifyContent: "space-between",
+    height: "100%",
   },
-  header: {
+  mainList: {
+    gap: 10,
+  },
+  listContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 16,
+    justifyContent: "space-between",
+    padding: 16,
+    borderWidth: 1,
+    borderRadius: 10,
   },
-  userInfo: {
-    marginLeft: 16,
-  },
-  userName: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  userEmail: {
-    fontSize: 14,
-    color: "gray",
+  leftWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
   },
   preferences: {
-    marginTop: 16,
+    marginBottom: 16,
+    marginTop: 40,
+    gap: 10,
   },
-  preferencesTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 8,
+  preferencesText: {
+    fontWeight: 600,
+    marginBottom: 4,
   },
-  preferenceItem: {
+  menuWrapper: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 8,
+    gap: 6,
   },
-  logoutButton: {
-    marginTop: 16,
-    alignSelf: "center",
-    color: "#FF3B30", // Red color for log out
+  themeText: {
+    textTransform: "capitalize",
+    width: 50,
+    display: "flex",
+    textAlign: "right",
   },
 });

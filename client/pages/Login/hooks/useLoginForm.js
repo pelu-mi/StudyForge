@@ -61,7 +61,7 @@ export const useLoginForm = () => {
               enableBiometricAuth(biometricType);
             },
           },
-          { text: "Cancel", style: "cancel" },
+          { text: "Later", style: "cancel" },
         ]
       );
     }

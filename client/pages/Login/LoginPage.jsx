@@ -10,9 +10,10 @@ import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useLoginForm } from "./hooks/useLoginForm";
 import { useSettings } from "@/hooks/useSettings";
 import { useUser } from "@/context/UserProvider";
+import { useColorMode } from "@/context/ColorModeProvider";
 
 export const LoginPage = () => {
-  const colorScheme = useColorScheme();
+  const { colorMode } = useColorMode();
   const { control, handleSubmit } = useLoginForm();
   const { biometricLogin } = useUser();
   const { biometricAuth, isBiometricSupported } = useSettings();
@@ -22,7 +23,7 @@ export const LoginPage = () => {
       <View style={styles.container}>
         <Image
           source={
-            colorScheme === "light"
+            colorMode === "light"
               ? require("@/assets/images/portrait-logo.png")
               : require("@/assets/images/portrait-logo-dark.png")
           }

@@ -1,75 +1,223 @@
 import { Button } from "@/components/Button";
 import { useUser } from "@/context/UserProvider";
 import { useSettings } from "@/hooks/useSettings";
-import { Switch, View } from "react-native";
-import { Avatar, List, Text, Divider, useTheme } from "react-native-paper";
+import {
+  Alert,
+  ScrollView,
+  Switch,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Avatar, Text, useTheme, Menu } from "react-native-paper";
 import { styles } from "./ProfilePage.styles";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Feather from "@expo/vector-icons/Feather";
+import { useState } from "react";
+import { useColorMode } from "@/context/ColorModeProvider";
 
 export const ProfilePage = () => {
   const { user, logout } = useUser();
-  const { biometricAuth, enableBiometricAuth } = useSettings();
+  const { biometricAuth, enableBiometricAuth, isBiometricSupported } =
+    useSettings();
   const theme = useTheme();
+  const { colorMode, changeColorMode } = useColorMode();
+
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+
+  const handleChangeTheme = async (selectedTheme) => {
+    await changeColorMode(selectedTheme);
+    setShowThemeMenu(false);
+  };
+
+  const handleLogout = () => {
+    Alert.alert("Logout", "Are you sure you want to log out?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Log out", onPress: logout, style: "destructive" },
+    ]);
+  };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {/* Header with user avatar and info */}
-      <View style={styles.header}>
-        <Avatar.Text
-          size={48}
-          label={`${user.firstName[0]}${user.lastName[0]}`}
-          style={{ backgroundColor: theme.colors.primary }}
-        />
-        <View style={styles.userInfo}>
-          <Text style={styles.userName}>{user.firstName}</Text>
-          <Text style={styles.userEmail}>{user.email}</Text>
+      <View style={styles.mainList}>
+        <TouchableOpacity onPress={() => {}}>
+          <View
+            style={[
+              styles.listContainer,
+              { borderColor: theme.colors.outline },
+            ]}
+          >
+            <View style={styles.leftWrapper}>
+              <Avatar.Text
+                size={48}
+                label={`${user.firstName[0]}${user.lastName[0]}`}
+                style={{ backgroundColor: theme.colors.primary }}
+              />
+              <View>
+                <Text variant="titleLarge">
+                  {user.firstName} {user.lastName}
+                </Text>
+                <Text
+                  variant="bodyMedium"
+                  style={{ color: theme.colors.textDarkGrey }}
+                >
+                  {user.email}
+                </Text>
+              </View>
+            </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={theme.colors.textSecondary}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}}>
+          <View
+            style={[
+              styles.listContainer,
+              { borderColor: theme.colors.outline },
+            ]}
+          >
+            <View style={styles.leftWrapper}>
+              <MaterialCommunityIcons
+                name="lock"
+                size={24}
+                color={theme.colors.tertiary}
+              />
+              <Text variant="bodyLarge">Change Password</Text>
+            </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={theme.colors.textSecondary}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}}>
+          <View
+            style={[
+              styles.listContainer,
+              { borderColor: theme.colors.outline },
+            ]}
+          >
+            <View style={styles.leftWrapper}>
+              <MaterialCommunityIcons
+                name="alarm"
+                size={24}
+                color={theme.colors.secondary}
+              />
+              <Text variant="bodyLarge">Study Alerts</Text>
+            </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={theme.colors.textSecondary}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}}>
+          <View
+            style={[
+              styles.listContainer,
+              { borderColor: theme.colors.outline },
+            ]}
+          >
+            <View style={styles.leftWrapper}>
+              <MaterialCommunityIcons
+                name="trophy"
+                size={24}
+                color={theme.colors.warning}
+              />
+              <Text variant="bodyLarge">Achievements & Badges</Text>
+            </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={theme.colors.textSecondary}
+            />
+          </View>
+        </TouchableOpacity>
+
+        {/* Preferences section */}
+        <View style={styles.preferences}>
+          <Text variant="titleMedium" style={styles.preferencesText}>
+            Preferences
+          </Text>
+          <View
+            style={[
+              styles.listContainer,
+              { borderColor: theme.colors.outline },
+            ]}
+          >
+            <Text variant="bodyLarge">Theme</Text>
+            <Menu
+              visible={showThemeMenu}
+              onDismiss={() => setShowThemeMenu(false)}
+              anchor={
+                <TouchableOpacity onPress={() => setShowThemeMenu(true)}>
+                  <View style={styles.menuWrapper}>
+                    <Text
+                      variant="bodyLarge"
+                      style={[
+                        styles.themeText,
+                        { color: theme.colors.textDarkGrey },
+                      ]}
+                    >
+                      {colorMode}
+                    </Text>
+                    <MaterialCommunityIcons
+                      name="unfold-more-horizontal"
+                      size={24}
+                      color={theme.colors.textSecondary}
+                    />
+                  </View>
+                </TouchableOpacity>
+              }
+            >
+              <Menu.Item
+                onPress={() => handleChangeTheme("light")}
+                title="Light"
+              />
+              <Menu.Item
+                onPress={() => handleChangeTheme("dark")}
+                title="Dark"
+              />
+            </Menu>
+          </View>
+          {isBiometricSupported && (
+            <View
+              style={[
+                styles.listContainer,
+                { paddingVertical: 12, borderColor: theme.colors.outline },
+              ]}
+            >
+              <Text variant="bodyLarge">Enable Login with Face ID</Text>
+              <Switch
+                value={biometricAuth.isFaceIDEnabled}
+                onValueChange={() => enableBiometricAuth("FaceID")}
+              />
+            </View>
+          )}
         </View>
       </View>
-
-      {/* Profile options */}
-      <List.Section>
-        <List.Item
-          title="Change Password"
-          left={() => <List.Icon icon="lock" />}
-          right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => {}}
-        />
-        <List.Item
-          title="Study Alerts"
-          left={() => <List.Icon icon="alarm" />}
-          right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => {}}
-        />
-        <List.Item
-          title="Achievements & Badges"
-          left={() => <List.Icon icon="trophy" />}
-          right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => {}}
-        />
-      </List.Section>
-
-      {/* Preferences section */}
-      <View style={styles.preferences}>
-        <Text style={styles.preferencesTitle}>Preferences</Text>
-        <View style={styles.preferenceItem}>
-          <Text>Theme</Text>
-          <Text>Light</Text>{" "}
-          {/* Replace with dynamic theme selection if needed */}
-        </View>
-        <View style={styles.preferenceItem}>
-          <Text>Enable Login with Face ID</Text>
-          <Switch
-            value={biometricAuth.isFaceIDEnabled}
-            onValueChange={() => enableBiometricAuth("FaceID")}
-          />
-        </View>
-      </View>
-
-      <Divider style={styles.divider} />
 
       {/* Logout button */}
-      <Button variant="text" onPress={logout} style={styles.logoutButton}>
-        Log out
-      </Button>
-    </View>
+      <TouchableOpacity onPress={handleLogout}>
+        <Button
+          variant="text"
+          labelStyle={{ color: theme.colors.error }}
+          icon={({ color }) => (
+            <Feather name="log-out" size={24} color={color} />
+          )}
+          iconRight
+        >
+          Log out
+        </Button>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };

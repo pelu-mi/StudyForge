@@ -1,11 +1,11 @@
 import { Redirect, Tabs } from "expo-router";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Colors } from "@/constants/colors";
 import { useUser } from "@/context/UserProvider";
+import { useColorMode } from "@/context/ColorModeProvider";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { colorMode } = useColorMode();
   const { user } = useUser();
 
   console.log("user", user);
@@ -16,7 +16,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tertiary,
+        tabBarActiveTintColor: Colors[colorMode ?? "light"].tertiary,
         // headerShown: false,
       }}
     >
