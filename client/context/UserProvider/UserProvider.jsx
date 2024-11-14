@@ -1,11 +1,10 @@
 /**
  * Import Modules
  */
-// src/contexts/UserContext.js
+
 import { createContext, useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 
-// import { useSnackbar } from "notistack";
 import { useSignUpMutation } from "@/services/api/user/useSignUpMutation";
 import { ACCESS_TOKEN_KEY, ACCESS_USER_KEY } from "@/constants/auth";
 import { getData } from "@/utils/getData";
@@ -13,6 +12,7 @@ import { storeData } from "@/utils/storeData";
 import { useRouter } from "expo-router";
 import { useLoginMutation } from "@/services/api/user/useLoginMutation";
 import { deleteItemAsync, setItemAsync } from "expo-secure-store";
+import Toast from "react-native-toast-message";
 
 const UserContext = createContext();
 
@@ -32,20 +32,22 @@ export const UserProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-  // const navigate = useNavigate();
-  // const { enqueueSnackbar } = useSnackbar();
-
   // Create Account
   const { mutateAsync: signUp, isPending: isSignUpPending } = useSignUpMutation(
     {
       onSuccess: async (response) => {
-        // enqueueSnackbar(response.message, { variant: "success" });
-
+        Toast.show({
+          type: "success",
+          text1: response.message,
+        });
         console.log("sign up successfully: ", response.message);
         router.dismiss();
       },
       onError: (error) => {
-        // enqueueSnackbar(error.message, { variant: "error" });
+        Toast.show({
+          type: "error",
+          text1: error.message,
+        });
         console.log("sign up error: ", error.message);
       },
     }

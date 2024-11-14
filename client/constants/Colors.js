@@ -42,6 +42,8 @@ export const Colors = {
     surfaceDisabled: "rgba(26, 28, 30, 0.12)",
     onSurfaceDisabled: "rgba(26, 28, 30, 0.38)",
     backdrop: "rgba(43, 49, 55, 0.4)",
+    toastBackground: "rgb(252, 252, 255)",
+    success: "#20C11D",
   },
   dark: {
     text: "#FFFFFF",
@@ -86,5 +88,7 @@ export const Colors = {
     surfaceDisabled: "rgba(226, 226, 229, 0.12)",
     onSurfaceDisabled: "rgba(226, 226, 229, 0.38)",
     backdrop: "rgba(43, 49, 55, 0.4)",
+    toastBackground: "rgb(38, 48, 55)",
+    success: "#20C11D",
   },
 };
