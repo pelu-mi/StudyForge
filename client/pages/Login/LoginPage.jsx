@@ -8,10 +8,14 @@ import { Link } from "expo-router";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useLoginForm } from "./hooks/useLoginForm";
+import { useSettings } from "@/hooks/useSettings";
+import { useUser } from "@/context/UserProvider";
 
 export const LoginPage = () => {
   const colorScheme = useColorScheme();
   const { control, handleSubmit } = useLoginForm();
+  const { biometricLogin } = useUser();
+  const { biometricAuth, isBiometricSupported } = useSettings();
 
   return (
     <SafeKeyboardScrollView edges={["top"]}>
@@ -59,14 +63,16 @@ export const LoginPage = () => {
             Login
           </Button>
 
-          <Button
-            variant="secondary"
-            icon={({ color }) => <FaceIDIcon fill={color} />}
-            iconRight
-            onPress={() => console.log("Login with Face ID pressed")}
-          >
-            Login with Face ID
-          </Button>
+          {biometricAuth.isFaceIDEnabled && isBiometricSupported && (
+            <Button
+              variant="secondary"
+              icon={({ color }) => <FaceIDIcon fill={color} />}
+              iconRight
+              onPress={biometricLogin}
+            >
+              Login with Face ID
+            </Button>
+          )}
 
           <View style={styles.signUpWrapper}>
             <Text variant="bodyMedium">Don&apos;t have an account?</Text>
