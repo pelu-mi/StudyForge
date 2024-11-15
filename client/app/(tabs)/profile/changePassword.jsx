@@ -1,10 +1,5 @@
-import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { ChangePasswordPage } from "@/pages/ChangePassword";
 
 export default function ChangePasswordScreen() {
-  return (
-    <View>
-      <Text>Change Password View</Text>
-    </View>
-  );
+  return <ChangePasswordPage />;
 }
