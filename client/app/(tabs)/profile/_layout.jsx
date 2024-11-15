@@ -8,6 +8,7 @@ export default function ProfileLayout() {
         name="changePassword"
         options={{ title: "Change Password" }}
       />
+      <Stack.Screen name="account" options={{ title: "Account" }} />
     </Stack>
   );
 }

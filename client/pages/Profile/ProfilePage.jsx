@@ -42,7 +42,7 @@ export const ProfilePage = () => {
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header with user avatar and info */}
       <View style={styles.mainList}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => router.push("/profile/account")}>
           <View
             style={[
               styles.listContainer,
