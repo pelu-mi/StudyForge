@@ -4,6 +4,6 @@ import { apiGetRequest } from "../helpers/apiGetRequest";
 export const useApiGet = (key, options) =>
   useQuery({
     queryKey: key,
-    queryFn: options.queryFn ?? apiGetRequest,
+    queryFn: apiGetRequest,
     ...options,
   });
