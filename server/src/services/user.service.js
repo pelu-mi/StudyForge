@@ -96,7 +96,7 @@ async function updateUser(user, payload) {
 
   const updatedUser = await users.findByIdAndUpdate(
     user._id,
-    { $set: payload }, // Update the fields provided in the payload
+    { $set: payload }, 
     { new: true, useFindAndModify: false }
   );
 
@@ -114,6 +114,19 @@ async function setStudyAlert(user, payload) {
   }
 
   payload.user = user._id;
+
+  const existingAlert = await studyAlert.findOne({
+    user: user._id,
+    day: { $in: payload.day }, 
+    time: payload.time, 
+  });
+
+  if (existingAlert) {
+    return responses.buildFailureResponse(
+      "A study alert with the same day and time already exists",
+      409
+    );
+  }
 
   const newAlert = await studyAlert.create(payload);
 
