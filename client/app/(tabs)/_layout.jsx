@@ -1,6 +1,6 @@
 import { Redirect, Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { useUser } from "@/context/UserProvider";
 import { useColorMode } from "@/context/ColorModeProvider";
 
@@ -9,9 +9,9 @@ export default function TabLayout() {
   const { user } = useUser();
 
   console.log("user", user);
-  if (!user) {
-    return <Redirect href="/login" />;
-  }
+  // if (!user) {
+  //   return <Redirect href="/login" />;
+  // }
 
   return (
     <Tabs

@@ -1,5 +1,5 @@
 import { fontConfig } from "@/constants/fontConfig";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import {
   configureFonts,
   MD3DarkTheme,
