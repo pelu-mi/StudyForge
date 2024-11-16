@@ -23,6 +23,12 @@ router.post(
   userControllers.setStudyAlert
 );
 
+router.get(
+  "/getstudyalerts",
+  authMiddleware.authenticate,
+  userControllers.getStudyAlerts
+);
+
 router.post("/generateresource", userControllers.generateResource);
 
 export default router;

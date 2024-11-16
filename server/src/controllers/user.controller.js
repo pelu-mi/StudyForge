@@ -62,7 +62,7 @@ async function getUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const response = await usersServices.updateUser(req.user,req.body);
+    const response = await usersServices.updateUser(req.user, req.body);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
@@ -94,8 +94,20 @@ async function generateResource(req, res) {
       status: "failure",
     });
   }
-  
 }
+
+async function getStudyAlerts(req, res) {
+  try {
+    const response = await usersServices.getStudyAlerts(req.user);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get alerts",
+      status: "failure",
+    });
+  }
+}
+
 export default {
   createAccount,
   login,
@@ -104,4 +116,5 @@ export default {
   updateUser,
   setStudyAlert,
   generateResource,
+  getStudyAlerts,
 };
