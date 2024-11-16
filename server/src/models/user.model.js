@@ -22,16 +22,6 @@ const userSchema = mongoose.Schema(
     publicKeyCredential: {
       type: String,
     },
-    studyAlert: {
-      day: [
-        {
-          type: String,
-        },
-      ],
-      time: {
-        type: String ,
-      },
-    },
   },
 
   {

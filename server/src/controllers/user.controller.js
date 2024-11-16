@@ -62,7 +62,7 @@ async function getUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const response = await usersServices.updateUser(req.user);
+    const response = await usersServices.updateUser(req.user,req.body);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
@@ -84,6 +84,18 @@ async function setStudyAlert(req, res) {
   }
 }
 
+async function generateResource(req, res) {
+  try {
+    const response = await usersServices.generateResource(req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to generate resource",
+      status: "failure",
+    });
+  }
+  
+}
 export default {
   createAccount,
   login,
@@ -91,4 +103,5 @@ export default {
   getUser,
   updateUser,
   setStudyAlert,
+  generateResource,
 };
