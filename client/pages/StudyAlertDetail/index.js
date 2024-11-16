@@ -1,0 +1,1 @@
+export { StudyAlertDetailPage } from "./StudyAlertDetailPage";

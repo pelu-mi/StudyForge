@@ -3,12 +3,29 @@ import { Stack } from "expo-router";
 export default function ProfileLayout() {
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ title: "Profile" }} />
+      {/* Main Profile Screen */}
       <Stack.Screen
-        name="changePassword"
-        options={{ title: "Change Password" }}
+        name="index"
+        options={{ title: "Profile", headerBackButtonDisplayMode: "minimal" }}
       />
-      <Stack.Screen name="account" options={{ title: "Account" }} />
+
+      {/* Study Alerts Screen */}
+      <Stack.Screen
+        name="studyAlert/index"
+        options={{
+          title: "Study Alerts",
+          headerBackButtonDisplayMode: "minimal",
+        }}
+      />
+
+      {/* Add Study Alert Screen */}
+      <Stack.Screen
+        name="studyAlert/addStudyAlert"
+        options={{
+          title: "Add Study Alerts",
+          headerBackButtonDisplayMode: "minimal",
+        }}
+      />
     </Stack>
   );
 }
