@@ -24,10 +24,12 @@ router.post(
 );
 
 router.get(
-  "/getstudyalerts",
+  "/getuserstudyalerts",
   authMiddleware.authenticate,
-  userControllers.getStudyAlerts
+  userControllers.getUserStudyAlerts
 );
+
+router.get("/getstudyalert/:alertId", userControllers.getStudyAlert);
 
 router.post("/generateresource", userControllers.generateResource);
 
