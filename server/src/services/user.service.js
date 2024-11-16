@@ -124,6 +124,25 @@ async function setStudyAlert(user, payload) {
   );
 }
 
+async function getStudyAlerts(user) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const foundAlert = await studyAlert.find({ user: user._id });
+  if (!foundAlert) {
+    return responses.buildFailureResponse("No study alert set", 400);
+  }
+  return {
+    message: "Study alert displayed below",
+    statusCode: 200,
+    status: "success",
+    data: foundAlert,
+  };
+}
+
 async function verifyKey(user, payload) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -196,4 +215,5 @@ export default {
   setStudyAlert,
   verifyKey,
   generateResource,
+  getStudyAlerts,
 };
