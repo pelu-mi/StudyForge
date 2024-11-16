@@ -96,7 +96,7 @@ async function updateUser(user, payload) {
 
   const updatedUser = await users.findByIdAndUpdate(
     user._id,
-    { $set: payload }, 
+    { $set: payload },
     { new: true, useFindAndModify: false }
   );
 
@@ -117,8 +117,8 @@ async function setStudyAlert(user, payload) {
 
   const existingAlert = await studyAlert.findOne({
     user: user._id,
-    day: { $in: payload.day }, 
-    time: payload.time, 
+    day: { $in: payload.day },
+    time: payload.time,
   });
 
   if (existingAlert) {
@@ -137,7 +137,7 @@ async function setStudyAlert(user, payload) {
   );
 }
 
-async function getStudyAlerts(user) {
+async function getUserStudyAlerts(user) {
   const foundUser = await users.findOne({ _id: user._id });
 
   if (!foundUser) {
@@ -154,6 +154,16 @@ async function getStudyAlerts(user) {
     status: "success",
     data: foundAlert,
   };
+}
+
+async function getStudyAlert(payload) {
+  const { alertId } = payload;
+  const foundAlert = await studyAlert.findOne({ _id: alertId });
+  if (!foundAlert) {
+    return responses.buildFailureResponse("This alert doesn't exist", 400);
+  }
+
+  return responses.buildSuccessResponse("Study alert found", 200, foundAlert);
 }
 
 async function verifyKey(user, payload) {
@@ -228,5 +238,6 @@ export default {
   setStudyAlert,
   verifyKey,
   generateResource,
-  getStudyAlerts,
+  getUserStudyAlerts,
+  getStudyAlert,
 };

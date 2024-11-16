@@ -96,9 +96,9 @@ async function generateResource(req, res) {
   }
 }
 
-async function getStudyAlerts(req, res) {
+async function getUserStudyAlerts(req, res) {
   try {
-    const response = await usersServices.getStudyAlerts(req.user);
+    const response = await usersServices.getUserStudyAlerts(req.user);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
@@ -106,6 +106,20 @@ async function getStudyAlerts(req, res) {
       status: "failure",
     });
   }
+}
+
+async function getStudyAlert(req, res) {
+  // try {
+  //   const response = await usersServices.getStudyAlert(req.params);
+  //   res.status(response.statusCode).json(response);
+  // } catch (error) {
+  //   res.status(500).json({
+  //     message: "Unable to get alert",
+  //     status: "failure",
+  //   });
+  // }
+  const response = await usersServices.getStudyAlert(req.params);
+  res.status(response.statusCode).json(response);
 }
 
 export default {
@@ -116,5 +130,6 @@ export default {
   updateUser,
   setStudyAlert,
   generateResource,
-  getStudyAlerts,
+  getUserStudyAlerts,
+  getStudyAlert,
 };
