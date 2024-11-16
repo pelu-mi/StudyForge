@@ -26,6 +26,15 @@ export default function ProfileLayout() {
           headerBackButtonDisplayMode: "minimal",
         }}
       />
+
+      {/* Add Study Alert Screen */}
+      <Stack.Screen
+        name="studyAlert/[studyAlertId]"
+        options={{
+          title: "Edit Study Alerts",
+          headerBackButtonDisplayMode: "minimal",
+        }}
+      />
     </Stack>
   );
 }

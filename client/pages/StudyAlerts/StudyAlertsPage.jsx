@@ -11,30 +11,34 @@ export const StudyAlertsPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const { studyAlerts } = useStudyAlertsQuery();
-  console.log("studyAlerts", studyAlerts);
 
   return (
-    <View style={styles.container}>
-      <Text variant="headlineSmall">Study Alerts</Text>
-      <FlatList
-        data={studyAlerts}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => router.push("/profile/studyAlert/editStudyAlert")}
-          >
-            <StudyAlertItem time={item.time} days={item.day} />
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item) => item._id}
-        contentContainerStyle={styles.listContentContainer}
-        ListEmptyComponent={
-          <EmptyList
-            iconName="alarm"
-            message="No Study Alerts"
-            containerStyle={{ marginTop: 100 }}
-          />
-        }
-      />
+    <>
+      <View style={styles.container}>
+        <FlatList
+          ListHeaderComponent={
+            <Text variant="headlineSmall">Study Alerts</Text>
+          }
+          data={studyAlerts}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => router.push(`/profile/studyAlert/${item._id}`)}
+            >
+              <StudyAlertItem time={item.time} days={item.day} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item._id}
+          contentContainerStyle={styles.listContentContainer}
+          ListEmptyComponent={
+            <EmptyList
+              iconName="alarm"
+              message="No Study Alerts"
+              containerStyle={{ marginTop: 100 }}
+            />
+          }
+        />
+      </View>
       <FAB
         icon="plus"
         customSize={56}
@@ -42,6 +46,6 @@ export const StudyAlertsPage = () => {
         style={styles.fab}
         onPress={() => router.push("/profile/studyAlert/addStudyAlert")}
       />
-    </View>
+    </>
   );
 };

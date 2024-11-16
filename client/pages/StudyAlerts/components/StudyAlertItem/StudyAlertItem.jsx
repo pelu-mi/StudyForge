@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { Switch, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
@@ -7,6 +8,7 @@ import Feather from "@expo/vector-icons/Feather";
 export const StudyAlertItem = ({ time, days }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
+  const formattedTime = dayjs(time).format("h:mm A");
 
   return (
     <View style={styles.alertContainer}>
@@ -21,7 +23,7 @@ export const StudyAlertItem = ({ time, days }) => {
           </Text>
         </View>
 
-        <Text variant="headlineMedium">{time}</Text>
+        <Text variant="headlineMedium">{formattedTime}</Text>
 
         <View style={styles.chipContainer}>
           {days.map((day, index) => (

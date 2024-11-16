@@ -46,6 +46,7 @@ export const Colors = {
     toastBackground: "rgb(252, 252, 255)",
     success: "#20C11D",
     warning: "#FACB5C",
+    dangerZoneBackground: "#F5F5F5",
   },
   dark: {
     text: "#FFFFFF",
@@ -94,5 +95,6 @@ export const Colors = {
     toastBackground: "rgb(38, 48, 55)",
     success: "#20C11D",
     warning: "#FACB5C",
+    dangerZoneBackground: "rgb(32, 37, 41)",
   },
 };
