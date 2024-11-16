@@ -1,26 +1,30 @@
+import dotenv from "dotenv";
 import users from "../models/user.model.js";
-import response from "../utils/response.js";
+import responses from "../utils/response.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import axios from "axios";
+import studyAlert from "../models/studyAlert.js";
+dotenv.config();
 
 async function createAccount(payload) {
   const { firstName, lastName, email } = payload;
 
   if (!firstName || !lastName || !payload.password || !email) {
-    return response.buildFailureResponse("Missing required fields", 400);
+    return responses.buildFailureResponse("Missing required fields", 400);
   }
 
   const foundEmail = await users.findOne({ email: email });
   if (foundEmail) {
-    return response.buildFailureResponse("Account already exists", 400);
+    return responses.buildFailureResponse("Account already exists", 400);
   }
 
   const hashedPassword = await bcrypt.hash(payload.password, 10);
   payload.password = hashedPassword;
 
   const newUser = await users.create(payload);
-  return response.buildSuccessResponse(
+  return responses.buildSuccessResponse(
     "Account created succesfully",
     201,
     newUser
@@ -31,12 +35,12 @@ async function login(payload) {
   const { email, password } = payload;
   const foundAccount = await users.findOne({ email: email }).lean();
   if (!foundAccount) {
-    return response.buildFailureResponse("Account does not exist", 400);
+    return responses.buildFailureResponse("Account does not exist", 400);
   }
 
   const passwordMatch = await bcrypt.compare(password, foundAccount.password);
   if (!passwordMatch) {
-    return response.buildFailureResponse("Passwords do not match", 400);
+    return responses.buildFailureResponse("Passwords do not match", 400);
   }
   const token = jwt.sign(
     {
@@ -49,7 +53,7 @@ async function login(payload) {
   );
 
   foundAccount.accessToken = token;
-  return response.buildSuccessResponse("Login Successful", 200, foundAccount);
+  return responses.buildSuccessResponse("Login Successful", 200, foundAccount);
 }
 
 async function createPublicKey(user, payload) {
@@ -58,7 +62,7 @@ async function createPublicKey(user, payload) {
   const foundUser = await users.findOne({ _id: user._id });
 
   if (!foundUser) {
-    return response.buildFailureResponse("User does not exist", 400);
+    return responses.buildFailureResponse("User does not exist", 400);
   }
 
   const updatedUser = await users.findOneAndUpdate(
@@ -67,7 +71,7 @@ async function createPublicKey(user, payload) {
     { returnDocument: "after" } // Ensures it returns the updated document
   );
 
-  return response.buildSuccessResponse(
+  return responses.buildSuccessResponse(
     "Public key added successfully",
     200,
     updatedUser
@@ -78,25 +82,25 @@ async function getUser(payload) {
   const foundUser = await users.findOne({ _id: payload });
 
   if (!foundUser) {
-    return response.buildFailureResponse("User does not exist", 400);
+    return responses.buildFailureResponse("User does not exist", 400);
   }
 
-  return response.buildSuccessResponse("User details found", 200, foundUser);
+  return responses.buildSuccessResponse("User details found", 200, foundUser);
 }
 
-async function updateUser(payload) {
-  const currentUser = await users.findById(payload._id);
+async function updateUser(user, payload) {
+  const currentUser = await users.findById(user._id);
   if (!currentUser) {
-    return response.buildFailureResponse("User not found", 400);
+    return responses.buildFailureResponse("User not found", 400);
   }
 
   const updatedUser = await users.findByIdAndUpdate(
-    payload._id,
+    user._id,
     { $set: payload }, // Update the fields provided in the payload
     { new: true, useFindAndModify: false }
   );
 
-  return response.buildSuccessResponse(
+  return responses.buildSuccessResponse(
     "User updated successfully",
     200,
     updatedUser
@@ -106,21 +110,17 @@ async function updateUser(payload) {
 async function setStudyAlert(user, payload) {
   const currentUser = await users.findById(user._id);
   if (!currentUser) {
-    return response.buildFailureResponse("User not found", 400);
+    return responses.buildFailureResponse("User not found", 400);
   }
 
-  const alert = await users.findByIdAndUpdate(
-    user._id,
-    {
-      $set: { "studyAlert.day": payload.day, "studyAlert.time": payload.time },
-    }, // target studyAlert fields
-    { new: true, useFindAndModify: false }
-  );
+  payload.user = user._id;
 
-  return response.buildSuccessResponse(
+  const newAlert = await studyAlert.create(payload);
+
+  return responses.buildSuccessResponse(
     "Study alert updated successfully",
     200,
-    alert.studyAlert
+    newAlert
   );
 }
 
@@ -128,7 +128,7 @@ async function verifyKey(user, payload) {
   const foundUser = await users.findOne({ _id: user._id });
 
   if (!foundUser) {
-    return response.buildFailureResponse("User does not exist", 400);
+    return responses.buildFailureResponse("User does not exist", 400);
   }
 
   const { publicKeyCredential } = user;
@@ -143,14 +143,50 @@ async function verifyKey(user, payload) {
   );
 
   if (!isVerified) {
-    return response.buildFailureResponse(
+    return responses.buildFailureResponse(
       "Unfortunately we could not verify your Face ID authentication",
       400
     );
   }
 
-  return response.buildSuccessResponse("Face ID verified", 200);
+  return responses.buildSuccessResponse("Face ID verified", 200);
 }
+
+async function generateResource(payload) {
+  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+  const data = {
+    model: "gpt-4o-mini",
+    messages: [{ role: "user", content: "Say this is a test!" }],
+    temperature: 0.7,
+  };
+
+  try {
+    const response = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+      }
+    );
+
+    // Format the response in the specified format
+    return responses.buildSuccessResponse(
+      "Response successfully generated",
+      200,
+      response.data.choices[0].message.content
+    );
+  } catch (error) {
+    return responses.buildFailureResponse(
+      "Failure to process prompt",
+      400,
+      error.stack
+    );
+  }
+}
+
 export default {
   createAccount,
   login,
@@ -159,4 +195,5 @@ export default {
   updateUser,
   setStudyAlert,
   verifyKey,
+  generateResource,
 };

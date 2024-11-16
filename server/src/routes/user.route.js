@@ -23,4 +23,6 @@ router.post(
   userControllers.setStudyAlert
 );
 
+router.post("/generateresource", userControllers.generateResource);
+
 export default router;
