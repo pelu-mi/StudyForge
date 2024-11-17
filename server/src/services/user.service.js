@@ -156,6 +156,53 @@ async function getUserStudyAlerts(user) {
   };
 }
 
+async function deleteStudyAlert(payload) {
+  const foundAlert = await studyAlert.findOne({ _id: payload.id });
+  if (!foundAlert) {
+    return responses.buildFailureResponse("This alert doesn't exist", 400);
+  }
+
+  const deletedAlert = await studyAlert.findOneAndDelete({ _id: payload.id });
+
+  return responses.buildSuccessResponse(
+    "Alert deleted succesfully",
+    200,
+    deletedAlert
+  );
+}
+
+async function updateStudyAlert(user,payload) {
+  const foundAlert = await studyAlert.findOne({ _id: payload.id });
+  if (!foundAlert) {
+    return responses.buildFailureResponse("This alert doesn't exist", 400);
+  }
+
+  const updatedAlert = await studyAlert.findByIdAndUpdate(
+    payload.id,
+    { $set: payload },
+    { new: true, runValidators: true }
+  );
+
+  const existingAlert = await studyAlert.findOne({
+    user: user._id,
+    day: { $in: payload.day },
+    time: payload.time,
+  });
+
+  if (existingAlert) {
+    return responses.buildFailureResponse(
+      "A study alert with the same day and time already exists",
+      409
+    );
+  }
+
+  return responses.buildSuccessResponse(
+    "Updated succesfully",
+    200,
+    updatedAlert
+  );
+}
+
 async function getStudyAlert(payload) {
   const { alertId } = payload;
   const foundAlert = await studyAlert.findOne({ _id: alertId });
@@ -240,4 +287,6 @@ export default {
   generateResource,
   getUserStudyAlerts,
   getStudyAlert,
+  deleteStudyAlert,
+  updateStudyAlert,
 };
