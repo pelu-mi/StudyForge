@@ -109,17 +109,39 @@ async function getUserStudyAlerts(req, res) {
 }
 
 async function getStudyAlert(req, res) {
-  // try {
-  //   const response = await usersServices.getStudyAlert(req.params);
-  //   res.status(response.statusCode).json(response);
-  // } catch (error) {
-  //   res.status(500).json({
-  //     message: "Unable to get alert",
-  //     status: "failure",
-  //   });
-  // }
-  const response = await usersServices.getStudyAlert(req.params);
-  res.status(response.statusCode).json(response);
+  try {
+    const response = await usersServices.getStudyAlert(req.params);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get alert",
+      status: "failure",
+    });
+  }
+}
+
+async function deleteStudyAlert(req, res) {
+  try {
+    const response = await usersServices.deleteStudyAlert(req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to delete alert",
+      status: "failure",
+    });
+  }
+}
+
+async function updateStudyAlert(req, res) {
+  try {
+    const response = await usersServices.updateStudyAlert(req.user,req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to update alert",
+      status: "failure",
+    });
+  }
 }
 
 export default {
@@ -132,4 +154,6 @@ export default {
   generateResource,
   getUserStudyAlerts,
   getStudyAlert,
+  deleteStudyAlert,
+  updateStudyAlert,
 };
