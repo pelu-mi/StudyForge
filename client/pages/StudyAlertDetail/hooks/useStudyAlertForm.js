@@ -1,5 +1,6 @@
 import { useForm } from "@/hooks/useForm";
 import { useAddStudyAlertMutation } from "@/services/api/studyAlerts/useAddStudyAlertMutation";
+import { useUpdateStudyAlertMutation } from "@/services/api/studyAlerts/useUpdateStudyAlertMutation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { object, string, array } from "yup";
@@ -44,23 +45,23 @@ export const useStudyAlertForm = () => {
     },
   });
 
-  // Update Study Alert mutation (optional, if you have it)
-  // const { mutateAsync: updateStudyAlert } = useUpdateStudyAlertMutation({
-  //   onSuccess: (response) => {
-  //     Toast.show({ type: "success", text1: response.message });
-  //     router.back();
-  //   },
-  //   onError: (error) => {
-  //     Toast.show({ type: "error", text1: error.message });
-  //   },
-  // });
+  // Update Study Alert mutation
+  const { mutateAsync: updateStudyAlert } = useUpdateStudyAlertMutation({
+    onSuccess: (response) => {
+      Toast.show({ type: "success", text1: response.message });
+      router.back();
+    },
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
 
   const onSubmit = async ({ day, time }) => {
     let payload = { day, time };
 
     if (studyAlertId) {
       // update the study alert
-      // await updateStudyAlert( { _id: studyAlertId, ...payload });
+      await updateStudyAlert({ id: studyAlertId, ...payload });
     } else {
       // add the study alert
       await addStudyAlert(payload);

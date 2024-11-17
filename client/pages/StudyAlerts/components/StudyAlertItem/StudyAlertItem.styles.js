@@ -13,6 +13,7 @@ export const useStyles = (theme) =>
     },
     leftWrapper: {
       gap: 18,
+      flex: 1,
     },
     repeatWrapper: {
       flexDirection: "row",

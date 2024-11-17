@@ -8,3 +8,4 @@ export const UPDATE_USER_API_KEY = "/user/updateuser";
 export const GET_STUDY_ALERTS_API_KEY = "/user/getuserstudyalerts";
 export const GET_STUDY_ALERT_DETAIL_API_KEY = "/user/getstudyalert";
 export const ADD_STUDY_ALERT_API_KEY = "/user/setstudyalert";
+export const UPDATE_STUDY_ALERT_API_KEY = "/user/updatestudyalert";
