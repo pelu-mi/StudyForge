@@ -171,7 +171,7 @@ async function deleteStudyAlert(payload) {
   );
 }
 
-async function updateStudyAlert(user,payload) {
+async function updateStudyAlert(user, payload) {
   const foundAlert = await studyAlert.findOne({ _id: payload.id });
   if (!foundAlert) {
     return responses.buildFailureResponse("This alert doesn't exist", 400);
@@ -182,19 +182,6 @@ async function updateStudyAlert(user,payload) {
     { $set: payload },
     { new: true, runValidators: true }
   );
-
-  const existingAlert = await studyAlert.findOne({
-    user: user._id,
-    day: { $in: payload.day },
-    time: payload.time,
-  });
-
-  if (existingAlert) {
-    return responses.buildFailureResponse(
-      "A study alert with the same day and time already exists",
-      409
-    );
-  }
 
   return responses.buildSuccessResponse(
     "Updated succesfully",
