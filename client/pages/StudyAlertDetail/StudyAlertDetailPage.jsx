@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./StudyAlertDetailPage.styles";
 import { useMemo } from "react";
@@ -40,6 +40,13 @@ export const StudyAlertDetailPage = () => {
     }
 
     setValue("day", newDays);
+  };
+
+  const handleDeleteStudyAlert = () => {
+    Alert.alert("Are you sure you want to delete this study alert?", "", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Delete", onPress: () => {}, style: "destructive" },
+    ]);
   };
 
   return (
@@ -90,7 +97,9 @@ export const StudyAlertDetailPage = () => {
           <Text variant="titleMedium" style={styles.text}>
             Danger Zone
           </Text>
-          <Button variant="red-outlined">Delete Study Alert</Button>
+          <Button variant="red-outlined" onPress={handleDeleteStudyAlert}>
+            Delete Study Alert
+          </Button>
         </View>
       )}
     </ScrollView>
