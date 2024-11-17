@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import { ForgePage } from "@/pages/Forge";
 
 export default function ForgeScreen() {
-  return (
-    <View>
-      <Text>Forge View</Text>
-    </View>
-  );
+  return <ForgePage />;
 }

@@ -8,6 +8,7 @@ export const FormTextInput = ({
   placeholder,
   error: hasError,
   helperText,
+  hideHelperTextSpace = false,
   ...props
 }) => {
   return (
@@ -18,7 +19,7 @@ export const FormTextInput = ({
         fieldState: { invalid, error },
       }) => (
         <TextInput
-          {...{ ...props, onBlur, placeholder }}
+          {...{ ...props, onBlur, placeholder, hideHelperTextSpace }}
           onChangeText={onChange}
           value={value || ""}
           error={invalid || hasError}
@@ -35,4 +36,5 @@ FormTextInput.propTypes = {
   placeholder: PropTypes.string,
   error: PropTypes.bool,
   helperText: PropTypes.string,
+  hideHelperTextSpace: PropTypes.bool,
 };
