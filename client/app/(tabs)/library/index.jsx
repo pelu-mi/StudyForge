@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import { LibraryPage } from "@/pages/Library";
 
 export default function LibraryScreen() {
-  return (
-    <View>
-      <Text>Library View</Text>
-    </View>
-  );
+  return <LibraryPage />;
 }
