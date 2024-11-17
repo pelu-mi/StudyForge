@@ -21,10 +21,7 @@ export const StudyAlertDetailPage = () => {
   const { studyAlertId } = useLocalSearchParams();
   const theme = useTheme();
   const styles = useStyles(theme);
-  const { handleSubmit, control, watch, setValue } = useStudyAlertForm({
-    studyAlertId,
-    // defaultValues
-  });
+  const { handleSubmit, control, watch, setValue } = useStudyAlertForm();
 
   const isAdd = useMemo(() => !studyAlertId, [studyAlertId]);
   const selectedDays = watch("day");

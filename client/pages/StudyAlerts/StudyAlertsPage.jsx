@@ -23,7 +23,12 @@ export const StudyAlertsPage = () => {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => router.push(`/profile/studyAlert/${item._id}`)}
+              onPress={() =>
+                router.push({
+                  pathname: `/profile/studyAlert/${item._id}`,
+                  params: { studyAlert: JSON.stringify(item) },
+                })
+              }
             >
               <StudyAlertItem time={item.time} days={item.day} />
             </TouchableOpacity>
