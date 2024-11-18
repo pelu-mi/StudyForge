@@ -261,6 +261,34 @@ async function generateResource(user, payload) {
   );
 }
 
+async function getResource(payload) {
+  const { resourceId } = payload;
+  const foundResource = await resource.findOne({ _id: resourceId });
+  if (!foundResource) {
+    return responses.buildFailureResponse("This resource doesn't exist", 400);
+  }
+
+  return responses.buildSuccessResponse("Resource found", 200, foundResource);
+}
+
+async function getUserResources(user) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const foundResources = await resource.find({ userID: user._id });
+  if (!foundResources) {
+    return responses.buildFailureResponse("No resources for this user", 400);
+  }
+  return {
+    message: "Resources displayed below",
+    statusCode: 200,
+    status: "success",
+    data: foundResources,
+  };
+}
 export default {
   createAccount,
   login,
@@ -274,4 +302,6 @@ export default {
   getStudyAlert,
   deleteStudyAlert,
   updateStudyAlert,
+  getResource,
+  getUserResources,
 };
