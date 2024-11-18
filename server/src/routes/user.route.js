@@ -32,7 +32,11 @@ router.get(
 router.get("/getstudyalert/:alertId", userControllers.getStudyAlert);
 router.post("/deletestudyalert", userControllers.deleteStudyAlert);
 
-router.post("/generateresource", userControllers.generateResource);
+router.post(
+  "/forge",
+  authMiddleware.authenticate,
+  userControllers.generateResource
+);
 router.post(
   "/updatestudyalert",
   authMiddleware.authenticate,

@@ -86,7 +86,7 @@ async function setStudyAlert(req, res) {
 
 async function generateResource(req, res) {
   try {
-    const response = await usersServices.generateResource(req.body);
+    const response = await usersServices.generateResource(req.user,req.body);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
