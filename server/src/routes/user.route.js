@@ -40,6 +40,8 @@ router.get("/getresource/:resourceId", userControllers.getResource);
 
 router.post("/deletestudyalert", userControllers.deleteStudyAlert);
 
+router.post("/deleteresource", userControllers.deleteResource);
+
 router.post(
   "/forge",
   authMiddleware.authenticate,

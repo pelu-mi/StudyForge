@@ -143,6 +143,19 @@ async function deleteStudyAlert(req, res) {
   }
 }
 
+
+async function deleteResource(req, res) {
+  try {
+    const response = await usersServices.deleteResource(req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to delete resource",
+      status: "failure",
+    });
+  }
+}
+
 async function updateStudyAlert(req, res) {
   try {
     const response = await usersServices.updateStudyAlert(req.user, req.body);
@@ -181,4 +194,5 @@ export default {
   updateStudyAlert,
   getResource,
   getUserResources,
+  deleteResource
 };

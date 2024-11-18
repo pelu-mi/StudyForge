@@ -172,6 +172,23 @@ async function deleteStudyAlert(payload) {
   );
 }
 
+async function deleteResource(payload) {
+  const foundResource = await resource.findOne({ _id: payload.id });
+  if (!foundResource) {
+    return responses.buildFailureResponse("This resource doesn't exist", 400);
+  }
+
+  const deletedResource = await resource.findOneAndDelete({
+    _id: payload.id,
+  });
+
+  return responses.buildSuccessResponse(
+    "Resource deleted succesfully",
+    200,
+    deletedResource
+  );
+}
+
 async function updateStudyAlert(user, payload) {
   const foundAlert = await studyAlert.findOne({ _id: payload.id });
   if (!foundAlert) {
@@ -304,4 +321,5 @@ export default {
   updateStudyAlert,
   getResource,
   getUserResources,
+  deleteResource
 };
