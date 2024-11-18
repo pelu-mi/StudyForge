@@ -9,6 +9,7 @@ export const TextInput = ({
   containerStyle,
   helperTextStyle,
   style,
+  left,
   right,
   secureTextEntry,
   theme,
@@ -34,7 +35,7 @@ export const TextInput = ({
             />
           )
         }
-        {...{ ...props, mode, error }}
+        {...{ ...props, left, mode, error }}
       />
       {(!hideHelperTextSpace || helperText) && (
         <HelperText
@@ -54,6 +55,7 @@ TextInput.propTypes = {
   containerStyle: PropTypes.object,
   helperTextStyle: PropTypes.object,
   style: PropTypes.object,
+  left: PropTypes.node,
   right: PropTypes.node,
   secureTextEntry: PropTypes.bool,
   theme: PropTypes.object,

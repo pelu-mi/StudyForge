@@ -47,6 +47,9 @@ export const Colors = {
     success: "#20C11D",
     warning: "#FACB5C",
     dangerZoneBackground: "#F5F5F5",
+    onSurfacePrimary: "#EDF8FF",
+    onSurfaceSuccess: "#EDFAED",
+    progressBarTrack: "#E0E0E0",
   },
   dark: {
     text: "#FFFFFF",
@@ -96,5 +99,8 @@ export const Colors = {
     success: "#20C11D",
     warning: "#FACB5C",
     dangerZoneBackground: "rgb(32, 37, 41)",
+    onSurfacePrimary: "#324754",
+    onSurfaceSuccess: "#1F3322",
+    progressBarTrack: "#rgb(26, 28, 30)",
   },
 };

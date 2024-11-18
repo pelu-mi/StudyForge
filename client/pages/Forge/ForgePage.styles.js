@@ -40,7 +40,6 @@ export const useStyles = (theme) =>
       width: sliderWidth,
     },
     sliderInput: {
-      width: "20%",
       textAlign: "right",
     },
     sourceTypeWrapper: {
