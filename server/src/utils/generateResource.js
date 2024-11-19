@@ -4,10 +4,11 @@
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import dotenv from "dotenv"
+dotenv.config()
 
 const openai = new OpenAI({
-  apiKey:
-    "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",
+  apiKey:process.env.OPENAI_KEY
 });
 
 async function parseTextWithGPT(source_text, num_questions) {
