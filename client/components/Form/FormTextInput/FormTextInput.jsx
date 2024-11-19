@@ -9,6 +9,7 @@ export const FormTextInput = ({
   error: hasError,
   helperText,
   hideHelperTextSpace = false,
+  fullWidth,
   ...props
 }) => {
   return (
@@ -19,7 +20,7 @@ export const FormTextInput = ({
         fieldState: { invalid, error },
       }) => (
         <TextInput
-          {...{ ...props, onBlur, placeholder, hideHelperTextSpace }}
+          {...{ ...props, onBlur, placeholder, hideHelperTextSpace, fullWidth }}
           onChangeText={onChange}
           value={value || ""}
           error={invalid || hasError}
@@ -37,4 +38,5 @@ FormTextInput.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.string,
   hideHelperTextSpace: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };

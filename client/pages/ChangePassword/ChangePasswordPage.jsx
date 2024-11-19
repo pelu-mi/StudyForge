@@ -16,6 +16,7 @@ export const ChangePasswordPage = () => {
         name="currentPassword"
         label="Current Password *"
         secureTextEntry
+        fullWidth
         {...{ control }}
       />
 
@@ -23,6 +24,7 @@ export const ChangePasswordPage = () => {
         name="newPassword"
         label="New Password *"
         secureTextEntry
+        fullWidth
         {...{ control }}
       />
 
@@ -30,6 +32,7 @@ export const ChangePasswordPage = () => {
         name="confirmPassword"
         label="Confirm New Password *"
         secureTextEntry
+        fullWidth
         {...{ control }}
       />
 

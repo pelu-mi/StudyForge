@@ -44,6 +44,7 @@ export const AccountPage = () => {
         name="firstName"
         label="First Name *"
         placeholder="e.g. John"
+        fullWidth
         {...{ control }}
       />
 
@@ -51,6 +52,7 @@ export const AccountPage = () => {
         name="lastName"
         label="Last Name *"
         placeholder="e.g. Smith"
+        fullWidth
         {...{ control }}
       />
 
@@ -60,6 +62,7 @@ export const AccountPage = () => {
         placeholder="email@mail.com"
         keyboardType="email-address"
         autoCapitalize="none"
+        fullWidth
         {...{ control }}
       />
 

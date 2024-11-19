@@ -176,6 +176,7 @@ export const ForgePage = () => {
         name="resourceTitle"
         label="Resource Title *"
         placeholder="e.g. Introductory Plant Biology"
+        fullWidth
         {...{ control }}
       />
 
@@ -183,6 +184,7 @@ export const ForgePage = () => {
         name="topic"
         label="Topic"
         placeholder="e.g. Introductory Plant Biology"
+        fullWidth
         {...{ control }}
       />
 
@@ -190,6 +192,7 @@ export const ForgePage = () => {
         name="field"
         label="Field"
         placeholder="e.g. Biology"
+        fullWidth
         {...{ control }}
       />
 

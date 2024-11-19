@@ -37,6 +37,7 @@ export const LoginPage = () => {
           placeholder="example@mail.com"
           keyboardType="email-address"
           autoCapitalize="none"
+          fullWidth
           {...{ control }}
         />
 
@@ -45,6 +46,7 @@ export const LoginPage = () => {
           name="password"
           label="Password"
           secureTextEntry
+          fullWidth
           {...{ control }}
         />
 

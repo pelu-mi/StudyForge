@@ -28,6 +28,7 @@ export const SignUpPage = () => {
           name="firstName"
           label="First Name *"
           placeholder="e.g. John"
+          fullWidth
           {...{ control }}
         />
 
@@ -35,6 +36,7 @@ export const SignUpPage = () => {
           name="lastName"
           label="Last Name *"
           placeholder="e.g. Smith"
+          fullWidth
           {...{ control }}
         />
 
@@ -44,6 +46,7 @@ export const SignUpPage = () => {
           placeholder="email@mail.com"
           keyboardType="email-address"
           autoCapitalize="none"
+          fullWidth
           {...{ control }}
         />
 
@@ -51,6 +54,7 @@ export const SignUpPage = () => {
           name="password"
           label="Password *"
           secureTextEntry
+          fullWidth
           {...{ control }}
         />
 
@@ -58,6 +62,7 @@ export const SignUpPage = () => {
           name="confirmPassword"
           label="Confirm Password *"
           secureTextEntry
+          fullWidth
           {...{ control }}
         />
 

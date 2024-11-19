@@ -16,12 +16,15 @@ export const TextInput = ({
   error,
   helperText,
   hideHelperTextSpace = false,
+  fullWidth,
   ...props
 }) => {
   const [enableSecureText, setEnableSecureText] = useState(secureTextEntry);
 
   return (
-    <View style={[styles.input, containerStyle]}>
+    <View
+      style={[styles.input, containerStyle, { width: fullWidth && "100%" }]}
+    >
       <PaperTextInput
         theme={{ roundness: 10, ...theme }}
         style={style}
@@ -62,4 +65,5 @@ TextInput.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.string,
   hideHelperTextSpace: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
