@@ -7,6 +7,9 @@ export const useStyles = (theme) =>
       paddingVertical: 24,
       gap: 14,
     },
+    title: {
+      marginBottom: 10,
+    },
     infoWrapper: {
       paddingHorizontal: 16,
       paddingVertical: 12,

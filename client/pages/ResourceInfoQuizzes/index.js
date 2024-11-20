@@ -1,0 +1,1 @@
+export { ResourceInfoQuizzesPage } from "./ResourceInfoQuizzesPage";

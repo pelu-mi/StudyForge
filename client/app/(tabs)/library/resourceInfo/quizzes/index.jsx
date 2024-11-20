@@ -1,10 +1,5 @@
-import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { ResourceInfoQuizzesPage } from "@/pages/ResourceInfoQuizzes";
 
 export default function ResourceInfoQuizzesScreen() {
-  return (
-    <View>
-      <Text>Quizzes page</Text>
-    </View>
-  );
+  return <ResourceInfoQuizzesPage />;
 }
