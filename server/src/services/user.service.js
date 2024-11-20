@@ -3,9 +3,10 @@ import users from "../models/user.model.js";
 import responses from "../utils/response.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import crypto from "crypto";
-import axios from "axios";
+import parseTextWithGPT from "../utils/generateResource.js";
 import studyAlert from "../models/studyAlert.js";
+import resource from "../models/resource.model.js";
+
 dotenv.config();
 
 async function createAccount(payload) {
@@ -171,6 +172,23 @@ async function deleteStudyAlert(payload) {
   );
 }
 
+async function deleteResource(payload) {
+  const foundResource = await resource.findOne({ _id: payload.id });
+  if (!foundResource) {
+    return responses.buildFailureResponse("This resource doesn't exist", 400);
+  }
+
+  const deletedResource = await resource.findOneAndDelete({
+    _id: payload.id,
+  });
+
+  return responses.buildSuccessResponse(
+    "Resource deleted succesfully",
+    200,
+    deletedResource
+  );
+}
+
 async function updateStudyAlert(user, payload) {
   const foundAlert = await studyAlert.findOne({ _id: payload.id });
   if (!foundAlert) {
@@ -228,41 +246,66 @@ async function verifyKey(user, payload) {
   return responses.buildSuccessResponse("Face ID verified", 200);
 }
 
-async function generateResource(payload) {
-  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-  const data = {
-    model: "gpt-4o-mini",
-    messages: [{ role: "user", content: "Say this is a test!" }],
-    temperature: 0.7,
-  };
+async function generateResource(user, payload) {
+  const {
+    title,
+    topic,
+    field,
+    levelOfStudy,
+    numberOfQuestions,
+    sourceType,
+    textSource,
+    fileSource,
+    generatedTextfromFile,
+  } = payload;
 
-  try {
-    const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-        },
-      }
-    );
+  const sourceText = sourceType == "File" ? generatedTextfromFile : textSource;
+  const generatedResponse = await parseTextWithGPT(
+    sourceText,
+    numberOfQuestions
+  );
 
-    // Format the response in the specified format
-    return responses.buildSuccessResponse(
-      "Response successfully generated",
-      200,
-      response.data.choices[0].message.content
-    );
-  } catch (error) {
-    return responses.buildFailureResponse(
-      "Failure to process prompt",
-      400,
-      error.stack
-    );
-  }
+  payload.userID = user._id;
+  payload.summary = generatedResponse.summary;
+  payload.keyConcepts = generatedResponse.key_concepts;
+  payload.quiz = generatedResponse.quiz;
+
+  const newResource = await resource.create(payload);
+  return responses.buildSuccessResponse(
+    "Resource generated succesfully",
+    201,
+    newResource
+  );
 }
 
+async function getResource(payload) {
+  const { resourceId } = payload;
+  const foundResource = await resource.findOne({ _id: resourceId });
+  if (!foundResource) {
+    return responses.buildFailureResponse("This resource doesn't exist", 400);
+  }
+
+  return responses.buildSuccessResponse("Resource found", 200, foundResource);
+}
+
+async function getUserResources(user) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const foundResources = await resource.find({ userID: user._id });
+  if (!foundResources) {
+    return responses.buildFailureResponse("No resources for this user", 400);
+  }
+  return {
+    message: "Resources displayed below",
+    statusCode: 200,
+    status: "success",
+    data: foundResources,
+  };
+}
 export default {
   createAccount,
   login,
@@ -276,4 +319,7 @@ export default {
   getStudyAlert,
   deleteStudyAlert,
   updateStudyAlert,
+  getResource,
+  getUserResources,
+  deleteResource
 };

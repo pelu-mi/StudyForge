@@ -86,7 +86,7 @@ async function setStudyAlert(req, res) {
 
 async function generateResource(req, res) {
   try {
-    const response = await usersServices.generateResource(req.body);
+    const response = await usersServices.generateResource(req.user, req.body);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
@@ -103,6 +103,17 @@ async function getUserStudyAlerts(req, res) {
   } catch (error) {
     res.status(500).json({
       message: "Unable to get alerts",
+      status: "failure",
+    });
+  }
+}
+async function getUserResources(req, res) {
+  try {
+    const response = await usersServices.getUserResources(req.user);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get resources",
       status: "failure",
     });
   }
@@ -132,13 +143,38 @@ async function deleteStudyAlert(req, res) {
   }
 }
 
+
+async function deleteResource(req, res) {
+  try {
+    const response = await usersServices.deleteResource(req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to delete resource",
+      status: "failure",
+    });
+  }
+}
+
 async function updateStudyAlert(req, res) {
   try {
-    const response = await usersServices.updateStudyAlert(req.user,req.body);
+    const response = await usersServices.updateStudyAlert(req.user, req.body);
     res.status(response.statusCode).json(response);
   } catch (error) {
     res.status(500).json({
       message: "Unable to update alert",
+      status: "failure",
+    });
+  }
+}
+
+async function getResource(req, res) {
+  try {
+    const response = await usersServices.getResource(req.params);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get resource",
       status: "failure",
     });
   }
@@ -156,4 +192,7 @@ export default {
   getStudyAlert,
   deleteStudyAlert,
   updateStudyAlert,
+  getResource,
+  getUserResources,
+  deleteResource
 };

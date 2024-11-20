@@ -29,10 +29,24 @@ router.get(
   userControllers.getUserStudyAlerts
 );
 
+router.get(
+  "/getuserresources",
+  authMiddleware.authenticate,
+  userControllers.getUserResources
+);
+
 router.get("/getstudyalert/:alertId", userControllers.getStudyAlert);
+router.get("/getresource/:resourceId", userControllers.getResource);
+
 router.post("/deletestudyalert", userControllers.deleteStudyAlert);
 
-router.post("/generateresource", userControllers.generateResource);
+router.post("/deleteresource", userControllers.deleteResource);
+
+router.post(
+  "/forge",
+  authMiddleware.authenticate,
+  userControllers.generateResource
+);
 router.post(
   "/updatestudyalert",
   authMiddleware.authenticate,
