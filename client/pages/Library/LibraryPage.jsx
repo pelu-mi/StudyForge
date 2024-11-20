@@ -31,6 +31,16 @@ export const LibraryPage = () => {
       numberOfQuestions: 40,
       source: "Lorem ipsum dolor sit amet, consectetur",
       summary: "Lorem ipsum dolor sit amet, consectetur",
+      keyConcepts: [
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+      ],
     },
     {
       _id: "2",
@@ -43,6 +53,16 @@ export const LibraryPage = () => {
       numberOfQuestions: 30,
       source: "Lorem ipsum dolor sit amet, consectetur",
       summary: "Lorem ipsum dolor sit amet, consectetur",
+      keyConcepts: [
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+      ],
     },
     {
       _id: "3",
@@ -55,6 +75,16 @@ export const LibraryPage = () => {
       numberOfQuestions: 10,
       source: "Lorem ipsum dolor sit amet, consectetur",
       summary: "Lorem ipsum dolor sit amet, consectetur",
+      keyConcepts: [
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+        {
+          concept: "Concept Title",
+          concept_summary: "Lorem ipsum dolor sit amet",
+        },
+      ],
     },
   ]);
   const disabledTools = resources.length === 0;
