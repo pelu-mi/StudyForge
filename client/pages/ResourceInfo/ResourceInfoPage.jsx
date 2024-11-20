@@ -56,6 +56,7 @@ export const ResourceInfoPage = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleLarge">{resourceTitle}</Text>
 
+      {/* Info */}
       {INFOS.map((info, index) => (
         <View style={styles.infoWrapper} key={index}>
           <Text variant="labelMedium" style={styles.infoTitle}>

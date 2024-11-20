@@ -29,12 +29,7 @@ export const LibraryPage = () => {
       completedQuiz: 25,
       isQuizCompleted: false,
       numberOfQuestions: 40,
-      source: {
-        name: "sample.pdf",
-        size: 18810,
-        type: "application/pdf",
-        uri: "uri",
-      },
+      source: "Lorem ipsum dolor sit amet, consectetur",
     },
     {
       _id: "2",
@@ -45,12 +40,7 @@ export const LibraryPage = () => {
       completedQuiz: 0,
       isQuizCompleted: false,
       numberOfQuestions: 30,
-      source: {
-        name: "React_For_Loop.pdf",
-        size: 18810,
-        type: "application/pdf",
-        uri: "uri",
-      },
+      source: "Lorem ipsum dolor sit amet, consectetur",
     },
     {
       _id: "3",
