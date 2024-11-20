@@ -30,6 +30,7 @@ export const LibraryPage = () => {
       isQuizCompleted: false,
       numberOfQuestions: 40,
       source: "Lorem ipsum dolor sit amet, consectetur",
+      summary: "Lorem ipsum dolor sit amet, consectetur",
     },
     {
       _id: "2",
@@ -41,6 +42,7 @@ export const LibraryPage = () => {
       isQuizCompleted: false,
       numberOfQuestions: 30,
       source: "Lorem ipsum dolor sit amet, consectetur",
+      summary: "Lorem ipsum dolor sit amet, consectetur",
     },
     {
       _id: "3",
@@ -52,6 +54,7 @@ export const LibraryPage = () => {
       isQuizCompleted: true,
       numberOfQuestions: 10,
       source: "Lorem ipsum dolor sit amet, consectetur",
+      summary: "Lorem ipsum dolor sit amet, consectetur",
     },
   ]);
   const disabledTools = resources.length === 0;

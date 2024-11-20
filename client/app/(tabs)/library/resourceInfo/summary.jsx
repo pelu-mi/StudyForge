@@ -1,10 +1,5 @@
-import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { ResourceInfoSummaryPage } from "@/pages/ResourceInfoSummary";
 
 export default function ResourceInfoSummaryScreen() {
-  return (
-    <View>
-      <Text>Resource Info Summary Screen</Text>
-    </View>
-  );
+  return <ResourceInfoSummaryPage />;
 }

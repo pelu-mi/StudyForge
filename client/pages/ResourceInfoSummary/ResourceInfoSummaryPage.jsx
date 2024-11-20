@@ -1,15 +1,15 @@
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView } from "react-native";
 import { Text } from "react-native-paper";
-import { styles } from "./ResourceInfoSourcePage.styles";
+import { styles } from "./ResourceInfoSummaryPage.styles";
 
-export const ResourceInfoSourcePage = () => {
+export const ResourceInfoSummaryPage = () => {
   const { resourceInfo } = useLocalSearchParams();
-  const { source } = JSON.parse(resourceInfo);
+  const { summary } = JSON.parse(resourceInfo);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="bodyLarge">{source}</Text>
+      <Text variant="bodyLarge">{summary}</Text>
     </ScrollView>
   );
 };
