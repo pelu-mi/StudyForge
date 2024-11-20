@@ -27,6 +27,7 @@ export const LibraryPage = () => {
       field: "Computer Science",
       levelOfStudy: "Undergrad",
       completedQuiz: 25,
+      isQuizCompleted: false,
       numberOfQuestions: 40,
       source: {
         name: "sample.pdf",
@@ -42,6 +43,7 @@ export const LibraryPage = () => {
       field: "Computer Science",
       levelOfStudy: "Undergrad",
       completedQuiz: 0,
+      isQuizCompleted: false,
       numberOfQuestions: 30,
       source: {
         name: "React_For_Loop.pdf",
@@ -57,6 +59,7 @@ export const LibraryPage = () => {
       field: "Computer Science",
       levelOfStudy: "Undergrad",
       completedQuiz: 10,
+      isQuizCompleted: true,
       numberOfQuestions: 10,
       source: "Lorem ipsum dolor sit amet, consectetur",
     },
@@ -125,19 +128,40 @@ export const LibraryPage = () => {
           ListHeaderComponent={renderHeader()}
           data={resources}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={
-                () => {}
-                // router.push({
-                //   pathname: `/profile/studyAlert/${item._id}`,
-                //   params: { studyAlert: JSON.stringify(item) },
-                // })
-              }
-            >
-              <ResourceItem {...item} />
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => {
+            const {
+              topic,
+              resourceTitle,
+              field,
+              levelOfStudy,
+              // completedQuiz,
+              isQuizCompleted,
+              numberOfQuestions,
+              source,
+            } = item;
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: `/library/resourceInfo`,
+                    params: { resourceInfo: JSON.stringify(item) },
+                  })
+                }
+              >
+                <ResourceItem
+                  {...{
+                    topic,
+                    resourceTitle,
+                    field,
+                    levelOfStudy,
+                    isQuizCompleted,
+                    numberOfQuestions,
+                    source,
+                  }}
+                />
+              </TouchableOpacity>
+            );
+          }}
           keyExtractor={(item) => item._id}
           contentContainerStyle={styles.listContentContainer}
           ListEmptyComponent={

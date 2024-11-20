@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 import { View } from "react-native";
-import { ProgressBar, Text, useTheme } from "react-native-paper";
+import {
+  // ProgressBar,
+  Text,
+  useTheme,
+} from "react-native-paper";
 import { useStyles } from "./ResourceItem.styles";
 import { useMemo } from "react";
 
@@ -9,7 +13,7 @@ export const ResourceItem = ({
   resourceTitle,
   field,
   levelOfStudy,
-  completedQuiz,
+  isQuizCompleted,
   numberOfQuestions,
   source,
 }) => {
@@ -18,14 +22,14 @@ export const ResourceItem = ({
 
   const sourceType = useMemo(() => typeof source, [source]);
 
-  const isQuizCompleted = useMemo(
-    () => completedQuiz === numberOfQuestions,
-    [completedQuiz, numberOfQuestions]
-  );
-  const progressValue = useMemo(
-    () => Math.round((completedQuiz / numberOfQuestions) * 100) / 100,
-    [completedQuiz, numberOfQuestions]
-  );
+  // const isQuizCompleted = useMemo(
+  //   () => completedQuiz === numberOfQuestions,
+  //   [completedQuiz, numberOfQuestions]
+  // );
+  // const progressValue = useMemo(
+  //   () => Math.round((completedQuiz / numberOfQuestions) * 100) / 100,
+  //   [completedQuiz, numberOfQuestions]
+  // );
 
   return (
     <View style={styles.container}>
@@ -76,7 +80,7 @@ export const ResourceItem = ({
             variant="bodySmall"
             style={{ color: theme.colors.textSecondary }}
           >
-            Quiz
+            Quiz ({numberOfQuestions})
           </Text>
           <Text
             variant="bodySmall"
@@ -84,19 +88,19 @@ export const ResourceItem = ({
               color: isQuizCompleted
                 ? theme.colors.success
                 : theme.colors.primary,
-              fontWeight: 700,
+              fontWeight: 600,
             }}
           >
-            {completedQuiz}/{numberOfQuestions}
+            {isQuizCompleted ? "Completed" : "Ongoing"}
           </Text>
         </View>
 
-        <ProgressBar
+        {/* <ProgressBar
           progress={progressValue}
           color={isQuizCompleted ? theme.colors.success : theme.colors.primary}
           theme={{ colors: { surfaceVariant: theme.colors.progressBarTrack } }}
           style={styles.progressBar}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -107,7 +111,7 @@ ResourceItem.propTypes = {
   resourceTitle: PropTypes.string.isRequired,
   field: PropTypes.string,
   levelOfStudy: PropTypes.string,
-  completedQuiz: PropTypes.number,
+  isQuizCompleted: PropTypes.bool,
   numberOfQuestions: PropTypes.number,
   source: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
 };
