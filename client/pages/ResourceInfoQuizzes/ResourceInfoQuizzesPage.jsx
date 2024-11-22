@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./ResourceInfoQuizzesPage.styles";
@@ -6,6 +6,7 @@ import { QuizItem } from "@/components/QuizItem";
 import { EmptyList } from "@/components/EmptyList";
 
 export const ResourceInfoQuizzesPage = () => {
+  const router = useRouter();
   const { resourceInfo } = useLocalSearchParams();
   const { quiz: quizzes, numberOfQuestions } = JSON.parse(resourceInfo);
 
@@ -20,23 +21,22 @@ export const ResourceInfoQuizzesPage = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContentContainer}
         renderItem={({ item, index }) => {
-          const { question } = item;
+          const { _id, question } = item;
+          const number = index + 1;
 
           return (
             <TouchableOpacity
-              onPress={
-                () => {}
-                // router.push({
-                //   pathname: `/library/resourceInfo`,
-                //   params: { resourceInfo: JSON.stringify(item) },
-                // })
+              onPress={() =>
+                router.push({
+                  pathname: `/library/resourceInfo/quizzes/${_id}`,
+                  params: { selectedIndex: index, resourceInfo },
+                })
               }
             >
               <QuizItem
-                number={index + 1}
+                {...{ number, question }}
                 status="notAttempt"
                 onButtonPress={() => {}}
-                {...{ question }}
               />
             </TouchableOpacity>
           );
