@@ -123,7 +123,7 @@ export const ProfilePage = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        {/* <TouchableOpacity onPress={() => {}}>
           <View
             style={[
               styles.listContainer,
@@ -144,7 +144,7 @@ export const ProfilePage = () => {
               color={theme.colors.textSecondary}
             />
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* Preferences section */}
         <View style={styles.preferences}>
