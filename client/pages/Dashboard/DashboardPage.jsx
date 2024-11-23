@@ -200,7 +200,7 @@ export const DashboardPage = () => {
             label="Study Resources"
             value={3}
             iconName="book-open-variant"
-            backgroundColor={theme.colors.onSurfacePrimary}
+            backgroundColor={theme.colors.onSurfacePrimary2}
             borderColor={theme.colors.primary}
             style={{ width: overviewItemWidth }}
           />
