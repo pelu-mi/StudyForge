@@ -1,0 +1,1 @@
+export { LogoHeaderTitle } from "./LogoHeaderTitle";

@@ -1,9 +1,16 @@
+import { LogoHeaderTitle } from "@/components/LogoHeaderTitle";
 import { Stack } from "expo-router";
 
 export default function HomeLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Home" }} />
+    <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Home",
+          headerTitle: () => <LogoHeaderTitle />,
+        }}
+      />
     </Stack>
   );
 }
