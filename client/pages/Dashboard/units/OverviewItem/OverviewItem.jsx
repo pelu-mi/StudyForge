@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { styles } from "./OverviewItem.styles";
-import { Text } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 
@@ -12,6 +12,8 @@ export const OverviewItem = ({
   borderColor,
   style,
 }) => {
+  const theme = useTheme();
+
   return (
     <View
       style={[
@@ -25,7 +27,9 @@ export const OverviewItem = ({
         <Text variant="titleMedium" style={styles.text}>
           {value}
         </Text>
-        <Text variant="bodySmall">{label}</Text>
+        <Text variant="bodySmall" style={{ color: theme.colors.textDarkGrey }}>
+          {label}
+        </Text>
       </View>
     </View>
   );

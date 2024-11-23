@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   overviewContainer: {
     flexDirection: "row",
     padding: 12,
-    gap: 12,
+    gap: 10,
     borderRadius: 10,
     borderWidth: 1,
   },

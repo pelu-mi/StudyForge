@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const horizontalPadding = 16;
 const totalHorizontalPadding = horizontalPadding * 2;
-const gapBetweenItems = 16;
+const gapBetweenItems = 14;
 const numVisibleItems = 2;
 const numGaps = numVisibleItems - 1;
 

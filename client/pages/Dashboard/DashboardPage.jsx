@@ -1,5 +1,11 @@
 import { useUser } from "@/context/UserProvider";
-import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { overviewItemWidth, useStyles } from "./DashboardPage.styles";
 
@@ -13,6 +19,7 @@ export const DashboardPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
+  const { width } = useWindowDimensions();
 
   const [resources] = useState([
     {
@@ -255,6 +262,7 @@ export const DashboardPage = () => {
                     params: { resourceInfo: JSON.stringify(item) },
                   });
                 }}
+                style={{ width: width * 0.82 }}
               >
                 <ResourceItem
                   {...{

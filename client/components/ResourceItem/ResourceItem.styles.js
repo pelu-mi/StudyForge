@@ -6,12 +6,17 @@ export const useStyles = (theme) =>
       borderWidth: 1,
       borderRadius: 20,
       borderColor: theme.colors.outline,
+      flex: 1,
     },
     innerContainer: {
       padding: 20,
-      gap: 16,
+      gap: 18,
+    },
+    topContainer: {
+      flex: 1,
     },
     bottomContainer: {
+      justifyContent: "center",
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
     },

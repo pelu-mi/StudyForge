@@ -16,6 +16,7 @@ export const ResourceItem = ({
   isQuizCompleted,
   numberOfQuestions,
   source,
+  containerStyle,
 }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
@@ -32,14 +33,14 @@ export const ResourceItem = ({
   // );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
+    <View style={[styles.container, containerStyle]}>
+      <View style={[styles.innerContainer, styles.topContainer]}>
         {topic && (
-          <Text variant="bodyMedium" style={styles.topicText}>
+          <Text variant="bodyMedium" style={styles.topicText} numberOfLines={1}>
             {topic}
           </Text>
         )}
-        <Text variant="titleMedium" style={styles.titleText}>
+        <Text variant="titleMedium" style={styles.titleText} numberOfLines={2}>
           {resourceTitle}
         </Text>
 
@@ -114,4 +115,5 @@ ResourceItem.propTypes = {
   isQuizCompleted: PropTypes.bool,
   numberOfQuestions: PropTypes.number,
   source: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  containerStyle: PropTypes.object,
 };
