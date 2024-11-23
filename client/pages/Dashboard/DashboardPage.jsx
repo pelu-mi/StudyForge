@@ -223,7 +223,7 @@ export const DashboardPage = () => {
               <TouchableOpacity
                 onPress={() => {
                   router.push({
-                    pathname: `/library/resourceInfo`,
+                    pathname: `/(modals)/resourceInfo`,
                     params: { resourceInfo: JSON.stringify(item) },
                   });
                 }}

@@ -28,7 +28,7 @@ export const ResourceInfoQuizzesPage = () => {
             <TouchableOpacity
               onPress={() =>
                 router.push({
-                  pathname: `/library/resourceInfo/quizzes/${_id}`,
+                  pathname: `/(modals)/resourceInfo/quizzes/${_id}`,
                   params: { selectedIndex: index, resourceInfo },
                 })
               }

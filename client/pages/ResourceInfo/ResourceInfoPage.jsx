@@ -25,7 +25,7 @@ export const ResourceInfoPage = () => {
         <TouchableOpacity
           onPress={() =>
             router.push({
-              pathname: "/library/resourceInfo/settings",
+              pathname: "/(modals)/resourceInfo/settings",
               params: { resourceInfo },
             })
           }
@@ -44,7 +44,7 @@ export const ResourceInfoPage = () => {
     {
       icon: "file",
       label: "Source",
-      pathname: `/library/resourceInfo/source`,
+      pathname: `/(modals)/resourceInfo/source`,
       rightText: "",
       borderColor: theme.colors.primary,
       backgroundColor: theme.colors.onSurfacePrimary2,
@@ -52,7 +52,7 @@ export const ResourceInfoPage = () => {
     {
       icon: "book-open-variant",
       label: "Summary",
-      pathname: `/library/resourceInfo/summary`,
+      pathname: `/(modals)/resourceInfo/summary`,
       rightText: "",
       borderColor: theme.colors.secondary,
       backgroundColor: theme.colors.onSurfaceSecondary,
@@ -60,7 +60,7 @@ export const ResourceInfoPage = () => {
     {
       icon: "key",
       label: "Key Concepts",
-      pathname: `/library/resourceInfo/keyConcepts`,
+      pathname: `/(modals)/resourceInfo/keyConcepts`,
       rightText: "",
       borderColor: theme.colors.warning,
       backgroundColor: theme.colors.onSurfaceWarning,
@@ -68,7 +68,7 @@ export const ResourceInfoPage = () => {
     {
       icon: "cards",
       label: "Quizzes",
-      pathname: `/library/resourceInfo/quizzes`,
+      pathname: `/(modals)/resourceInfo/quizzes`,
       rightText: numberOfQuestions,
       borderColor: theme.colors.tertiary,
       backgroundColor: theme.colors.onSurfaceTertiary,

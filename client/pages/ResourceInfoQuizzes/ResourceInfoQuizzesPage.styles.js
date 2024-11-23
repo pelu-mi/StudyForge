@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
   listContentContainer: {
     gap: 20,
     paddingVertical: 20,
+    paddingBottom: 44,
   },
 });

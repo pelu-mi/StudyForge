@@ -89,7 +89,7 @@ export const ResourceInfoQuizDetailPage = () => {
     // Call api to get previous quiz and send
 
     router.push({
-      pathname: `/library/resourceInfo/quizzes/${previousQuiz._id}`,
+      pathname: `/(modals)/resourceInfo/quizzes/${previousQuiz._id}`,
       params: {
         selectedIndex: previousIndex,
         resourceInfo,
@@ -106,7 +106,7 @@ export const ResourceInfoQuizDetailPage = () => {
     // Call api to get next quiz and send
 
     router.push({
-      pathname: `/library/resourceInfo/quizzes/${nextQuiz._id}`,
+      pathname: `/(modals)/resourceInfo/quizzes/${nextQuiz._id}`,
       params: {
         selectedIndex: nextIndex,
         resourceInfo,
