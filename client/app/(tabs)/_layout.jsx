@@ -55,7 +55,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="sessions"
         options={{
           title: "Sessions",
@@ -63,7 +63,7 @@ export default function TabLayout() {
             <MaterialCommunityIcons name="notebook" size={24} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="profile"
         options={{
