@@ -189,10 +189,38 @@ export const DashboardPage = () => {
         </Text>
 
         <View style={styles.overviewItemWrapper}>
-          <OverviewItem style={{ width: overviewItemWidth }} />
-          <OverviewItem style={{ width: overviewItemWidth }} />
-          <OverviewItem style={{ width: overviewItemWidth }} />
-          <OverviewItem style={{ width: overviewItemWidth }} />
+          <OverviewItem
+            label="Study Resources"
+            value={3}
+            iconName="book-open-variant"
+            backgroundColor={theme.colors.onSurfacePrimary}
+            borderColor={theme.colors.primary}
+            style={{ width: overviewItemWidth }}
+          />
+          <OverviewItem
+            label="Study Sessions"
+            value={2}
+            iconName="notebook"
+            backgroundColor={theme.colors.onSurfaceSecondary}
+            borderColor={theme.colors.secondary}
+            style={{ width: overviewItemWidth }}
+          />
+          <OverviewItem
+            label="Ongoing Quizzes"
+            value={2}
+            iconName="lightning-bolt"
+            backgroundColor={theme.colors.onSurfaceWarning}
+            borderColor={theme.colors.warning}
+            style={{ width: overviewItemWidth }}
+          />
+          <OverviewItem
+            label="Completed Quizzes"
+            value={1}
+            iconName="emoticon"
+            backgroundColor={theme.colors.onSurfaceSuccess}
+            borderColor={theme.colors.success}
+            style={{ width: overviewItemWidth }}
+          />
         </View>
       </View>
 

@@ -1,38 +1,41 @@
 import { View } from "react-native";
 import { styles } from "./OverviewItem.styles";
-import { Text, useTheme } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 
-export const OverviewItem = ({ style }) => {
-  const theme = useTheme();
-
+export const OverviewItem = ({
+  label,
+  value,
+  iconName,
+  backgroundColor,
+  borderColor,
+  style,
+}) => {
   return (
     <View
       style={[
         styles.overviewContainer,
         style,
-        {
-          backgroundColor: theme.colors.onSurfacePrimary,
-          borderColor: theme.colors.primary,
-        },
+        { backgroundColor, borderColor },
       ]}
     >
-      <MaterialCommunityIcons
-        name="book-open-variant"
-        size={24}
-        color={theme.colors.primary}
-      />
+      <MaterialCommunityIcons name={iconName} size={24} color={borderColor} />
       <View>
         <Text variant="titleMedium" style={styles.text}>
-          3
+          {value}
         </Text>
-        <Text variant="bodySmall">Study Resources</Text>
+        <Text variant="bodySmall">{label}</Text>
       </View>
     </View>
   );
 };
 
 OverviewItem.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  iconName: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  borderColor: PropTypes.string,
   style: PropTypes.object,
 };
