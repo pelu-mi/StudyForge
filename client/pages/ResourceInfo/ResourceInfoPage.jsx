@@ -1,8 +1,9 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { TouchableOpacity, View, ScrollView } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ResourceInfoPage.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useEffect } from "react";
 
 export const ResourceInfoPage = () => {
   const { resourceInfo } = useLocalSearchParams();
@@ -16,6 +17,28 @@ export const ResourceInfoPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() =>
+            router.push({
+              pathname: "/library/resourceInfo/settings",
+              params: { resourceInfo },
+            })
+          }
+        >
+          <MaterialCommunityIcons
+            name="cog-outline"
+            size={24}
+            color={theme.colors.tertiary}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [router, navigation, theme]);
 
   const MATERIALS = [
     {

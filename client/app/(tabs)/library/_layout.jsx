@@ -16,6 +16,15 @@ export default function LibraryLayout() {
         }}
       />
 
+      {/* Resource Settings Screen */}
+      <Stack.Screen
+        name="resourceInfo/settings"
+        options={{
+          title: "Resource Settings",
+          headerBackButtonDisplayMode: "minimal",
+        }}
+      />
+
       {/* Source Screen */}
       <Stack.Screen
         name="resourceInfo/source"

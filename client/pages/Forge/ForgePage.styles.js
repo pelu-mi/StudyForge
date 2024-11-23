@@ -20,17 +20,6 @@ export const useStyles = (theme) =>
       gap: 8,
       paddingBottom: 20,
     },
-    menuWrapper: {
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: theme.colors.outline,
-      gap: 6,
-    },
     sliderWrapper: {
       alignItems: "center",
       flexDirection: "row",

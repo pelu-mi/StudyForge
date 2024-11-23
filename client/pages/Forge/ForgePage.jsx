@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HelperText, Menu, Text, useTheme } from "react-native-paper";
+import { HelperText, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ForgePage.styles";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
@@ -11,8 +11,9 @@ import { useNavigation } from "expo-router";
 import Slider from "@react-native-community/slider";
 import { TextInput } from "@/components/TextInput";
 import { getDocumentAsync } from "expo-document-picker";
+import { Menu } from "@/components/Menu";
 
-const LEVEL_OF_STUDY = ["High School", "Undergrad", "Post Grad"];
+export const LEVEL_OF_STUDY = ["High School", "Undergrad", "Post Grad"];
 
 export const ForgePage = () => {
   const {
@@ -197,45 +198,15 @@ export const ForgePage = () => {
       />
 
       {/* Level Of Study Picker */}
-      <View style={styles.fieldContainer}>
-        <Text variant="titleMedium">Level of Study</Text>
-        <Menu
-          visible={showLevelOfStudy}
-          onDismiss={() => setShowLevelOfStudy(false)}
-          anchorPosition="bottom"
-          anchor={
-            <TouchableOpacity onPress={() => setShowLevelOfStudy(true)}>
-              <View style={styles.menuWrapper}>
-                <Text
-                  variant="bodyLarge"
-                  style={{
-                    color:
-                      levelOfStudy !== ""
-                        ? theme.colors.text
-                        : theme.colors.onSurfaceVariant,
-                    textTransform: levelOfStudy !== "" ? "capitalize" : "none",
-                  }}
-                >
-                  {levelOfStudy !== "" ? levelOfStudy : "Select your level"}
-                </Text>
-                <MaterialCommunityIcons
-                  name="unfold-more-horizontal"
-                  size={24}
-                  color={theme.colors.textSecondary}
-                />
-              </View>
-            </TouchableOpacity>
-          }
-        >
-          {LEVEL_OF_STUDY.map((level, index) => (
-            <Menu.Item
-              key={index}
-              onPress={() => handleChangeLevelOfStudy(level)}
-              title={level}
-            />
-          ))}
-        </Menu>
-      </View>
+      <Menu
+        title="Level of Study"
+        visible={showLevelOfStudy}
+        setVisible={setShowLevelOfStudy}
+        items={LEVEL_OF_STUDY}
+        selectedItem={levelOfStudy}
+        onSelect={handleChangeLevelOfStudy}
+        placeholder="Select your level"
+      />
 
       {/* Number of Quiz Questions Slider */}
       <View style={styles.fieldContainer}>
