@@ -1,9 +1,14 @@
+import { BackButton } from "@/components/BackButton";
 import { LogoHeaderTitle } from "@/components/LogoHeaderTitle";
 import { Stack } from "expo-router";
 
 export default function ProfileLayout() {
   return (
-    <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
+    <Stack
+      screenOptions={{
+        headerBackButtonDisplayMode: "minimal",
+      }}
+    >
       {/* Main Profile Screen */}
       <Stack.Screen
         name="index"
@@ -18,6 +23,7 @@ export default function ProfileLayout() {
         name="account"
         options={{
           title: "Account",
+          headerLeft: () => <BackButton />,
         }}
       />
 
@@ -26,6 +32,7 @@ export default function ProfileLayout() {
         name="changePassword"
         options={{
           title: "Change Password",
+          headerLeft: () => <BackButton />,
         }}
       />
 
@@ -35,6 +42,7 @@ export default function ProfileLayout() {
         options={{
           title: "Study Alerts",
           headerTitle: () => <LogoHeaderTitle />,
+          headerLeft: () => <BackButton />,
         }}
       />
 
@@ -43,6 +51,7 @@ export default function ProfileLayout() {
         name="studyAlert/addStudyAlert"
         options={{
           title: "Add Study Alerts",
+          headerLeft: () => <BackButton />,
         }}
       />
 
@@ -51,6 +60,7 @@ export default function ProfileLayout() {
         name="studyAlert/[studyAlertId]"
         options={{
           title: "Edit Study Alerts",
+          headerLeft: () => <BackButton />,
         }}
       />
     </Stack>

@@ -1,10 +1,16 @@
+import { BackButton } from "@/components/BackButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import { Alert, TouchableOpacity } from "react-native";
 
 export default function ModalsLayout() {
   return (
-    <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
+    <Stack
+      screenOptions={{
+        headerBackButtonDisplayMode: "minimal",
+        headerLeft: () => <BackButton />,
+      }}
+    >
       {/* Resource Info Screen */}
       <Stack.Screen
         name="resourceInfo/index"
