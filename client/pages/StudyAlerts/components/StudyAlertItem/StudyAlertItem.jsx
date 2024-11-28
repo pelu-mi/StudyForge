@@ -12,7 +12,7 @@ export const StudyAlertItem = ({ studyAlertId, time, days, status }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const formattedTime = dayjs(time).format("h:mm A");
-  const [switchStatus, setSwitchStatus] = useState(() => status);
+  const [switchStatus, setSwitchStatus] = useState(status);
 
   const { mutateAsync: updateStudyAlert } = useUpdateStudyAlertMutation({
     onError: (error) => {
