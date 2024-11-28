@@ -10,3 +10,6 @@ export const GET_STUDY_ALERT_DETAIL_API_KEY = "/user/getstudyalert";
 export const ADD_STUDY_ALERT_API_KEY = "/user/setstudyalert";
 export const UPDATE_STUDY_ALERT_API_KEY = "/user/updatestudyalert";
 export const DELETE_STUDY_ALERT_API_KEY = "/user/deletestudyalert";
+
+// Forge
+export const GENERATE_RESOURCE_API_KEY = "/user/forge";

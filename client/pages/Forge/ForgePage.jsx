@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HelperText, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ForgePage.styles";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
@@ -13,7 +13,7 @@ import { TextInput } from "@/components/TextInput";
 import { getDocumentAsync } from "expo-document-picker";
 import { Menu } from "@/components/Menu";
 
-export const LEVEL_OF_STUDY = ["High School", "Undergrad", "Post Grad"];
+export const LEVEL_OF_STUDY = ["High School", "Undergraduate", "Graduate"];
 
 export const ForgePage = () => {
   const {
@@ -25,13 +25,15 @@ export const ForgePage = () => {
     formState: { errors },
   } = useForgeForm();
   const [showLevelOfStudy, setShowLevelOfStudy] = useState(false);
-  const [isFileSource, setIsFileSource] = useState(true);
+  const [fileName, setFileName] = useState("");
   const theme = useTheme();
   const styles = useStyles(theme);
   const navigation = useNavigation();
   const levelOfStudy = watch("levelOfStudy");
   const numberOfQuestions = watch("numberOfQuestions");
-  const source = watch("source");
+  const sourceType = watch("sourceType");
+  const isFileSource = useMemo(() => sourceType === "File", [sourceType]);
+  const generatedTextFromFile = watch("generatedTextFromFile");
 
   const handleChangeLevelOfStudy = (value) => {
     setValue("levelOfStudy", value);
@@ -57,6 +59,7 @@ export const ForgePage = () => {
 
     setValue("numberOfQuestions", newValue); // Update form value
   };
+
   const handleSelectFile = async () => {
     try {
       const docRes = await getDocumentAsync({
@@ -75,30 +78,36 @@ export const ForgePage = () => {
         size: file.size,
       };
 
-      setValue("source", fileData);
+      // Set file name
+      setFileName(file.name);
 
-      console.log("fileData", fileData);
+      // TODO: Conver PDF to text
+
+      // Set value
+      setValue("generatedTextFromFile", fileData);
     } catch (error) {
       console.log("Error while selecting file: ", error);
     }
   };
 
   const handleDeleteFile = () => {
-    setValue("source", null);
+    setFileName("");
+    setValue("generatedTextFromFile", "");
   };
 
   const handleSetIsFileSource = (isFileSource) => {
     if (isFileSource) {
-      setValue("source", null);
+      setValue("sourceType", "File");
+      setValue("textSource", "");
     } else {
-      setValue("source", "");
+      setValue("sourceType", "Text");
+      setValue("generatedTextFromFile", "");
     }
-    setIsFileSource(isFileSource);
   };
 
   const renderSource = () => {
     if (isFileSource) {
-      return source ? (
+      return generatedTextFromFile !== "" ? (
         <View style={styles.fileItem}>
           <View style={styles.fileLeftWrapper}>
             <MaterialCommunityIcons
@@ -107,7 +116,7 @@ export const ForgePage = () => {
               color={theme.colors.primary}
             />
             <Text variant="titleMedium" style={styles.fileLabel}>
-              {source.name}
+              {fileName}
             </Text>
           </View>
 
@@ -134,15 +143,17 @@ export const ForgePage = () => {
           >
             Choose from files
           </Button>
-          {errors.source?.message && (
-            <HelperText type="error">{errors.source?.message}</HelperText>
+          {errors.generatedTextFromFile?.message && (
+            <HelperText type="error">
+              {errors.generatedTextFromFile?.message}
+            </HelperText>
           )}
         </>
       );
     } else {
       return (
         <FormTextInput
-          name="source"
+          name="textSource"
           multiline
           placeholder="What would you like to learn?"
           style={styles.sourceTextInput}
@@ -174,7 +185,7 @@ export const ForgePage = () => {
       <Text variant="headlineSmall">Forge</Text>
 
       <FormTextInput
-        name="resourceTitle"
+        name="title"
         label="Resource Title *"
         placeholder="e.g. Introductory Plant Biology"
         fullWidth
