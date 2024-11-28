@@ -8,13 +8,30 @@ import { Button } from "@/components/Button";
 import { useState } from "react";
 import { LEVEL_OF_STUDY } from "../Forge/ForgePage";
 import { Alert, View } from "react-native";
+import { useDeleteResourceMutation } from "@/services/api/library/useDeleteResourceMutation";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import Toast from "react-native-toast-message";
 
 export const ResourceInfoSettingsPage = () => {
+  const router = useRouter();
+  const { resourceInfo } = useLocalSearchParams();
+  const { _id } = JSON.parse(resourceInfo);
   const { control, handleSubmit, watch, setValue } = useResourceSettingsForm();
   const theme = useTheme();
   const styles = useStyles(theme);
   const [showLevelOfStudy, setShowLevelOfStudy] = useState(false);
   const levelOfStudy = watch("levelOfStudy");
+
+  const { mutateAsync: deleteResource } = useDeleteResourceMutation({
+    onSuccess: (reponse) => {
+      Toast.show({ type: "success", text1: reponse.message });
+      router.dismissAll();
+      router.replace("/library");
+    },
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
 
   const handleChangeLevelOfStudy = (value) => {
     setValue("levelOfStudy", value);
@@ -28,6 +45,7 @@ export const ResourceInfoSettingsPage = () => {
         text: "Delete",
         onPress: () => {
           // Call Delete API
+          deleteResource({ id: _id });
         },
         style: "destructive",
       },

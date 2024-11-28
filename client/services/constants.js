@@ -16,3 +16,4 @@ export const GENERATE_RESOURCE_API_KEY = "/user/forge";
 
 // Library
 export const GET_RESOURCES_API_KEY = "/user/getuserresources";
+export const DELETE_RESOURCE_API_KEY = "/user/deleteresource";
