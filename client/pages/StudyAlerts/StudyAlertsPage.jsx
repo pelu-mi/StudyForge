@@ -30,7 +30,12 @@ export const StudyAlertsPage = () => {
                 })
               }
             >
-              <StudyAlertItem time={item.time} days={item.day} />
+              <StudyAlertItem
+                studyAlertId={item._id}
+                time={item.time}
+                days={item.day}
+                status={item.status}
+              />
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item._id}

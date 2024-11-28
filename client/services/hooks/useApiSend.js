@@ -11,7 +11,7 @@ export const useApiSend = (mutationFn, invalidateKey, options) => {
         invalidateKey.forEach((key) => {
           queryClient.invalidateQueries(key);
         });
-      onSuccess(data);
+      onSuccess && onSuccess(data);
     },
     ...restOptions,
   });
