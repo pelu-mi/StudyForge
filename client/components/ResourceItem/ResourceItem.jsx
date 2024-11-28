@@ -6,7 +6,6 @@ import {
   useTheme,
 } from "react-native-paper";
 import { useStyles } from "./ResourceItem.styles";
-import { useMemo } from "react";
 
 export const ResourceItem = ({
   topic,
@@ -21,12 +20,6 @@ export const ResourceItem = ({
   const theme = useTheme();
   const styles = useStyles(theme);
 
-  // const sourceType = useMemo(() => typeof source, [source]);
-
-  // const isQuizCompleted = useMemo(
-  //   () => completedQuiz === numberOfQuestions,
-  //   [completedQuiz, numberOfQuestions]
-  // );
   // const progressValue = useMemo(
   //   () => Math.round((completedQuiz / numberOfQuestions) * 100) / 100,
   //   [completedQuiz, numberOfQuestions]

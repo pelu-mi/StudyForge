@@ -198,7 +198,7 @@ export const DashboardPage = () => {
         <View style={styles.overviewItemWrapper}>
           <OverviewItem
             label="Study Resources"
-            value={3}
+            value={"3"}
             iconName="book-open-variant"
             backgroundColor={theme.colors.onSurfacePrimary2}
             borderColor={theme.colors.primary}
@@ -206,7 +206,7 @@ export const DashboardPage = () => {
           />
           <OverviewItem
             label="Study Sessions"
-            value={2}
+            value={"2"}
             iconName="notebook"
             backgroundColor={theme.colors.onSurfaceSecondary}
             borderColor={theme.colors.secondary}
@@ -214,7 +214,7 @@ export const DashboardPage = () => {
           />
           <OverviewItem
             label="Ongoing Quizzes"
-            value={2}
+            value={"2"}
             iconName="lightning-bolt"
             backgroundColor={theme.colors.onSurfaceWarning}
             borderColor={theme.colors.warning}
@@ -222,7 +222,7 @@ export const DashboardPage = () => {
           />
           <OverviewItem
             label="Completed Quizzes"
-            value={1}
+            value={"1"}
             iconName="emoticon"
             backgroundColor={theme.colors.onSurfaceSuccess}
             borderColor={theme.colors.success}
