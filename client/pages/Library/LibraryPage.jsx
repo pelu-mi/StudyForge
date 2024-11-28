@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { EmptyList } from "@/components/EmptyList";
 import { useRouter } from "expo-router";
 import { FlatList, TouchableOpacity, View } from "react-native";
@@ -20,10 +20,47 @@ export const LibraryPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const [showSortBy, setShowSortBy] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState(null);
+  const [sortLabel, setSortLabel] = useState("Sort by");
   const { resources } = useResourcesQuery();
   const disabledTools = useMemo(() => resources.length === 0, [resources]);
 
   console.log("resources", resources);
+
+  const filteredResources = useMemo(() => {
+    let filteredData = resources.filter((resource) =>
+      resource.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // Sort by title based on the selected sort order
+    if (sortOrder === "asc") {
+      filteredData = filteredData.sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+    } else {
+      filteredData = filteredData.sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+    }
+
+    return filteredData;
+  }, [resources, searchQuery, sortOrder]);
+
+  const handleSearchChange = useCallback((query) => {
+    setSearchQuery(query);
+  }, []);
+
+  const handleSortChange = (order) => {
+    if (sortOrder === order) {
+      setSortOrder(null);
+      setSortLabel("Sort by"); // Reset to default
+    } else {
+      setSortOrder(order);
+      setSortLabel(order === "asc" ? "Title (A-Z)" : "Title (Z-A)");
+    }
+    setShowSortBy(false);
+  };
 
   const renderHeader = () => (
     <View>
@@ -45,6 +82,8 @@ export const LibraryPage = () => {
           placeholder="Search by title"
           hideHelperTextSpace
           disabled={disabledTools}
+          value={searchQuery}
+          onChangeText={handleSearchChange}
         />
         <Menu
           visible={showSortBy}
@@ -67,14 +106,30 @@ export const LibraryPage = () => {
                   color={theme.colors.textDarkGrey}
                 />
                 <Text variant="bodyLarge" style={styles.sortText}>
-                  Sort by
+                  {sortLabel}
                 </Text>
               </View>
             </TouchableOpacity>
           }
         >
-          <Menu.Item onPress={() => {}} title="Title (A-Z)" />
-          <Menu.Item onPress={() => {}} title="Title (Z-A)" />
+          <Menu.Item
+            onPress={() => handleSortChange("asc")}
+            title="Title (A-Z)"
+            style={
+              sortOrder === "asc"
+                ? { backgroundColor: theme.colors.surfaceVariant }
+                : {}
+            }
+          />
+          <Menu.Item
+            onPress={() => handleSortChange("desc")}
+            title="Title (Z-A)"
+            style={
+              sortOrder === "desc"
+                ? { backgroundColor: theme.colors.surfaceVariant }
+                : {}
+            }
+          />
         </Menu>
       </View>
     </View>
@@ -85,7 +140,7 @@ export const LibraryPage = () => {
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={renderHeader()}
-          data={resources}
+          data={filteredResources}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             const {
