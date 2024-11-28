@@ -74,6 +74,10 @@ const resourceSchema = mongoose.Schema(
         correct_option: {
           type: String,
         },
+        isAnsweredCorrectly: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
   },
