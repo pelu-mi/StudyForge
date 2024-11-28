@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyList } from "@/components/EmptyList";
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import {
@@ -17,6 +17,7 @@ import { useResourcesQuery } from "@/services/api/library/useResourcesQuery";
 
 export const LibraryPage = () => {
   const router = useRouter();
+  const navigation = useNavigation();
   const theme = useTheme();
   const styles = useStyles(theme);
   const [showSortBy, setShowSortBy] = useState(false);
@@ -61,6 +62,17 @@ export const LibraryPage = () => {
     }
     setShowSortBy(false);
   };
+
+  useEffect(() => {
+    const blurUnsubscribe = navigation.addListener("blur", () => {
+      setSearchQuery("");
+      setSortOrder(null);
+      setSortLabel("Sort by");
+    });
+    return () => {
+      blurUnsubscribe();
+    };
+  }, [navigation, setSearchQuery, setSortOrder, setSortLabel]);
 
   const renderHeader = () => (
     <View>
