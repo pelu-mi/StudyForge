@@ -38,7 +38,7 @@ export const ResourceInfoSettingsPage = () => {
     <SafeKeyboardScrollView ignoreSafeArea>
       <View style={styles.container}>
         <FormTextInput
-          name="resourceTitle"
+          name="title"
           label="Resource Title *"
           placeholder="e.g. Introductory Plant Biology"
           fullWidth

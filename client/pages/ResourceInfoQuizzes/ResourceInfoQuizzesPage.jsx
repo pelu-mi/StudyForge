@@ -10,6 +10,12 @@ export const ResourceInfoQuizzesPage = () => {
   const { resourceInfo } = useLocalSearchParams();
   const { quiz: quizzes, numberOfQuestions } = JSON.parse(resourceInfo);
 
+  const handlePress = (selectedIndex, id) =>
+    router.push({
+      pathname: `/(modals)/resourceInfo/quizzes/${id}`,
+      params: { selectedIndex, resourceInfo },
+    });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -25,18 +31,11 @@ export const ResourceInfoQuizzesPage = () => {
           const number = index + 1;
 
           return (
-            <TouchableOpacity
-              onPress={() =>
-                router.push({
-                  pathname: `/(modals)/resourceInfo/quizzes/${_id}`,
-                  params: { selectedIndex: index, resourceInfo },
-                })
-              }
-            >
+            <TouchableOpacity onPress={() => handlePress(index, _id)}>
               <QuizItem
                 {...{ number, question }}
                 status="notAttempt"
-                onButtonPress={() => {}}
+                onButtonPress={() => handlePress(index, _id)}
               />
             </TouchableOpacity>
           );

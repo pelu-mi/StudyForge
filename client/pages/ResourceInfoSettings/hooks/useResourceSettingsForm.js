@@ -6,7 +6,7 @@ import { useLocalSearchParams } from "expo-router";
 import { object, string } from "yup";
 
 const validationSchema = object({
-  resourceTitle: string().required("Resource title is required"),
+  title: string().required("Resource title is required"),
   topic: string(),
   field: string(),
   levelOfStudy: string(),
@@ -14,19 +14,18 @@ const validationSchema = object({
 
 export const useResourceSettingsForm = () => {
   const { resourceInfo } = useLocalSearchParams();
-  const { resourceTitle, topic, field, levelOfStudy } =
-    JSON.parse(resourceInfo);
+  const { title, topic, field, levelOfStudy } = JSON.parse(resourceInfo);
 
-  const defaultValues = { resourceTitle, topic, field, levelOfStudy };
+  const defaultValues = { title, topic, field, levelOfStudy };
 
   const form = useForm({
     validationSchema,
     defaultValues,
   });
 
-  const onSubmit = async ({ resourceTitle, topic, field, levelOfStudy }) => {
+  const onSubmit = async ({ title, topic, field, levelOfStudy }) => {
     const payload = {
-      resourceTitle,
+      title,
       topic,
       field,
       levelOfStudy,

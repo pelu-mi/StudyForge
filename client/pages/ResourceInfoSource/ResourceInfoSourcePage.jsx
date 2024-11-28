@@ -5,11 +5,11 @@ import { styles } from "./ResourceInfoSourcePage.styles";
 
 export const ResourceInfoSourcePage = () => {
   const { resourceInfo } = useLocalSearchParams();
-  const { source } = JSON.parse(resourceInfo);
+  const { textSource, generatedTextFromFile } = JSON.parse(resourceInfo);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="bodyLarge">{source}</Text>
+      <Text variant="bodyLarge">{textSource || generatedTextFromFile}</Text>
     </ScrollView>
   );
 };

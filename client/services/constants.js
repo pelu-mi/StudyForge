@@ -13,3 +13,6 @@ export const DELETE_STUDY_ALERT_API_KEY = "/user/deletestudyalert";
 
 // Forge
 export const GENERATE_RESOURCE_API_KEY = "/user/forge";
+
+// Library
+export const GET_RESOURCES_API_KEY = "/user/getuserresources";

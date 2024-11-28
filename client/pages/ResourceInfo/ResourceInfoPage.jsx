@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export const ResourceInfoPage = () => {
   const { resourceInfo } = useLocalSearchParams();
-  const { resourceTitle, topic, field, levelOfStudy, numberOfQuestions } =
+  const { title, topic, field, levelOfStudy, numberOfQuestions } =
     JSON.parse(resourceInfo);
   const INFOS = [
     { label: "Topic", value: topic },
@@ -78,7 +78,7 @@ export const ResourceInfoPage = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleLarge" style={styles.title}>
-        {resourceTitle}
+        {title}
       </Text>
 
       {/* Info */}

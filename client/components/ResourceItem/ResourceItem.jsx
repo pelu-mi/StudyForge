@@ -10,18 +10,18 @@ import { useMemo } from "react";
 
 export const ResourceItem = ({
   topic,
-  resourceTitle,
+  title,
   field,
   levelOfStudy,
   isQuizCompleted,
   numberOfQuestions,
-  source,
+  sourceType,
   containerStyle,
 }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
 
-  const sourceType = useMemo(() => typeof source, [source]);
+  // const sourceType = useMemo(() => typeof source, [source]);
 
   // const isQuizCompleted = useMemo(
   //   () => completedQuiz === numberOfQuestions,
@@ -41,13 +41,13 @@ export const ResourceItem = ({
           </Text>
         )}
         <Text variant="titleMedium" style={styles.titleText} numberOfLines={2}>
-          {resourceTitle}
+          {title}
         </Text>
 
         <View style={styles.chipWrapper}>
-          {source && (
+          {sourceType && (
             <Text variant="bodySmall" style={styles.chip}>
-              {sourceType === "string" ? "Text Source" : source.name}
+              {sourceType} Source
             </Text>
           )}
 
@@ -109,11 +109,11 @@ export const ResourceItem = ({
 
 ResourceItem.propTypes = {
   topic: PropTypes.string,
-  resourceTitle: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   field: PropTypes.string,
   levelOfStudy: PropTypes.string,
   isQuizCompleted: PropTypes.bool,
   numberOfQuestions: PropTypes.number,
-  source: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  sourceType: PropTypes.string,
   containerStyle: PropTypes.object,
 };
