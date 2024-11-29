@@ -12,6 +12,7 @@ import Slider from "@react-native-community/slider";
 import { TextInput } from "@/components/TextInput";
 import { getDocumentAsync } from "expo-document-picker";
 import { Menu } from "@/components/Menu";
+import { extractTextFromPDF } from "@/utils/extractTextFromPDF";
 
 export const LEVEL_OF_STUDY = ["High School", "Undergraduate", "Graduate"];
 
@@ -82,9 +83,12 @@ export const ForgePage = () => {
       setFileName(file.name);
 
       // TODO: Conver PDF to text
+      const extractedText = await extractTextFromPDF(fileData);
+
+      console.log("extractedText", extractedText);
 
       // Set value
-      setValue("generatedTextFromFile", fileData);
+      setValue("generatedTextFromFile", extractedText);
     } catch (error) {
       console.log("Error while selecting file: ", error);
     }
