@@ -306,6 +306,128 @@ async function getUserResources(user) {
     data: foundResources,
   };
 }
+
+async function getUserOverview(user) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const resourceCount = await resource.countDocuments({ userID: user._id });
+
+  const studyAlertCount = await studyAlert.countDocuments({ user: user._id });
+
+  const completedQuizCount = await resource.countDocuments({
+    userID: user._id,
+    isQuizCompleted: "true",
+  });
+
+  const uncompletedQuizCount = await resource.countDocuments({
+    userID: user._id,
+    isQuizCompleted: "false",
+  });
+
+  return responses.buildSuccessResponse(
+    "User overview fetched successfully",
+    200,
+    {
+      resources: resourceCount,
+      studyAlerts: studyAlertCount,
+      completedQuiz: completedQuizCount,
+      uncompletedQuiz: uncompletedQuizCount,
+      userRecentResources: latestResources,
+      userRecentStudyAlerts: recentStudyAlerts,
+    }
+  );
+}
+
+async function getRecentResourcesAndAlerts(user) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const recentStudyAlerts = await studyAlert
+    .find({ user: user._id })
+    .sort({ createdAt: -1 }) // Sort by creation time in descending order
+    .limit(3);
+
+  const latestResources = await resource
+    .find({ userID: user._id })
+    .sort({ createdAt: -1 }) // Sort by creation time in descending order
+    .limit(5);
+
+  return responses.buildSuccessResponse(
+    "User overview fetched successfully",
+    200,
+    {
+      userRecentResources: latestResources,
+      userRecentStudyAlerts: recentStudyAlerts,
+    }
+  );
+}
+
+async function updateResource(user, payload) {
+  const { resourceID, ...updateFields } = payload;
+
+  // Fetch the original resource before the update
+  const originalResource = await resource.findOne({
+    userID: user._id,
+    _id: resourceID,
+  });
+  if (!originalResource) {
+    return responses.buildFailureResponse("Resource not found", 404);
+  }
+
+  const updatedResource = await resource.findByIdAndUpdate(
+    resourceID,
+    { $set: updateFields },
+    { new: true, useFindAndModify: false }
+  );
+
+  if (!updatedResource) {
+    return responses.buildFailureResponse("Resource update failed", 500);
+  }
+
+  // Find fields that were updated by comparing the original and updated resources
+  const updatedFields = {};
+  for (const key in updateFields) {
+    if (originalResource[key] !== updatedResource[key]) {
+      updatedFields[key] = updatedResource[key];
+    }
+  }
+
+  return responses.buildSuccessResponse(
+    "Resource updated successfully",
+    200,
+    updatedFields
+  );
+}
+
+async function changePassword(user, payload) {
+  const foundUser = await users.findOne({ _id: user._id });
+
+  if (!foundUser) {
+    return responses.buildFailureResponse("User does not exist", 400);
+  }
+
+  const hashedPassword = await bcrypt.hash(payload.newPassword, 10);
+
+  const updatedUser = await users.findByIdAndUpdate(
+    { _id: foundUser._id },
+    { password: hashedPassword },
+    { new: true }
+  );
+
+  return responses.buildSuccessResponse(
+    "Password succesfully changed",
+    200,
+    updatedUser
+  );
+}
+
 export default {
   createAccount,
   login,
@@ -321,5 +443,9 @@ export default {
   updateStudyAlert,
   getResource,
   getUserResources,
-  deleteResource
+  deleteResource,
+  getUserOverview,
+  getRecentResourcesAndAlerts,
+  updateResource,
+  changePassword,
 };
