@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView } from "react-native";
+import { Pressable, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./ResourceInfoSourcePage.styles";
 
@@ -9,7 +9,9 @@ export const ResourceInfoSourcePage = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="bodyLarge">{textSource || generatedTextFromFile}</Text>
+      <Pressable>
+        <Text variant="bodyLarge">{textSource || generatedTextFromFile}</Text>
+      </Pressable>
     </ScrollView>
   );
 };

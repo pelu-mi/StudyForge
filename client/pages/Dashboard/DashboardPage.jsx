@@ -1,6 +1,7 @@
 import { useUser } from "@/context/UserProvider";
 import {
   FlatList,
+  Pressable,
   ScrollView,
   TouchableOpacity,
   useWindowDimensions,
@@ -181,107 +182,109 @@ export const DashboardPage = () => {
   ]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Greeting */}
-      <View style={[styles.greetingWrapper, styles.paddingHorizontal]}>
-        <Text variant="headlineLarge">Hello</Text>
-        <Text variant="headlineLarge" style={{ color: theme.colors.primary }}>
-          {user.firstName}! 😃
-        </Text>
-      </View>
+    <ScrollView>
+      <Pressable style={styles.container}>
+        {/* Greeting */}
+        <View style={[styles.greetingWrapper, styles.paddingHorizontal]}>
+          <Text variant="headlineLarge">Hello</Text>
+          <Text variant="headlineLarge" style={{ color: theme.colors.primary }}>
+            {user.firstName}! 😃
+          </Text>
+        </View>
 
-      <View style={[styles.section, styles.paddingHorizontal]}>
-        <Text variant="titleMedium" style={styles.text}>
-          Overview
-        </Text>
+        <View style={[styles.section, styles.paddingHorizontal]}>
+          <Text variant="titleMedium" style={styles.text}>
+            Overview
+          </Text>
 
-        <View style={styles.overviewItemWrapper}>
-          <OverviewItem
-            label="Study Resources"
-            value={"3"}
-            iconName="book-open-variant"
-            backgroundColor={theme.colors.onSurfacePrimary2}
-            borderColor={theme.colors.primary}
-            style={{ width: overviewItemWidth }}
-          />
-          <OverviewItem
-            label="Study Sessions"
-            value={"2"}
-            iconName="notebook"
-            backgroundColor={theme.colors.onSurfaceSecondary}
-            borderColor={theme.colors.secondary}
-            style={{ width: overviewItemWidth }}
-          />
-          <OverviewItem
-            label="Ongoing Quizzes"
-            value={"2"}
-            iconName="lightning-bolt"
-            backgroundColor={theme.colors.onSurfaceWarning}
-            borderColor={theme.colors.warning}
-            style={{ width: overviewItemWidth }}
-          />
-          <OverviewItem
-            label="Completed Quizzes"
-            value={"1"}
-            iconName="emoticon"
-            backgroundColor={theme.colors.onSurfaceSuccess}
-            borderColor={theme.colors.success}
-            style={{ width: overviewItemWidth }}
+          <View style={styles.overviewItemWrapper}>
+            <OverviewItem
+              label="Study Resources"
+              value={"3"}
+              iconName="book-open-variant"
+              backgroundColor={theme.colors.onSurfacePrimary2}
+              borderColor={theme.colors.primary}
+              style={{ width: overviewItemWidth }}
+            />
+            <OverviewItem
+              label="Study Sessions"
+              value={"2"}
+              iconName="notebook"
+              backgroundColor={theme.colors.onSurfaceSecondary}
+              borderColor={theme.colors.secondary}
+              style={{ width: overviewItemWidth }}
+            />
+            <OverviewItem
+              label="Ongoing Quizzes"
+              value={"2"}
+              iconName="lightning-bolt"
+              backgroundColor={theme.colors.onSurfaceWarning}
+              borderColor={theme.colors.warning}
+              style={{ width: overviewItemWidth }}
+            />
+            <OverviewItem
+              label="Completed Quizzes"
+              value={"1"}
+              iconName="emoticon"
+              backgroundColor={theme.colors.onSurfaceSuccess}
+              borderColor={theme.colors.success}
+              style={{ width: overviewItemWidth }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text
+            variant="titleMedium"
+            style={[styles.text, styles.paddingHorizontal]}
+          >
+            Recent Resources
+          </Text>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={resources}
+            renderItem={({ item }) => {
+              const {
+                topic,
+                resourceTitle,
+                field,
+                levelOfStudy,
+                // completedQuiz,
+                isQuizCompleted,
+                numberOfQuestions,
+                source,
+              } = item;
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push({
+                      pathname: `/(modals)/resourceInfo`,
+                      params: { resourceInfo: JSON.stringify(item) },
+                    });
+                  }}
+                  style={{ width: width * 0.82 }}
+                >
+                  <ResourceItem
+                    {...{
+                      topic,
+                      resourceTitle,
+                      field,
+                      levelOfStudy,
+                      isQuizCompleted,
+                      numberOfQuestions,
+                      source,
+                    }}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item) => item._id}
+            contentContainerStyle={styles.listContentContainer}
           />
         </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text
-          variant="titleMedium"
-          style={[styles.text, styles.paddingHorizontal]}
-        >
-          Recent Resources
-        </Text>
-
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={resources}
-          renderItem={({ item }) => {
-            const {
-              topic,
-              resourceTitle,
-              field,
-              levelOfStudy,
-              // completedQuiz,
-              isQuizCompleted,
-              numberOfQuestions,
-              source,
-            } = item;
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  router.push({
-                    pathname: `/(modals)/resourceInfo`,
-                    params: { resourceInfo: JSON.stringify(item) },
-                  });
-                }}
-                style={{ width: width * 0.82 }}
-              >
-                <ResourceItem
-                  {...{
-                    topic,
-                    resourceTitle,
-                    field,
-                    levelOfStudy,
-                    isQuizCompleted,
-                    numberOfQuestions,
-                    source,
-                  }}
-                />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item) => item._id}
-          contentContainerStyle={styles.listContentContainer}
-        />
-      </View>
+      </Pressable>
     </ScrollView>
   );
 };

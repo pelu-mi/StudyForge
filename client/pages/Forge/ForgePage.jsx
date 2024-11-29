@@ -5,14 +5,15 @@ import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useForgeForm } from "./hooks/useForgeForm";
 import { Button } from "@/components/Button";
-import { TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "expo-router";
 import Slider from "@react-native-community/slider";
 import { TextInput } from "@/components/TextInput";
 import { getDocumentAsync } from "expo-document-picker";
 import { Menu } from "@/components/Menu";
-import { extractTextFromPDF } from "@/utils/extractTextFromPDF";
+import { useExtractTextMutation } from "@/services/api/forge/useExtractTextMutation";
+import Toast from "react-native-toast-message";
 
 export const LEVEL_OF_STUDY = ["High School", "Undergraduate", "Graduate"];
 
@@ -35,6 +36,12 @@ export const ForgePage = () => {
   const sourceType = watch("sourceType");
   const isFileSource = useMemo(() => sourceType === "File", [sourceType]);
   const generatedTextFromFile = watch("generatedTextFromFile");
+
+  const { mutateAsync: extractText } = useExtractTextMutation({
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
 
   const handleChangeLevelOfStudy = (value) => {
     setValue("levelOfStudy", value);
@@ -79,11 +86,15 @@ export const ForgePage = () => {
         size: file.size,
       };
 
+      const form = new FormData();
+      form.append("file", fileData);
+
       // Set file name
       setFileName(file.name);
 
-      // TODO: Conver PDF to text
-      const extractedText = await extractTextFromPDF(fileData);
+      //  Conver PDF to text
+      const response = await extractText(form);
+      const extractedText = response.data.data;
 
       console.log("extractedText", extractedText);
 
@@ -182,137 +193,136 @@ export const ForgePage = () => {
   }, [navigation, reset]);
 
   return (
-    <SafeKeyboardScrollView
-      contentContainerStyle={styles.container}
-      ignoreSafeArea
-    >
-      <Text variant="headlineSmall">Forge</Text>
+    <SafeKeyboardScrollView ignoreSafeArea>
+      <Pressable style={styles.container}>
+        <Text variant="headlineSmall">Forge</Text>
 
-      <FormTextInput
-        name="title"
-        label="Resource Title *"
-        placeholder="e.g. Introductory Plant Biology"
-        fullWidth
-        {...{ control }}
-      />
+        <FormTextInput
+          name="title"
+          label="Resource Title *"
+          placeholder="e.g. Introductory Plant Biology"
+          fullWidth
+          {...{ control }}
+        />
 
-      <FormTextInput
-        name="topic"
-        label="Topic"
-        placeholder="e.g. Introductory Plant Biology"
-        fullWidth
-        {...{ control }}
-      />
+        <FormTextInput
+          name="topic"
+          label="Topic"
+          placeholder="e.g. Introductory Plant Biology"
+          fullWidth
+          {...{ control }}
+        />
 
-      <FormTextInput
-        name="field"
-        label="Field"
-        placeholder="e.g. Biology"
-        fullWidth
-        {...{ control }}
-      />
+        <FormTextInput
+          name="field"
+          label="Field"
+          placeholder="e.g. Biology"
+          fullWidth
+          {...{ control }}
+        />
 
-      {/* Level Of Study Picker */}
-      <Menu
-        title="Level of Study"
-        visible={showLevelOfStudy}
-        setVisible={setShowLevelOfStudy}
-        items={LEVEL_OF_STUDY}
-        selectedItem={levelOfStudy}
-        onSelect={handleChangeLevelOfStudy}
-        placeholder="Select your level"
-      />
+        {/* Level Of Study Picker */}
+        <Menu
+          title="Level of Study"
+          visible={showLevelOfStudy}
+          setVisible={setShowLevelOfStudy}
+          items={LEVEL_OF_STUDY}
+          selectedItem={levelOfStudy}
+          onSelect={handleChangeLevelOfStudy}
+          placeholder="Select your level"
+        />
 
-      {/* Number of Quiz Questions Slider */}
-      <View style={styles.fieldContainer}>
-        <Text variant="titleMedium">Number of Quiz Questions *</Text>
+        {/* Number of Quiz Questions Slider */}
+        <View style={styles.fieldContainer}>
+          <Text variant="titleMedium">Number of Quiz Questions *</Text>
 
-        <View style={styles.sliderWrapper}>
-          <Slider
-            step={1}
-            style={styles.slider}
-            value={numberOfQuestions}
-            minimumValue={10}
-            maximumValue={40}
-            minimumTrackTintColor={theme.colors.primary}
-            maximumTrackTintColor={theme.colors.surfaceVariant}
-            onValueChange={(value) => setValue("numberOfQuestions", value)}
-          />
-          <TextInput
-            inputMode="numeric"
-            name="numberOfQuestions"
-            keyboardType="number-pad"
-            hideHelperTextSpace
-            value={String(numberOfQuestions)}
-            onChangeText={(text) => setValue("numberOfQuestions", text)}
-            onEndEditing={handleEndEditingNumberOfQuestions}
-            style={styles.sliderInput}
-          />
+          <View style={styles.sliderWrapper}>
+            <Slider
+              step={1}
+              style={styles.slider}
+              value={numberOfQuestions}
+              minimumValue={10}
+              maximumValue={40}
+              minimumTrackTintColor={theme.colors.primary}
+              maximumTrackTintColor={theme.colors.surfaceVariant}
+              onValueChange={(value) => setValue("numberOfQuestions", value)}
+            />
+            <TextInput
+              inputMode="numeric"
+              name="numberOfQuestions"
+              keyboardType="number-pad"
+              hideHelperTextSpace
+              value={String(numberOfQuestions)}
+              onChangeText={(text) => setValue("numberOfQuestions", text)}
+              onEndEditing={handleEndEditingNumberOfQuestions}
+              style={styles.sliderInput}
+            />
+          </View>
         </View>
-      </View>
 
-      {/* Source File / Source Text*/}
-      <View style={styles.fieldContainer}>
-        <Text variant="titleMedium">Source *</Text>
+        {/* Source File / Source Text*/}
+        <View style={styles.fieldContainer}>
+          <Text variant="titleMedium">Source *</Text>
 
-        <View style={styles.sourceTypeWrapper}>
-          <TouchableOpacity
-            onPress={() => handleSetIsFileSource(true)}
-            style={[
-              styles.sourceTypeButton,
-              {
-                backgroundColor: isFileSource
-                  ? theme.colors.primary
-                  : "transparent",
-              },
-            ]}
-          >
-            <Text
-              variant="titleMedium"
+          <View style={styles.sourceTypeWrapper}>
+            <TouchableOpacity
+              onPress={() => handleSetIsFileSource(true)}
               style={[
-                styles.fileLabel,
+                styles.sourceTypeButton,
                 {
-                  color: isFileSource
-                    ? theme.colors.inverseOnSurface
-                    : theme.colors.textSecondary,
+                  backgroundColor: isFileSource
+                    ? theme.colors.primary
+                    : "transparent",
                 },
               ]}
             >
-              File
-            </Text>
-          </TouchableOpacity>
+              <Text
+                variant="titleMedium"
+                style={[
+                  styles.fileLabel,
+                  {
+                    color: isFileSource
+                      ? theme.colors.inverseOnSurface
+                      : theme.colors.textSecondary,
+                  },
+                ]}
+              >
+                File
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => handleSetIsFileSource(false)}
-            style={[
-              styles.sourceTypeButton,
-              {
-                backgroundColor: !isFileSource
-                  ? theme.colors.primary
-                  : "transparent",
-              },
-            ]}
-          >
-            <Text
-              variant="titleMedium"
+            <TouchableOpacity
+              onPress={() => handleSetIsFileSource(false)}
               style={[
-                styles.fileLabel,
+                styles.sourceTypeButton,
                 {
-                  color: !isFileSource
-                    ? theme.colors.inverseOnSurface
-                    : theme.colors.textSecondary,
+                  backgroundColor: !isFileSource
+                    ? theme.colors.primary
+                    : "transparent",
                 },
               ]}
             >
-              Text
-            </Text>
-          </TouchableOpacity>
+              <Text
+                variant="titleMedium"
+                style={[
+                  styles.fileLabel,
+                  {
+                    color: !isFileSource
+                      ? theme.colors.inverseOnSurface
+                      : theme.colors.textSecondary,
+                  },
+                ]}
+              >
+                Text
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {renderSource()}
         </View>
 
-        {renderSource()}
-      </View>
-
-      <Button onPress={handleSubmit}>Forge</Button>
+        <Button onPress={handleSubmit}>Forge</Button>
+      </Pressable>
     </SafeKeyboardScrollView>
   );
 };

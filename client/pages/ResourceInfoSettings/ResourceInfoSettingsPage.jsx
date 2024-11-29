@@ -7,7 +7,7 @@ import { useResourceSettingsForm } from "./hooks/useResourceSettingsForm";
 import { Button } from "@/components/Button";
 import { useState } from "react";
 import { LEVEL_OF_STUDY } from "../Forge/ForgePage";
-import { Alert, View } from "react-native";
+import { Alert, Pressable } from "react-native";
 import { useDeleteResourceMutation } from "@/services/api/library/useDeleteResourceMutation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
@@ -54,7 +54,7 @@ export const ResourceInfoSettingsPage = () => {
 
   return (
     <SafeKeyboardScrollView ignoreSafeArea>
-      <View style={styles.container}>
+      <Pressable style={styles.container}>
         <FormTextInput
           name="title"
           label="Resource Title *"
@@ -91,16 +91,16 @@ export const ResourceInfoSettingsPage = () => {
         />
 
         <Button onPress={handleSubmit}>Update Resource</Button>
-      </View>
+      </Pressable>
 
-      <View style={styles.dangerZoneContainer}>
+      <Pressable style={styles.dangerZoneContainer}>
         <Text variant="titleMedium" style={styles.text}>
           Danger Zone
         </Text>
         <Button variant="red-outlined" onPress={handleDeleteResource}>
           Delete Resource
         </Button>
-      </View>
+      </Pressable>
     </SafeKeyboardScrollView>
   );
 };

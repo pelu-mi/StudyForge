@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
-import { TouchableOpacity, View, ScrollView } from "react-native";
+import { TouchableOpacity, View, ScrollView, Pressable } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ResourceInfoPage.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -76,76 +76,78 @@ export const ResourceInfoPage = () => {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="titleLarge" style={styles.title}>
-        {title}
-      </Text>
+    <ScrollView>
+      <Pressable style={styles.container}>
+        <Text variant="titleLarge" style={styles.title}>
+          {title}
+        </Text>
 
-      {/* Info */}
-      {INFOS.map((info, index) => (
-        <View style={styles.infoWrapper} key={index}>
-          <Text variant="labelMedium" style={styles.infoTitle}>
-            {info.label}
-          </Text>
-          <Text variant="bodyLarge">{info.value}</Text>
-        </View>
-      ))}
+        {/* Info */}
+        {INFOS.map((info, index) => (
+          <View style={styles.infoWrapper} key={index}>
+            <Text variant="labelMedium" style={styles.infoTitle}>
+              {info.label}
+            </Text>
+            <Text variant="bodyLarge">{info.value}</Text>
+          </View>
+        ))}
 
-      {/* Materials */}
-      <Text variant="bodyLarge" style={styles.sectionTitle}>
-        Materials
-      </Text>
+        {/* Materials */}
+        <Text variant="bodyLarge" style={styles.sectionTitle}>
+          Materials
+        </Text>
 
-      {MATERIALS.map((material, index) => {
-        const {
-          icon,
-          label,
-          pathname,
-          rightText,
-          borderColor,
-          backgroundColor,
-        } = material;
-        return (
-          <TouchableOpacity
-            key={index}
-            onPress={() =>
-              router.push({
-                pathname,
-                params: { resourceInfo },
-              })
-            }
-          >
-            <View
-              style={[styles.listContainer, { borderColor, backgroundColor }]}
+        {MATERIALS.map((material, index) => {
+          const {
+            icon,
+            label,
+            pathname,
+            rightText,
+            borderColor,
+            backgroundColor,
+          } = material;
+          return (
+            <TouchableOpacity
+              key={index}
+              onPress={() =>
+                router.push({
+                  pathname,
+                  params: { resourceInfo },
+                })
+              }
             >
-              {/* Left */}
-              <View style={styles.listContentWrapper}>
-                <MaterialCommunityIcons
-                  name={icon}
-                  size={24}
-                  color={borderColor}
-                />
-                <Text variant="bodyLarge">{label}</Text>
-              </View>
+              <View
+                style={[styles.listContainer, { borderColor, backgroundColor }]}
+              >
+                {/* Left */}
+                <View style={styles.listContentWrapper}>
+                  <MaterialCommunityIcons
+                    name={icon}
+                    size={24}
+                    color={borderColor}
+                  />
+                  <Text variant="bodyLarge">{label}</Text>
+                </View>
 
-              {/* Right */}
-              <View style={styles.listContentWrapper}>
-                <Text
-                  variant="bodyLarge"
-                  style={{ color: theme.colors.textDarkGrey }}
-                >
-                  {rightText}
-                </Text>
-                <MaterialCommunityIcons
-                  name="chevron-right"
-                  size={24}
-                  color={theme.colors.textSecondary}
-                />
+                {/* Right */}
+                <View style={styles.listContentWrapper}>
+                  <Text
+                    variant="bodyLarge"
+                    style={{ color: theme.colors.textDarkGrey }}
+                  >
+                    {rightText}
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    size={24}
+                    color={theme.colors.textSecondary}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+            </TouchableOpacity>
+          );
+        })}
+      </Pressable>
     </ScrollView>
   );
 };
