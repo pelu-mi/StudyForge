@@ -76,7 +76,6 @@ export const useForgeForm = () => {
     field,
     levelOfStudy,
     numberOfQuestions,
-    sourceType,
     textSource,
     generatedTextFromFile,
   }) => {
@@ -86,7 +85,7 @@ export const useForgeForm = () => {
       field,
       levelOfStudy,
       numberOfQuestions,
-      sourceType,
+      sourceType: "Text",
       textSource,
       generatedTextFromFile,
     };
