@@ -1,8 +1,10 @@
 import express from "express";
 import userControllers from "../controllers/user.controller.js";
 import authMiddleware from "../middlewares/auth.js";
+import multer from "multer";
 
 const router = express.Router();
+const upload = multer({ dest: "uploads/" });
 
 router.post("/createaccount", userControllers.createAccount);
 router.post("/login", userControllers.login);
@@ -51,6 +53,36 @@ router.post(
   "/updatestudyalert",
   authMiddleware.authenticate,
   userControllers.updateStudyAlert
+);
+
+router.post(
+  "/upload",
+  upload.single("file"),
+  userControllers.extractTextFromPDF
+);
+
+router.get(
+  "/getuseroverview",
+  authMiddleware.authenticate,
+  userControllers.getUserOverview
+);
+
+router.get(
+  "/getrecentalertsandresources",
+  authMiddleware.authenticate,
+  userControllers.getRecentResourcesAndAlerts
+);
+
+router.post(
+  "/updateresource",
+  authMiddleware.authenticate,
+  userControllers.updateResource
+);
+
+router.post(
+  "/changepassword",
+  authMiddleware.authenticate,
+  userControllers.changePassword
 );
 
 export default router;

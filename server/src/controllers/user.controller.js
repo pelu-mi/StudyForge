@@ -1,4 +1,5 @@
 import usersServices from "../services/user.service.js";
+import extract from "../utils/extractText.js";
 
 async function createAccount(req, res) {
   try {
@@ -143,7 +144,6 @@ async function deleteStudyAlert(req, res) {
   }
 }
 
-
 async function deleteResource(req, res) {
   try {
     const response = await usersServices.deleteResource(req.body);
@@ -180,6 +180,78 @@ async function getResource(req, res) {
   }
 }
 
+const extractTextFromPDF = async (req, res) => {
+  const { file } = req;
+  if (!file) {
+    return res.status(400).send("No file uploaded");
+  }
+
+  try {
+    // Extract text from the uploaded PDF
+    const extractedText = await extract.extractTextFromPDF(file.path);
+
+    // Remove the temporary file
+    extract.deleteFile(file.path);
+
+    res
+      .status(200)
+      .json({ message: "PDF text saved successfully", data: extractedText });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error processing PDF");
+  }
+};
+
+async function getUserOverview(req, res) {
+  try {
+    const response = await usersServices.getUserOverview(req.user);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get overview",
+      status: "failure",
+    });
+  }
+}
+
+async function getRecentResourcesAndAlerts(req, res) {
+  try {
+    const response = await usersServices.getRecentResourcesAndAlerts(req.user);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to get overview",
+      status: "failure",
+    });
+  }
+}
+
+
+async function updateResource(req, res) {
+  try {
+    const response = await usersServices.updateResource(req.user,req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to update resource",
+      status: "failure",
+    });
+  }
+}
+
+
+async function changePassword(req, res) {
+  try {
+    const response = await usersServices.changePassword(req.user,req.body);
+    res.status(response.statusCode).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to change password",
+      status: "failure",
+    });
+  }
+}
+
 export default {
   createAccount,
   login,
@@ -194,5 +266,10 @@ export default {
   updateStudyAlert,
   getResource,
   getUserResources,
-  deleteResource
+  deleteResource,
+  extractTextFromPDF,
+  getUserOverview,
+  getRecentResourcesAndAlerts,
+  updateResource,
+  changePassword
 };
