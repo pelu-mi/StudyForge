@@ -4,10 +4,10 @@
 import { object, string } from "yup";
 import { useForm } from "@/hooks/useForm";
 import { useUser } from "@/context/UserProvider";
-import { useSettings } from "@/hooks/useSettings";
-import { setItemAsync } from "expo-secure-store";
-import * as LocalAuthentication from "expo-local-authentication";
-import { Alert } from "react-native";
+// import { useSettings } from "@/hooks/useSettings";
+// import { setItemAsync } from "expo-secure-store";
+// import * as LocalAuthentication from "expo-local-authentication";
+// import { Alert } from "react-native";
 
 // import { useUser } from "context";
 

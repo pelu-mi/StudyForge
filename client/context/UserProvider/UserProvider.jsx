@@ -179,8 +179,8 @@ export const UserProvider = ({ children }) => {
   // Log out
   const logout = async () => {
     setUser(null);
-    await AsyncStorage.clear(); // This will also clear the color mode
-    // await AsyncStorage.removeItem(ACCESS_USER_KEY);
+    // await AsyncStorage.clear(); // This will also clear the color mode
+    await AsyncStorage.removeItem(ACCESS_USER_KEY);
     await deleteItemAsync(ACCESS_TOKEN_KEY);
 
     router.replace("/login");

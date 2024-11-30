@@ -72,7 +72,7 @@ export const DashboardPage = () => {
         borderColor: theme.colors.success,
       },
     ],
-    [overview]
+    [overview, theme]
   );
 
   const handleRefresh = () => {
