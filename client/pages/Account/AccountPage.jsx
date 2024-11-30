@@ -5,8 +5,7 @@ import { styles } from "./AccountPage.styles";
 import { Button } from "@/components/Button";
 import { Avatar, useTheme } from "react-native-paper";
 import { useUser } from "@/context/UserProvider";
-import { TouchableOpacity, View } from "react-native";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { View } from "react-native";
 
 export const AccountPage = () => {
   const { user } = useUser();
@@ -18,14 +17,15 @@ export const AccountPage = () => {
       ignoreSafeArea
       contentContainerStyle={styles.container}
     >
-      <TouchableOpacity onPress={() => {}} style={styles.avatarContainer}>
+      {/* <TouchableOpacity onPress={() => {}}> */}
+      <View style={styles.avatarContainer}>
         <Avatar.Text
           size={80}
           label={`${user.firstName[0]}${user.lastName[0]}`}
           style={{ backgroundColor: theme.colors.primary }}
         />
 
-        <View
+        {/* <View
           style={[
             styles.iconContainer,
             { backgroundColor: theme.colors.background },
@@ -37,8 +37,9 @@ export const AccountPage = () => {
             color={theme.colors.textSecondary}
             style={styles.icon}
           />
-        </View>
-      </TouchableOpacity>
+        </View> */}
+      </View>
+      {/* </TouchableOpacity> */}
 
       <FormTextInput
         name="firstName"
