@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyList } from "@/components/EmptyList";
 import { useNavigation, useRouter } from "expo-router";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import {
   FAB,
@@ -24,7 +24,7 @@ export const LibraryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState(null);
   const [sortLabel, setSortLabel] = useState("Sort by");
-  const { resources, isFetching } = useResourcesQuery();
+  const { resources, isFetching, refetch, isRefetching } = useResourcesQuery();
   const disabledTools = useMemo(() => resources.length === 0, [resources]);
 
   const filteredResources = useMemo(() => {
@@ -152,6 +152,12 @@ export const LibraryPage = () => {
           ListHeaderComponent={renderHeader()}
           data={filteredResources}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetching}
+              onRefresh={() => refetch()}
+            />
+          }
           renderItem={({ item }) => {
             const {
               topic,

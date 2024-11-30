@@ -112,7 +112,7 @@ export const ResourceInfoQuizDetailPage = () => {
 
   const { mutateAsync: updateQuizAnswer } = useUpdateQuizAnswerMutation({
     onSuccess: async (response) => {
-      setResourceInfoState((prev) => ({ ...prev, quiz: response.data.quiz }));
+      setResourceInfoState((prev) => ({ ...prev, ...response.data }));
     },
     onError: (error) => {
       Toast.show({ type: "error", text1: error.message });
