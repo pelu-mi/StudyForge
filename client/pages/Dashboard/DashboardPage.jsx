@@ -2,6 +2,7 @@ import { useUser } from "@/context/UserProvider";
 import {
   FlatList,
   Pressable,
+  RefreshControl,
   ScrollView,
   TouchableOpacity,
   View,
@@ -22,12 +23,17 @@ export const DashboardPage = () => {
   const styles = useStyles(theme);
   const router = useRouter();
   const { data } = useOverviewQuery();
-  const { recentResources, recentAlerts } = useRecentListQuery();
+  const { recentResources, recentAlerts, refetch, isRefetching } =
+    useRecentListQuery();
 
   console.log("overview data", data);
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={isRefetching} onRefresh={() => refetch()} />
+      }
+    >
       <Pressable style={styles.container}>
         {/* Greeting */}
         <View style={[styles.greetingWrapper, styles.paddingHorizontal]}>
@@ -78,91 +84,95 @@ export const DashboardPage = () => {
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text
-            variant="titleMedium"
-            style={[styles.text, styles.paddingHorizontal]}
-          >
-            Recent Resources
-          </Text>
+        {recentResources.length > 0 && (
+          <View style={styles.section}>
+            <Text
+              variant="titleMedium"
+              style={[styles.text, styles.paddingHorizontal]}
+            >
+              Recent Resources
+            </Text>
 
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={recentResources}
-            renderItem={({ item }) => {
-              const {
-                topic,
-                title,
-                field,
-                levelOfStudy,
-                isQuizCompleted,
-                numberOfQuestions,
-                sourceType,
-              } = item;
-              return (
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={recentResources}
+              renderItem={({ item }) => {
+                const {
+                  topic,
+                  title,
+                  field,
+                  levelOfStudy,
+                  isQuizCompleted,
+                  numberOfQuestions,
+                  sourceType,
+                } = item;
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      router.push({
+                        pathname: `/(modals)/resourceInfo`,
+                        params: { resourceInfo: JSON.stringify(item) },
+                      });
+                    }}
+                    style={styles.card}
+                  >
+                    <ResourceItem
+                      {...{
+                        topic,
+                        title,
+                        field,
+                        levelOfStudy,
+                        isQuizCompleted,
+                        numberOfQuestions,
+                        sourceType,
+                      }}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+              keyExtractor={(item) => item._id}
+              contentContainerStyle={styles.listContentContainer}
+            />
+          </View>
+        )}
+
+        {recentAlerts.length > 0 && (
+          <View style={styles.section}>
+            <Text
+              variant="titleMedium"
+              style={[styles.text, styles.paddingHorizontal]}
+            >
+              Recent Study Alerts
+            </Text>
+
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={recentAlerts}
+              renderItem={({ item }) => (
                 <TouchableOpacity
-                  onPress={() => {
+                  onPress={() =>
                     router.push({
-                      pathname: `/(modals)/resourceInfo`,
-                      params: { resourceInfo: JSON.stringify(item) },
-                    });
-                  }}
+                      pathname: `/(modals)/studyAlerts/${item._id}`,
+                      params: { studyAlert: JSON.stringify(item) },
+                    })
+                  }
                   style={styles.card}
                 >
-                  <ResourceItem
-                    {...{
-                      topic,
-                      title,
-                      field,
-                      levelOfStudy,
-                      isQuizCompleted,
-                      numberOfQuestions,
-                      sourceType,
-                    }}
+                  <StudyAlertItem
+                    studyAlertId={item._id}
+                    time={item.time}
+                    days={item.day}
+                    status={item.status}
                   />
                 </TouchableOpacity>
-              );
-            }}
-            keyExtractor={(item) => item._id}
-            contentContainerStyle={styles.listContentContainer}
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text
-            variant="titleMedium"
-            style={[styles.text, styles.paddingHorizontal]}
-          >
-            Recent Study Alerts
-          </Text>
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={recentAlerts}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  router.push({
-                    pathname: `/(modals)/studyAlerts/${item._id}`,
-                    params: { studyAlert: JSON.stringify(item) },
-                  })
-                }
-                style={styles.card}
-              >
-                <StudyAlertItem
-                  studyAlertId={item._id}
-                  time={item.time}
-                  days={item.day}
-                  status={item.status}
-                />
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item._id}
-            contentContainerStyle={styles.listContentContainer}
-          />
-        </View>
+              )}
+              keyExtractor={(item) => item._id}
+              contentContainerStyle={styles.listContentContainer}
+            />
+          </View>
+        )}
       </Pressable>
     </ScrollView>
   );
