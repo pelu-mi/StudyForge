@@ -61,14 +61,16 @@ export const QuizItem = ({ number, status, question, onButtonPress }) => {
         <Text variant="titleSmall" style={styles.numberText}>
           # {number}
         </Text>
-        {status !== "notAttempt" && (
+        {status !== "not attempt" && (
           <View style={styles.status}>
             <MaterialCommunityIcons
               name={getIconName()}
               size={24}
               color={getIconColor()}
             />
-            <Text variant="labelLarge">Correct</Text>
+            <Text variant="labelLarge" style={{ textTransform: "capitalize" }}>
+              {status}
+            </Text>
           </View>
         )}
       </View>
@@ -92,7 +94,7 @@ export const QuizItem = ({ number, status, question, onButtonPress }) => {
 
 QuizItem.propTypes = {
   number: PropTypes.number.isRequired,
-  status: PropTypes.oneOf(["correct", "wrong", "notAttempt"]),
+  status: PropTypes.oneOf(["correct", "wrong", "not attempt"]),
   question: PropTypes.string.isRequired,
   onButtonPress: PropTypes.func,
 };

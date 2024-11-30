@@ -1,7 +1,5 @@
 import { BackButton } from "@/components/BackButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
-import { Alert, TouchableOpacity } from "react-native";
 
 export default function ModalsLayout() {
   return (
@@ -62,29 +60,10 @@ export default function ModalsLayout() {
       {/* Quiz Screen */}
       <Stack.Screen
         name="resourceInfo/quizzes/[quizId]"
-        options={({ navigation }) => ({
+        options={{
           title: "Quiz",
           presentation: "fullScreenModal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                Alert.alert("Are you sure you want to leave the quiz?", "", [
-                  {
-                    text: "Stay",
-                    style: "cancel",
-                  },
-                  {
-                    text: "Leave",
-                    style: "destructive",
-                    onPress: () => navigation.goBack(),
-                  },
-                ]);
-              }}
-            >
-              <MaterialCommunityIcons name="close" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
+        }}
       />
     </Stack>
   );

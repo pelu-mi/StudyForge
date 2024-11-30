@@ -1,27 +1,35 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ResourceInfoQuizDetailPage.styles";
 import { Button } from "@/components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SafeAreaView } from "@/components/SafeAreaView";
+import { useUpdateQuizAnswerMutation } from "@/services/api/quiz/useUpdateQuizAnswerMutation";
+import Toast from "react-native-toast-message";
 
 export const ResourceInfoQuizDetailPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
+  const navigation = useNavigation();
 
   const { quizId, selectedIndex, resourceInfo } = useLocalSearchParams();
-  const { quiz: quizzes, numberOfQuestions } = JSON.parse(resourceInfo);
+  const [resourceInfoState, setResourceInfoState] = useState(
+    JSON.parse(resourceInfo)
+  );
+  const { _id, quiz: quizzes, numberOfQuestions } = resourceInfoState;
   const parsedSelectedIndex = JSON.parse(selectedIndex);
   const [selectedOption, setSelectedOption] = useState("");
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isCheckedAnswer, setIsCheckedAnswer] = useState(false);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-  // console.log("quizzes", quizzes);
 
-  const quiz = quizzes.find((quiz) => quiz._id === quizId);
+  const quiz = useMemo(
+    () => quizzes.find((quiz) => quiz._id === quizId),
+    [quizzes, quizId]
+  );
   const { option_A, option_B, option_C, option_D } = quiz;
   const OPTIONS = [
     { key: "A", value: option_A },
@@ -29,6 +37,38 @@ export const ResourceInfoQuizDetailPage = () => {
     { key: "C", value: option_C },
     { key: "D", value: option_D },
   ];
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert("Are you sure you want to leave the quiz?", "", [
+              {
+                text: "Stay",
+                style: "cancel",
+              },
+              {
+                text: "Leave",
+                style: "destructive",
+                onPress: handleClose,
+              },
+            ]);
+          }}
+        >
+          <MaterialCommunityIcons name="close" size={24} color="black" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [handleClose, resourceInfoState, router, navigation, theme]);
+
+  useEffect(() => {
+    if (quiz.isAnsweredCorrectly === "correct") {
+      setSelectedOption(quiz.correct_option);
+      setIsAnswerCorrect(true);
+      setIsCheckedAnswer(true);
+    }
+  }, [quiz, setSelectedOption, setIsAnswerCorrect, setIsCheckedAnswer]);
 
   const isLastQuestion = useMemo(
     () => parsedSelectedIndex === quizzes.length - 1,
@@ -70,10 +110,29 @@ export const ResourceInfoQuizDetailPage = () => {
     }
   };
 
-  const handleCheckAnswer = () => {
+  const { mutateAsync: updateQuizAnswer } = useUpdateQuizAnswerMutation({
+    onSuccess: async (response) => {
+      setResourceInfoState((prev) => ({ ...prev, quiz: response.data.quiz }));
+    },
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
+
+  const handleCheckAnswer = async () => {
+    let questionStatus;
+
     setIsCheckedAnswer(true);
     setIsAnswerCorrect(selectedOption === quiz.correct_option);
-    console.log("isAnswerCorrect", isAnswerCorrect);
+
+    if (selectedOption === quiz.correct_option) {
+      questionStatus = "correct";
+    } else {
+      questionStatus = "wrong";
+    }
+
+    const payload = { resourceID: _id, quizID: quizId, data: questionStatus };
+    await updateQuizAnswer(payload);
   };
 
   const handleShowCorrectAnswer = () => {
@@ -83,16 +142,13 @@ export const ResourceInfoQuizDetailPage = () => {
   const handlePrev = () => {
     const previousIndex = parsedSelectedIndex - 1;
     const previousQuiz = quizzes[previousIndex];
-    console.log("quiz", quiz);
-    console.log("previousQuiz", previousQuiz);
     resetStates();
-    // Call api to get previous quiz and send
 
     router.push({
       pathname: `/(modals)/resourceInfo/quizzes/${previousQuiz._id}`,
       params: {
         selectedIndex: previousIndex,
-        resourceInfo,
+        resourceInfo: JSON.stringify(resourceInfoState),
       },
     });
   };
@@ -100,22 +156,23 @@ export const ResourceInfoQuizDetailPage = () => {
   const handleNext = () => {
     const nextIndex = parsedSelectedIndex + 1;
     const nextQuiz = quizzes[nextIndex];
-    console.log("quiz", quiz);
-    console.log("nextQuiz", nextQuiz);
     resetStates();
-    // Call api to get next quiz and send
 
     router.push({
       pathname: `/(modals)/resourceInfo/quizzes/${nextQuiz._id}`,
       params: {
         selectedIndex: nextIndex,
-        resourceInfo,
+        resourceInfo: JSON.stringify(resourceInfoState),
       },
     });
   };
 
   const handleClose = () => {
-    router.dismiss();
+    console.log("resourceInfoState", resourceInfoState);
+    router.dismissTo({
+      pathname: "/(modals)/resourceInfo/quizzes",
+      params: { resourceInfo: JSON.stringify(resourceInfoState) },
+    });
   };
 
   const renderPrimaryButton = () => {
