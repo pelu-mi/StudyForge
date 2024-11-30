@@ -37,6 +37,7 @@ export const useStyles = (theme) =>
       borderWidth: 1,
       gap: 14,
     },
+    optionValue: { flex: 1 },
     option: {
       borderColor: theme.colors.outline,
     },

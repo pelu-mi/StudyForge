@@ -26,4 +26,5 @@ export const UPDATE_RESOURCE_API_KEY = "/user/updateresource";
 export const DELETE_RESOURCE_API_KEY = "/user/deleteresource";
 
 // Quiz
+export const UPDATE_QUIZ_COMPLETION_API_KEY = "/quiz/updatequizcompletion";
 export const UPDATE_QUIZ_ANSWER_API_KEY = "/quiz/updatequizanswer";

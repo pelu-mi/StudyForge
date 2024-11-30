@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SafeAreaView } from "@/components/SafeAreaView";
 import { useUpdateQuizAnswerMutation } from "@/services/api/quiz/useUpdateQuizAnswerMutation";
 import Toast from "react-native-toast-message";
+import { useUpdateQuizCompletionMutation } from "@/services/api/quiz/useUpdateQuizCompletionMutation";
 
 export const ResourceInfoQuizDetailPage = () => {
   const theme = useTheme();
@@ -19,7 +20,12 @@ export const ResourceInfoQuizDetailPage = () => {
   const [resourceInfoState, setResourceInfoState] = useState(
     JSON.parse(resourceInfo)
   );
-  const { _id, quiz: quizzes, numberOfQuestions } = resourceInfoState;
+  const {
+    _id,
+    quiz: quizzes,
+    numberOfQuestions,
+    isQuizCompleted,
+  } = resourceInfoState;
   const parsedSelectedIndex = JSON.parse(selectedIndex);
   const [selectedOption, setSelectedOption] = useState("");
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
@@ -119,6 +125,17 @@ export const ResourceInfoQuizDetailPage = () => {
     },
   });
 
+  const { mutateAsync: updateQuizCompletion } = useUpdateQuizCompletionMutation(
+    {
+      onSuccess: async (response) => {
+        setResourceInfoState((prev) => ({ ...prev, ...response.data }));
+      },
+      onError: (error) => {
+        Toast.show({ type: "error", text1: error.message });
+      },
+    }
+  );
+
   const handleCheckAnswer = async () => {
     let questionStatus;
 
@@ -133,16 +150,22 @@ export const ResourceInfoQuizDetailPage = () => {
 
     const payload = { resourceID: _id, quizID: quizId, data: questionStatus };
     await updateQuizAnswer(payload);
-
-    // if all questions are "correct", set the quiz status to be completed
-    // const isCompleted = quizzes.every(
-    //   (quiz) => quiz.isAnsweredCorrectly === "correct"
-    // );
-
-    // if (isCompleted) {
-    //   await updateQuizCompletion({ resourceID: _id, data: "true" });
-    // }
   };
+
+  useEffect(() => {
+    const checkQuizCompletion = async () => {
+      // if all questions are "correct", set the quiz status to be completed
+      const isCompleted = quizzes.every(
+        (quiz) => quiz.isAnsweredCorrectly === "correct"
+      );
+
+      if (isCompleted && !isQuizCompleted) {
+        await updateQuizCompletion({ resourceID: _id, data: "true" });
+      }
+    };
+
+    checkQuizCompletion();
+  }, [resourceInfoState, quizzes, _id]);
 
   const handleShowCorrectAnswer = () => {
     setShowCorrectAnswer(!showCorrectAnswer);
@@ -282,7 +305,9 @@ export const ResourceInfoQuizDetailPage = () => {
             >
               <View style={[styles.optionBase, getOptionColor(option.key)]}>
                 <Text variant="titleMedium">{option.key}.</Text>
-                <Text variant="bodyLarge">{option.value}</Text>
+                <Text variant="bodyLarge" style={styles.optionValue}>
+                  {option.value}
+                </Text>
               </View>
             </TouchableOpacity>
           ))}
