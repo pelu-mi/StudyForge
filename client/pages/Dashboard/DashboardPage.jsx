@@ -16,17 +16,50 @@ import { useRouter } from "expo-router";
 import { useRecentListQuery } from "@/services/api/dashboard/useRecentListQuery";
 import { StudyAlertItem } from "../StudyAlerts/components/StudyAlertItem";
 import { useOverviewQuery } from "@/services/api/dashboard/useOverviewQuery";
+import { useMemo } from "react";
 
 export const DashboardPage = () => {
   const { user } = useUser();
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
-  const { data } = useOverviewQuery();
+  const { overview } = useOverviewQuery();
   const { recentResources, recentAlerts, refetch, isRefetching } =
     useRecentListQuery();
 
-  console.log("overview data", data);
+  const OVERVIEW = useMemo(
+    () => [
+      {
+        label: "Study Resources",
+        value: overview.resources,
+        iconName: "book-open-variant",
+        backgroundColor: theme.colors.onSurfacePrimary2,
+        borderColor: theme.colors.primary,
+      },
+      {
+        label: "Study Alerts",
+        value: overview.studyAlerts,
+        iconName: "notebook",
+        backgroundColor: theme.colors.onSurfaceSecondary,
+        borderColor: theme.colors.secondary,
+      },
+      {
+        label: "Ongoing Quizzes",
+        value: overview.uncompletedQuiz,
+        iconName: "lightning-bolt",
+        backgroundColor: theme.colors.onSurfaceWarning,
+        borderColor: theme.colors.warning,
+      },
+      {
+        label: "Completed Quizzes",
+        value: overview.completedQuiz,
+        iconName: "emoticon",
+        backgroundColor: theme.colors.onSurfaceSuccess,
+        borderColor: theme.colors.success,
+      },
+    ],
+    [overview]
+  );
 
   return (
     <ScrollView
@@ -47,40 +80,20 @@ export const DashboardPage = () => {
           <Text variant="titleMedium" style={styles.text}>
             Overview
           </Text>
-
           <View style={styles.overviewItemWrapper}>
-            <OverviewItem
-              label="Study Resources"
-              value={"3"}
-              iconName="book-open-variant"
-              backgroundColor={theme.colors.onSurfacePrimary2}
-              borderColor={theme.colors.primary}
-              style={{ width: overviewItemWidth }}
-            />
-            <OverviewItem
-              label="Study Sessions"
-              value={"2"}
-              iconName="notebook"
-              backgroundColor={theme.colors.onSurfaceSecondary}
-              borderColor={theme.colors.secondary}
-              style={{ width: overviewItemWidth }}
-            />
-            <OverviewItem
-              label="Ongoing Quizzes"
-              value={"2"}
-              iconName="lightning-bolt"
-              backgroundColor={theme.colors.onSurfaceWarning}
-              borderColor={theme.colors.warning}
-              style={{ width: overviewItemWidth }}
-            />
-            <OverviewItem
-              label="Completed Quizzes"
-              value={"1"}
-              iconName="emoticon"
-              backgroundColor={theme.colors.onSurfaceSuccess}
-              borderColor={theme.colors.success}
-              style={{ width: overviewItemWidth }}
-            />
+            {OVERVIEW.map((item, index) => {
+              const { label, value, iconName, backgroundColor, borderColor } =
+                item;
+
+              return (
+                <OverviewItem
+                  key={index}
+                  style={{ width: overviewItemWidth }}
+                  value={value ?? 0}
+                  {...{ label, iconName, backgroundColor, borderColor }}
+                />
+              );
+            })}
           </View>
         </View>
 

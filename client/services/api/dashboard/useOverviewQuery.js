@@ -6,6 +6,6 @@ export const useOverviewQuery = (options) => {
 
   return {
     ...rest,
-    data,
+    overview: data?.data ?? {},
   };
 };

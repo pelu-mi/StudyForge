@@ -37,7 +37,7 @@ export const OverviewItem = ({
 
 OverviewItem.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
   iconName: PropTypes.string,
   backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
