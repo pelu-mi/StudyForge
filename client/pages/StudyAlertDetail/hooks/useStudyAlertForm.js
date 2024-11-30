@@ -5,6 +5,16 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { object, string, array } from "yup";
 
+export const DAYS = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
 const validationSchema = object({
   day: array().of(string()),
   time: string(),
@@ -57,7 +67,11 @@ export const useStudyAlertForm = () => {
   });
 
   const onSubmit = async ({ day, time }) => {
-    let payload = { day, time };
+    const sortedDays = day.sort((a, b) => DAYS.indexOf(a) - DAYS.indexOf(b));
+
+    console.log("sortedDays", sortedDays);
+
+    let payload = { day: sortedDays, time };
 
     if (studyAlertId) {
       // update the study alert

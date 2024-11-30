@@ -3,21 +3,11 @@ import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./StudyAlertDetailPage.styles";
 import { useMemo } from "react";
-import { useStudyAlertForm } from "./hooks/useStudyAlertForm";
+import { DAYS, useStudyAlertForm } from "./hooks/useStudyAlertForm";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { FormTimePicker } from "@/components/Form/FormTimePicker/FormTimePicker";
 import { useDeleteStudyAlertMutation } from "@/services/api/studyAlerts/useDeleteStudyAlertMutation";
 import Toast from "react-native-toast-message";
-
-const DAYS = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
 
 export const StudyAlertDetailPage = () => {
   const { studyAlertId } = useLocalSearchParams();

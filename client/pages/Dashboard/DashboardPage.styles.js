@@ -44,4 +44,7 @@ export const useStyles = (theme) =>
       paddingHorizontal: 16,
       gap: 20,
     },
+    card: {
+      width: windowWidth * 0.82,
+    },
   });
