@@ -10,7 +10,7 @@ export const StudyAlertsPage = () => {
   const router = useRouter();
   const theme = useTheme();
   const styles = useStyles(theme);
-  const { studyAlerts } = useStudyAlertsQuery();
+  const { studyAlerts, isFetching } = useStudyAlertsQuery();
 
   return (
     <>
@@ -45,6 +45,7 @@ export const StudyAlertsPage = () => {
               iconName="alarm"
               message="No Study Alerts"
               containerStyle={{ marginTop: 100 }}
+              isLoading={isFetching}
             />
           }
         />

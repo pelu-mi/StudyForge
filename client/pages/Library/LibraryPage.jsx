@@ -24,7 +24,7 @@ export const LibraryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState(null);
   const [sortLabel, setSortLabel] = useState("Sort by");
-  const { resources } = useResourcesQuery();
+  const { resources, isFetching } = useResourcesQuery();
   const disabledTools = useMemo(() => resources.length === 0, [resources]);
 
   console.log("resources", resources);
@@ -194,6 +194,7 @@ export const LibraryPage = () => {
               iconName="book-open-variant"
               message="No Resources"
               containerStyle={{ marginTop: 80 }}
+              isLoading={isFetching}
             />
           }
         />
