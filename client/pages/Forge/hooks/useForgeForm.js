@@ -1,9 +1,12 @@
 /**
  * Import Modules
  */
+import { useLoading } from "@/context/LoadingProvider";
 import { useForm } from "@/hooks/useForm";
 import { useGenerateResourceMutation } from "@/services/api/forge/useGenerateResourceMutation";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 import { number, object, string } from "yup";
 
@@ -46,6 +49,9 @@ const validationSchema = object({
 
 export const useForgeForm = () => {
   const router = useRouter();
+  const { isLoading, setIsLoading } = useLoading();
+  const [showAlert, setShowAlert] = useState(false);
+
   const form = useForm({
     validationSchema,
     defaultValues: {
@@ -60,15 +66,58 @@ export const useForgeForm = () => {
     },
   });
 
-  const { mutateAsync: generateResource } = useGenerateResourceMutation({
-    onSuccess: (reponse) => {
-      Toast.show({ type: "success", text1: reponse.message });
-      router.push("/library");
-    },
-    onError: (error) => {
-      Toast.show({ type: "error", text1: error.message });
-    },
-  });
+  const { mutateAsync: generateResource, isPending } =
+    useGenerateResourceMutation({
+      onSuccess: (reponse) => {
+        Toast.show({ type: "success", text1: reponse.message });
+        if (isLoading) {
+          setIsLoading(false);
+          setShowAlert(false);
+          router.push("/library");
+        }
+      },
+      onError: (error) => {
+        setIsLoading(false);
+        setShowAlert(false);
+        Toast.show({ type: "error", text1: error.message });
+      },
+    });
+
+  useEffect(() => {
+    let timeoutId;
+    if (isPending) {
+      setIsLoading(isPending);
+      timeoutId = setTimeout(() => {
+        setShowAlert(true);
+      }, 5000);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isPending, setIsLoading, setShowAlert]);
+
+  useEffect(() => {
+    if (showAlert) {
+      Alert.alert("Generating a resource may take few minutes.", "", [
+        {
+          text: "Go to Library",
+          onPress: handleAlert,
+        },
+        {
+          text: "Continue Waiting",
+          style: "cancel",
+          onPress: () => setShowAlert(false),
+        },
+      ]);
+    }
+  }, [showAlert, router]);
+
+  const handleAlert = () => {
+    form.reset();
+    setIsLoading(false);
+    router.push("/library");
+  };
 
   const onSubmit = async ({
     title,
@@ -98,5 +147,6 @@ export const useForgeForm = () => {
   return {
     ...form,
     handleSubmit: form.handleSubmit(onSubmit),
+    isLoading,
   };
 };

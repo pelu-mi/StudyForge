@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { HelperText, Text, useTheme } from "react-native-paper";
+import {
+  ActivityIndicator,
+  HelperText,
+  Text,
+  useTheme,
+} from "react-native-paper";
 import { useStyles } from "./ForgePage.styles";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
@@ -25,6 +30,7 @@ export const ForgePage = () => {
     setValue,
     reset,
     formState: { errors },
+    isLoading,
   } = useForgeForm();
   const [showLevelOfStudy, setShowLevelOfStudy] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -95,8 +101,6 @@ export const ForgePage = () => {
       //  Conver PDF to text
       const response = await extractText(form);
       const extractedText = response.data.data;
-
-      console.log("extractedText", extractedText);
 
       // Set value
       setValue("generatedTextFromFile", extractedText);
@@ -321,7 +325,9 @@ export const ForgePage = () => {
           {renderSource()}
         </View>
 
-        <Button onPress={handleSubmit}>Forge</Button>
+        <Button onPress={handleSubmit} disabled={isLoading}>
+          {isLoading ? "Generating..." : "Forge"}
+        </Button>
       </Pressable>
     </SafeKeyboardScrollView>
   );

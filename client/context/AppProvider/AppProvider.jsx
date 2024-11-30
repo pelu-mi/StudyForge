@@ -5,6 +5,7 @@ import { UserProvider } from "../UserProvider";
 import { ToastProvider } from "../ToastProvider";
 import PropTypes from "prop-types";
 import { ColorModeProvider } from "../ColorModeProvider";
+import { LoadingProvider } from "../LoadingProvider";
 
 export const AppProvider = ({ children }) => {
   return (
@@ -12,9 +13,11 @@ export const AppProvider = ({ children }) => {
       <ColorModeProvider>
         <ThemeProvider>
           <UserProvider>
-            <KeyboardDismiss>
-              <ToastProvider>{children}</ToastProvider>
-            </KeyboardDismiss>
+            <LoadingProvider>
+              <KeyboardDismiss>
+                <ToastProvider>{children}</ToastProvider>
+              </KeyboardDismiss>
+            </LoadingProvider>
           </UserProvider>
         </ThemeProvider>
       </ColorModeProvider>
