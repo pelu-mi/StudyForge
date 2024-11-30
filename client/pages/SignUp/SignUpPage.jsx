@@ -75,7 +75,9 @@ export const SignUpPage = () => {
           <View style={loginStyles.signUpWrapper}>
             <Text variant="bodyMedium">Already have an account?</Text>
             <Button variant="link" labelStyle={loginStyles.signUpLink}>
-              <Link href="/login">Login</Link>
+              <Link dismissTo href="/login">
+                Login
+              </Link>
             </Button>
           </View>
         </View>
