@@ -10,11 +10,12 @@ import { getData } from "@/utils/getData";
 import { storeData } from "@/utils/storeData";
 import { useRouter } from "expo-router";
 import { useLoginMutation } from "@/services/api/user/useLoginMutation";
-import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
+import { deleteItemAsync, setItemAsync } from "expo-secure-store";
 import Toast from "react-native-toast-message";
-import { useSettings } from "@/hooks/useSettings";
-import * as LocalAuthentication from "expo-local-authentication";
-import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { useSettings } from "@/hooks/useSettings";
+// import * as LocalAuthentication from "expo-local-authentication";
+// import { Alert } from "react-native";
 
 const UserContext = createContext();
 
@@ -24,12 +25,12 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Initialize as null
   const router = useRouter();
-  const {
-    biometricAuth,
-    setIsBiometricSupported,
-    enableBiometricAuth,
-    availableBiometrics,
-  } = useSettings();
+  // const {
+  //   biometricAuth,
+  //   setIsBiometricSupported,
+  //   enableBiometricAuth,
+  //   availableBiometrics,
+  // } = useSettings();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -87,7 +88,7 @@ export const UserProvider = ({ children }) => {
 
   // Handle User Response
   const handleUserResponse = async (userResponse) => {
-    const { accessToken, email, password } = userResponse.data;
+    const { accessToken } = userResponse.data;
 
     await handleSetUser(userResponse);
 
@@ -100,7 +101,7 @@ export const UserProvider = ({ children }) => {
     //   LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION
     // );
 
-    console.log("availableBiometrics", availableBiometrics);
+    // console.log("availableBiometrics", availableBiometrics);
 
     // const isTouchIDAvailable = availableBiometrics.includes(
     //   LocalAuthentication.AuthenticationType.FINGERPRINT
@@ -131,57 +132,57 @@ export const UserProvider = ({ children }) => {
 
   // Log in
   const { mutateAsync: login, isPending: isLoginPending } = useLoginMutation({
-    onSuccess: async (response, variable) => {
-      console.log("response", response);
-      console.log("variable", variable);
+    onSuccess: async (response) => {
       await handleUserResponse(response);
     },
   });
 
-  const biometricLogin = async () => {
-    try {
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: "Log in with biometrics",
-        fallbackLabel: "Enter password",
-      });
+  // const biometricLogin = async () => {
+  //   try {
+  //     const result = await LocalAuthentication.authenticateAsync({
+  //       promptMessage: "Log in with biometrics",
+  //       fallbackLabel: "Enter password",
+  //     });
 
-      if (result.success) {
-        // Retrieve stored credentials
-        const storedEmail = await getItemAsync("userEmail");
-        const storedPassword = await getItemAsync("userPassword");
+  //     if (result.success) {
+  //       // Retrieve stored credentials
+  //       const storedEmail = await getItemAsync("userEmail");
+  //       const storedPassword = await getItemAsync("userPassword");
 
-        if (storedEmail && storedPassword) {
-          // Use these credentials to log in
-          await login({ email: storedEmail, password: storedPassword });
-        } else {
-          Toast.show({
-            type: "error",
-            text1: "No saved credentials found. Please log in manually.",
-          });
-          setIsBiometricSupported(false);
-        }
-      } else {
-        Toast.show({
-          type: "error",
-          text1: "Biometric authentication failed.",
-        });
-        setIsBiometricSupported(false);
-      }
-    } catch (error) {
-      console.log("Biometric authentication error:", error);
-      Toast.show({
-        type: "error",
-        text1: "An error occurred during biometric authentication.",
-      });
-      setIsBiometricSupported(false);
-    }
-  };
+  //       if (storedEmail && storedPassword) {
+  //         // Use these credentials to log in
+  //         await login({ email: storedEmail, password: storedPassword });
+  //       } else {
+  //         Toast.show({
+  //           type: "error",
+  //           text1: "No saved credentials found. Please log in manually.",
+  //         });
+  //         setIsBiometricSupported(false);
+  //       }
+  //     } else {
+  //       Toast.show({
+  //         type: "error",
+  //         text1: "Biometric authentication failed.",
+  //       });
+  //       setIsBiometricSupported(false);
+  //     }
+  //   } catch (error) {
+  //     console.log("Biometric authentication error:", error);
+  //     Toast.show({
+  //       type: "error",
+  //       text1: "An error occurred during biometric authentication.",
+  //     });
+  //     setIsBiometricSupported(false);
+  //   }
+  // };
 
   // Log out
   const logout = async () => {
-    await deleteItemAsync(ACCESS_USER_KEY);
-    await deleteItemAsync(ACCESS_TOKEN_KEY);
     setUser(null);
+    await AsyncStorage.clear(); // This will also clear the color mode
+    // await AsyncStorage.removeItem(ACCESS_USER_KEY);
+    await deleteItemAsync(ACCESS_TOKEN_KEY);
+
     router.replace("/login");
   };
 
@@ -191,7 +192,7 @@ export const UserProvider = ({ children }) => {
         user,
         signUp,
         login,
-        biometricLogin,
+        // biometricLogin,
         logout,
         loading: isSignUpPending || isLoginPending,
         handleSetUser,

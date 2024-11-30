@@ -1,11 +1,11 @@
 import { Button } from "@/components/Button";
 import { useUser } from "@/context/UserProvider";
-import { useSettings } from "@/hooks/useSettings";
+// import { useSettings } from "@/hooks/useSettings";
 import {
   Alert,
   Pressable,
   ScrollView,
-  Switch,
+  // Switch,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -19,8 +19,8 @@ import { useRouter } from "expo-router";
 
 export const ProfilePage = () => {
   const { user, logout } = useUser();
-  const { biometricAuth, enableBiometricAuth, isBiometricSupported } =
-    useSettings();
+  // const { biometricAuth, enableBiometricAuth, isBiometricSupported } =
+  // useSettings();
   const theme = useTheme();
   const { colorMode, changeColorMode } = useColorMode();
   const router = useRouter();
@@ -102,7 +102,9 @@ export const ProfilePage = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/(modals)/studyAlerts")}>
+          <TouchableOpacity
+            onPress={() => router.push("/(modals)/studyAlerts")}
+          >
             <View
               style={[
                 styles.listContainer,
@@ -194,7 +196,7 @@ export const ProfilePage = () => {
                 />
               </Menu>
             </View>
-            {isBiometricSupported && (
+            {/* {isBiometricSupported && (
               <View
                 style={[
                   styles.listContainer,
@@ -207,7 +209,7 @@ export const ProfilePage = () => {
                   onValueChange={() => enableBiometricAuth("FaceID")}
                 />
               </View>
-            )}
+            )} */}
           </View>
         </View>
         {/* Logout button */}
