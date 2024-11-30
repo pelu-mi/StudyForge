@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  ActivityIndicator,
-  HelperText,
-  Text,
-  useTheme,
-} from "react-native-paper";
+import { HelperText, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ForgePage.styles";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
