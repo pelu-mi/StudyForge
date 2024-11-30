@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
 import { FAB, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./StudyAlertsPage.styles";
 import { StudyAlertItem } from "./components/StudyAlertItem";
@@ -10,7 +10,8 @@ export const StudyAlertsPage = () => {
   const router = useRouter();
   const theme = useTheme();
   const styles = useStyles(theme);
-  const { studyAlerts, isFetching } = useStudyAlertsQuery();
+  const { studyAlerts, isFetching, refetch, isRefetching } =
+    useStudyAlertsQuery();
 
   return (
     <>
@@ -21,6 +22,12 @@ export const StudyAlertsPage = () => {
           }
           data={studyAlerts}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetching}
+              onRefresh={() => refetch()}
+            />
+          }
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() =>
