@@ -39,19 +39,19 @@ export const ResourceItem = ({
 
         <View style={styles.chipWrapper}>
           {sourceType && (
-            <Text variant="bodySmall" style={styles.chip}>
+            <Text variant="bodySmall" style={styles.chip} numberOfLines={1}>
               {sourceType} Source
             </Text>
           )}
 
           {field && (
-            <Text variant="bodySmall" style={styles.chip}>
+            <Text variant="bodySmall" style={styles.chip} numberOfLines={1}>
               {field}
             </Text>
           )}
 
           {levelOfStudy && (
-            <Text variant="bodySmall" style={styles.chip}>
+            <Text variant="bodySmall" style={styles.chip} numberOfLines={1}>
               {levelOfStudy}
             </Text>
           )}

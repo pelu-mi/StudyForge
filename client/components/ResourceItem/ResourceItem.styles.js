@@ -37,6 +37,7 @@ export const useStyles = (theme) =>
       borderRadius: 50,
       borderWidth: 1,
       borderColor: theme.colors.outlineVariant,
+      maxWidth: 160,
     },
     quizWrapper: {
       flexDirection: "row",
