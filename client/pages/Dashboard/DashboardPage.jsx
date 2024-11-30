@@ -4,7 +4,6 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
-  useWindowDimensions,
   View,
 } from "react-native";
 import { Text, useTheme } from "react-native-paper";
@@ -15,14 +14,17 @@ import { ResourceItem } from "@/components/ResourceItem";
 import { useRouter } from "expo-router";
 import { useRecentListQuery } from "@/services/api/dashboard/useRecentListQuery";
 import { StudyAlertItem } from "../StudyAlerts/components/StudyAlertItem";
+import { useOverviewQuery } from "@/services/api/dashboard/useOverviewQuery";
 
 export const DashboardPage = () => {
   const { user } = useUser();
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
-  const { width } = useWindowDimensions();
+  const { data } = useOverviewQuery();
   const { recentResources, recentAlerts } = useRecentListQuery();
+
+  console.log("overview data", data);
 
   return (
     <ScrollView>

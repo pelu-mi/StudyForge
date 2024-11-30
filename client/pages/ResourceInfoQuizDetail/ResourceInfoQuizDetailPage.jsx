@@ -133,6 +133,15 @@ export const ResourceInfoQuizDetailPage = () => {
 
     const payload = { resourceID: _id, quizID: quizId, data: questionStatus };
     await updateQuizAnswer(payload);
+
+    // if all questions are "correct", set the quiz status to be completed
+    // const isCompleted = quizzes.every(
+    //   (quiz) => quiz.isAnsweredCorrectly === "correct"
+    // );
+
+    // if (isCompleted) {
+    //   await updateQuizCompletion({ resourceID: _id, data: "true" });
+    // }
   };
 
   const handleShowCorrectAnswer = () => {
