@@ -26,6 +26,9 @@ const studyAlertSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
+    userEmail: {
+      type: String,
+    },
     status: {
       type: String,
       enum: ["active", "inactive"],
