@@ -27,8 +27,6 @@ export const LibraryPage = () => {
   const { resources, isFetching } = useResourcesQuery();
   const disabledTools = useMemo(() => resources.length === 0, [resources]);
 
-  console.log("resources", resources);
-
   const filteredResources = useMemo(() => {
     let filteredData = resources.filter((resource) =>
       resource.title.toLowerCase().includes(searchQuery.toLowerCase())

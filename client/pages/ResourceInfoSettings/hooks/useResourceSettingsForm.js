@@ -2,7 +2,9 @@
  * Import Modules
  */
 import { useForm } from "@/hooks/useForm";
-import { useLocalSearchParams } from "expo-router";
+import { useUpdateResourceMutation } from "@/services/api/library/useUpdateResourceMutation";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import Toast from "react-native-toast-message";
 import { object, string } from "yup";
 
 const validationSchema = object({
@@ -13,8 +15,10 @@ const validationSchema = object({
 });
 
 export const useResourceSettingsForm = () => {
+  const router = useRouter();
   const { resourceInfo } = useLocalSearchParams();
-  const { title, topic, field, levelOfStudy } = JSON.parse(resourceInfo);
+  const parsedResourceInfo = JSON.parse(resourceInfo);
+  const { _id, title, topic, field, levelOfStudy } = parsedResourceInfo;
 
   const defaultValues = { title, topic, field, levelOfStudy };
 
@@ -23,16 +27,38 @@ export const useResourceSettingsForm = () => {
     defaultValues,
   });
 
+  const { mutateAsync: updateResource } = useUpdateResourceMutation({
+    onSuccess: async (response) => {
+      Toast.show({
+        type: "success",
+        text1: response.message,
+      });
+      router.dismissTo({
+        pathname: "/(modals)/resourceInfo",
+        params: {
+          resourceInfo: JSON.stringify({
+            ...parsedResourceInfo,
+            ...response.data,
+          }),
+        },
+      });
+    },
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
+
   const onSubmit = async ({ title, topic, field, levelOfStudy }) => {
     const payload = {
+      resourceID: _id,
       title,
       topic,
       field,
       levelOfStudy,
     };
 
-    console.log("payload", payload);
     // call api
+    updateResource(payload);
   };
 
   return {

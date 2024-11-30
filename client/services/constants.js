@@ -17,4 +17,5 @@ export const EXTRACT_TEXT_API_KEY = "/user/upload"
 
 // Library
 export const GET_RESOURCES_API_KEY = "/user/getuserresources";
+export const UPDATE_RESOURCE_API_KEY = "/user/updateresource";
 export const DELETE_RESOURCE_API_KEY = "/user/deleteresource";

@@ -38,7 +38,7 @@ export const ResourceInfoPage = () => {
         </TouchableOpacity>
       ),
     });
-  }, [router, navigation, theme]);
+  }, [resourceInfo, router, navigation, theme]);
 
   const MATERIALS = [
     {

@@ -152,7 +152,6 @@ export const UserProvider = ({ children }) => {
 
         if (storedEmail && storedPassword) {
           // Use these credentials to log in
-          console.log("submit login fuck");
           await login({ email: storedEmail, password: storedPassword });
         } else {
           Toast.show({
