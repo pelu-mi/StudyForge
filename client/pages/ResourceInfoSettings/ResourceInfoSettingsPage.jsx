@@ -25,8 +25,7 @@ export const ResourceInfoSettingsPage = () => {
   const { mutateAsync: deleteResource } = useDeleteResourceMutation({
     onSuccess: (reponse) => {
       Toast.show({ type: "success", text1: reponse.message });
-      router.dismissAll();
-      router.replace("/library");
+      router.dismissTo("/library");
     },
     onError: (error) => {
       Toast.show({ type: "error", text1: error.message });
