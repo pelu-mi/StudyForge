@@ -336,8 +336,6 @@ async function getUserOverview(user) {
       studyAlerts: studyAlertCount,
       completedQuiz: completedQuizCount,
       uncompletedQuiz: uncompletedQuizCount,
-      userRecentResources: latestResources,
-      userRecentStudyAlerts: recentStudyAlerts,
     }
   );
 }
