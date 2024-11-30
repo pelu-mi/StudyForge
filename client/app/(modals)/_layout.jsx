@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/BackButton";
+import { LogoHeaderTitle } from "@/components/LogoHeaderTitle";
 import { Stack } from "expo-router";
 
 export default function ModalsLayout() {
@@ -63,6 +64,34 @@ export default function ModalsLayout() {
         options={{
           title: "Quiz",
           presentation: "fullScreenModal",
+        }}
+      />
+
+      {/* Study Alerts Screen */}
+      <Stack.Screen
+        name="studyAlerts/index"
+        options={{
+          title: "Study Alerts",
+          headerTitle: () => <LogoHeaderTitle />,
+          headerLeft: () => <BackButton />,
+        }}
+      />
+
+      {/* Add Study Alert Screen */}
+      <Stack.Screen
+        name="studyAlerts/addStudyAlert"
+        options={{
+          title: "Add Study Alerts",
+          headerLeft: () => <BackButton />,
+        }}
+      />
+
+      {/* Add Study Alert Screen */}
+      <Stack.Screen
+        name="studyAlerts/[studyAlertId]"
+        options={{
+          title: "Edit Study Alerts",
+          headerLeft: () => <BackButton />,
         }}
       />
     </Stack>

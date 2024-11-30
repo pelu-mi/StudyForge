@@ -35,34 +35,6 @@ export default function ProfileLayout() {
           headerLeft: () => <BackButton />,
         }}
       />
-
-      {/* Study Alerts Screen */}
-      <Stack.Screen
-        name="studyAlert/index"
-        options={{
-          title: "Study Alerts",
-          headerTitle: () => <LogoHeaderTitle />,
-          headerLeft: () => <BackButton />,
-        }}
-      />
-
-      {/* Add Study Alert Screen */}
-      <Stack.Screen
-        name="studyAlert/addStudyAlert"
-        options={{
-          title: "Add Study Alerts",
-          headerLeft: () => <BackButton />,
-        }}
-      />
-
-      {/* Add Study Alert Screen */}
-      <Stack.Screen
-        name="studyAlert/[studyAlertId]"
-        options={{
-          title: "Edit Study Alerts",
-          headerLeft: () => <BackButton />,
-        }}
-      />
     </Stack>
   );
 }

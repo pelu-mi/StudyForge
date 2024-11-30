@@ -25,7 +25,7 @@ export const StudyAlertsPage = () => {
             <TouchableOpacity
               onPress={() =>
                 router.push({
-                  pathname: `/profile/studyAlert/${item._id}`,
+                  pathname: `/(modals)/studyAlerts/${item._id}`,
                   params: { studyAlert: JSON.stringify(item) },
                 })
               }
@@ -55,7 +55,7 @@ export const StudyAlertsPage = () => {
         customSize={56}
         color={theme.colors.inverseOnSurface}
         style={styles.fab}
-        onPress={() => router.push("/profile/studyAlert/addStudyAlert")}
+        onPress={() => router.push("/(modals)/studyAlerts/addStudyAlert")}
       />
     </>
   );

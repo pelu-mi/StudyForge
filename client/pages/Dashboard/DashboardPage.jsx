@@ -143,7 +143,7 @@ export const DashboardPage = () => {
               <TouchableOpacity
                 onPress={() =>
                   router.push({
-                    pathname: `/profile/studyAlert/${item._id}`,
+                    pathname: `/(modals)/studyAlerts/${item._id}`,
                     params: { studyAlert: JSON.stringify(item) },
                   })
                 }

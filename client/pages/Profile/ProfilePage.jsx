@@ -102,7 +102,7 @@ export const ProfilePage = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/profile/studyAlert")}>
+          <TouchableOpacity onPress={() => router.push("/(modals)/studyAlerts")}>
             <View
               style={[
                 styles.listContainer,
