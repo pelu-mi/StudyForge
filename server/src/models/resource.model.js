@@ -75,8 +75,9 @@ const resourceSchema = mongoose.Schema(
           type: String,
         },
         isAnsweredCorrectly: {
-          type: Boolean,
-          default: false,
+          type: String,
+          enum: ["wrong", "correct", "not attempt"],
+          default: "not attempt",
         },
       },
     ],
