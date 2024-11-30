@@ -3,6 +3,7 @@ export const SIGN_UP_API_KEY = "/user/createaccount";
 export const LOGIN_API_KEY = "/user/login";
 export const GET_USER_API_KEY = "/user/getuser";
 export const UPDATE_USER_API_KEY = "/user/updateuser";
+export const CHANGE_PASSWORD_API_KEY = "/user/changepassword";
 
 // Study Alerts
 export const GET_STUDY_ALERTS_API_KEY = "/user/getuserstudyalerts";
@@ -13,7 +14,7 @@ export const DELETE_STUDY_ALERT_API_KEY = "/user/deletestudyalert";
 
 // Forge
 export const GENERATE_RESOURCE_API_KEY = "/user/forge";
-export const EXTRACT_TEXT_API_KEY = "/user/upload"
+export const EXTRACT_TEXT_API_KEY = "/user/upload";
 
 // Library
 export const GET_RESOURCES_API_KEY = "/user/getuserresources";

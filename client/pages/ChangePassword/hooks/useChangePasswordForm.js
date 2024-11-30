@@ -5,7 +5,7 @@ import { object, ref, string } from "yup";
 import { useForm } from "@/hooks/useForm";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
-import { useUser } from "@/context/UserProvider";
+import { useChangePasswordMutation } from "@/services/api/user/useChangePasswordMutation";
 
 /**
  * Validation for reset password form
@@ -27,28 +27,25 @@ const validationSchema = object({
  * @param {string} email - Email address of user that wants to reset password
  */
 export const useChangePasswordForm = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const form = useForm({ validationSchema });
-  const {
-    user: { email },
-  } = useUser();
 
   // Handle success and error
-  // const { mutateAsync: changePassword } = useChangePasswordMutation({
-  //   onSuccess: async (data) => {
-  //     Toast.show({ type: "success", text1: data.message });
-  //     router.back();
-  //   },
-  //   onError: (error) => {
-  //     Toast.show({ type: "error", text1: error.message });
-  //   },
-  // });
+  const { mutateAsync: changePassword } = useChangePasswordMutation({
+    onSuccess: async (data) => {
+      Toast.show({ type: "success", text1: data.message });
+      router.back();
+    },
+    onError: (error) => {
+      Toast.show({ type: "error", text1: error.message });
+    },
+  });
 
-  const onSubmit = async ({ currentPassword, newPassword }) => {
-    const payload = { email, currentPassword, newPassword };
+  const onSubmit = async ({ newPassword }) => {
+    const payload = { newPassword };
     console.log("payload", payload);
 
-    // await changePassword(payload);
+    await changePassword(payload);
   };
 
   return {
