@@ -4,6 +4,14 @@ import resource from "../models/resource.model.js";
 async function updateAnsweredCorrectly(payload) {
   const { resourceID, quizID, data } = payload;
 
+  const allowedValues = ["wrong", "correct", "not attempt"];
+  if (!allowedValues.includes(data)) {
+    return responses.buildFailureResponse(
+      "Invalid value for isAnsweredCorrectly",
+      400
+    );
+  }
+
   const foundQuiz = await resource.findOne({ _id: resourceID });
   if (!foundQuiz) {
     return responses.buildFailureResponse("This quiz doesn't exist", 400);
@@ -22,7 +30,6 @@ async function updateAnsweredCorrectly(payload) {
       arrayFilters: [{ "quiz._id": quizID }],
     }
   );
-
 
   const updatedField = await resource.findById(resourceID, {
     quiz: 1,
