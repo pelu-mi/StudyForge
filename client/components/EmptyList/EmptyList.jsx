@@ -8,6 +8,7 @@ export const EmptyList = ({
   containerStyle,
   iconName,
   icon,
+  iconSize = 120,
   message,
   isLoading = false,
 }) => {
@@ -26,7 +27,7 @@ export const EmptyList = ({
         ) : (
           <MaterialCommunityIcons
             name={iconName}
-            size={120}
+            size={iconSize}
             color={theme.colors.textSecondary}
           />
         )}
@@ -46,6 +47,7 @@ EmptyList.propTypes = {
   containerStyle: PropTypes.object,
   iconName: PropTypes.string,
   icon: PropTypes.node,
+  iconSize: PropTypes.number,
   message: PropTypes.string,
   isLoading: PropTypes.bool,
 };

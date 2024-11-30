@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 export const OverviewItem = ({
   label,
-  value,
+  value = 0,
   iconName,
   backgroundColor,
   borderColor,

@@ -14,7 +14,9 @@ export const overviewItemWidth =
   (windowWidth - totalHorizontalPadding - gapBetweenItems * numGaps) /
   numVisibleItems;
 
-export const useStyles = (theme) =>
+export const overviewEmptyItemWidth = windowWidth - totalHorizontalPadding;
+
+export const useStyles = () =>
   StyleSheet.create({
     container: {
       flexGrow: 1,

@@ -8,7 +8,11 @@ import {
   View,
 } from "react-native";
 import { Text, useTheme } from "react-native-paper";
-import { overviewItemWidth, useStyles } from "./DashboardPage.styles";
+import {
+  overviewEmptyItemWidth,
+  overviewItemWidth,
+  useStyles,
+} from "./DashboardPage.styles";
 
 import { OverviewItem } from "./units/OverviewItem";
 import { ResourceItem } from "@/components/ResourceItem";
@@ -17,15 +21,25 @@ import { useRecentListQuery } from "@/services/api/dashboard/useRecentListQuery"
 import { StudyAlertItem } from "../StudyAlerts/components/StudyAlertItem";
 import { useOverviewQuery } from "@/services/api/dashboard/useOverviewQuery";
 import { useMemo } from "react";
+import { EmptyList } from "@/components/EmptyList";
 
 export const DashboardPage = () => {
   const { user } = useUser();
   const theme = useTheme();
   const styles = useStyles(theme);
   const router = useRouter();
-  const { overview } = useOverviewQuery();
-  const { recentResources, recentAlerts, refetch, isRefetching } =
-    useRecentListQuery();
+  const {
+    overview,
+    refetch: refetchOverview,
+    isRefetching: isOverviewRefetching,
+  } = useOverviewQuery();
+  const {
+    recentResources,
+    recentAlerts,
+    isFetching: isRecentFetching,
+    refetch: refetchRecent,
+    isRefetching: isRecentRefetching,
+  } = useRecentListQuery();
 
   const OVERVIEW = useMemo(
     () => [
@@ -39,7 +53,7 @@ export const DashboardPage = () => {
       {
         label: "Study Alerts",
         value: overview.studyAlerts,
-        iconName: "notebook",
+        iconName: "alarm",
         backgroundColor: theme.colors.onSurfaceSecondary,
         borderColor: theme.colors.secondary,
       },
@@ -61,10 +75,18 @@ export const DashboardPage = () => {
     [overview]
   );
 
+  const handleRefresh = () => {
+    refetchOverview();
+    refetchRecent();
+  };
+
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={isRefetching} onRefresh={() => refetch()} />
+        <RefreshControl
+          refreshing={isRecentRefetching || isOverviewRefetching}
+          onRefresh={handleRefresh}
+        />
       }
     >
       <Pressable style={styles.container}>
@@ -89,103 +111,116 @@ export const DashboardPage = () => {
                 <OverviewItem
                   key={index}
                   style={{ width: overviewItemWidth }}
-                  value={value ?? 0}
-                  {...{ label, iconName, backgroundColor, borderColor }}
+                  {...{ label, value, iconName, backgroundColor, borderColor }}
                 />
               );
             })}
           </View>
         </View>
 
-        {recentResources.length > 0 && (
-          <View style={styles.section}>
-            <Text
-              variant="titleMedium"
-              style={[styles.text, styles.paddingHorizontal]}
-            >
-              Recent Resources
-            </Text>
+        <View style={styles.section}>
+          <Text
+            variant="titleMedium"
+            style={[styles.text, styles.paddingHorizontal]}
+          >
+            Recent Resources
+          </Text>
 
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={recentResources}
-              renderItem={({ item }) => {
-                const {
-                  topic,
-                  title,
-                  field,
-                  levelOfStudy,
-                  isQuizCompleted,
-                  numberOfQuestions,
-                  sourceType,
-                } = item;
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      router.push({
-                        pathname: `/(modals)/resourceInfo`,
-                        params: { resourceInfo: JSON.stringify(item) },
-                      });
-                    }}
-                    style={styles.card}
-                  >
-                    <ResourceItem
-                      {...{
-                        topic,
-                        title,
-                        field,
-                        levelOfStudy,
-                        isQuizCompleted,
-                        numberOfQuestions,
-                        sourceType,
-                      }}
-                    />
-                  </TouchableOpacity>
-                );
-              }}
-              keyExtractor={(item) => item._id}
-              contentContainerStyle={styles.listContentContainer}
-            />
-          </View>
-        )}
-
-        {recentAlerts.length > 0 && (
-          <View style={styles.section}>
-            <Text
-              variant="titleMedium"
-              style={[styles.text, styles.paddingHorizontal]}
-            >
-              Recent Study Alerts
-            </Text>
-
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={recentAlerts}
-              renderItem={({ item }) => (
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={recentResources}
+            renderItem={({ item }) => {
+              const {
+                topic,
+                title,
+                field,
+                levelOfStudy,
+                isQuizCompleted,
+                numberOfQuestions,
+                sourceType,
+              } = item;
+              return (
                 <TouchableOpacity
-                  onPress={() =>
+                  onPress={() => {
                     router.push({
-                      pathname: `/(modals)/studyAlerts/${item._id}`,
-                      params: { studyAlert: JSON.stringify(item) },
-                    })
-                  }
+                      pathname: `/(modals)/resourceInfo`,
+                      params: { resourceInfo: JSON.stringify(item) },
+                    });
+                  }}
                   style={styles.card}
                 >
-                  <StudyAlertItem
-                    studyAlertId={item._id}
-                    time={item.time}
-                    days={item.day}
-                    status={item.status}
+                  <ResourceItem
+                    {...{
+                      topic,
+                      title,
+                      field,
+                      levelOfStudy,
+                      isQuizCompleted,
+                      numberOfQuestions,
+                      sourceType,
+                    }}
                   />
                 </TouchableOpacity>
-              )}
-              keyExtractor={(item) => item._id}
-              contentContainerStyle={styles.listContentContainer}
-            />
-          </View>
-        )}
+              );
+            }}
+            keyExtractor={(item) => item._id}
+            contentContainerStyle={styles.listContentContainer}
+            ListEmptyComponent={
+              <EmptyList
+                iconName="book-open-variant"
+                iconSize={80}
+                message="No Resources"
+                containerStyle={{ width: overviewEmptyItemWidth }}
+                isLoading={isRecentFetching}
+              />
+            }
+          />
+        </View>
+
+        <View style={styles.section}>
+          <Text
+            variant="titleMedium"
+            style={[styles.text, styles.paddingHorizontal]}
+          >
+            Recent Study Alerts
+          </Text>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={recentAlerts}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: `/(modals)/studyAlerts/${item._id}`,
+                    params: { studyAlert: JSON.stringify(item) },
+                  })
+                }
+                style={styles.card}
+              >
+                <StudyAlertItem
+                  studyAlertId={item._id}
+                  time={item.time}
+                  days={item.day}
+                  status={item.status}
+                />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item._id}
+            contentContainerStyle={styles.listContentContainer}
+            ListEmptyComponent={
+              <EmptyList
+                iconName="alarm"
+                iconSize={80}
+                message="No Study Alerts"
+                containerStyle={{ width: overviewEmptyItemWidth }}
+                isLoading={isRecentFetching}
+              />
+            }
+          />
+        </View>
       </Pressable>
     </ScrollView>
   );
