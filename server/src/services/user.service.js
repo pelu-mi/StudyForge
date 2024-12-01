@@ -115,6 +115,7 @@ async function setStudyAlert(user, payload) {
   }
 
   payload.user = user._id;
+  payload.userEmail = user.email;
 
   const existingAlert = await studyAlert.findOne({
     user: user._id,
@@ -128,7 +129,6 @@ async function setStudyAlert(user, payload) {
       409
     );
   }
-
   const newAlert = await studyAlert.create(payload);
 
   return responses.buildSuccessResponse(
