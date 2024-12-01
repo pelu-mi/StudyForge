@@ -17,4 +17,8 @@ export const useStyles = (theme) =>
       borderColor: theme.colors.outline,
       gap: 6,
     },
+    menuError: {
+      borderWidth: 2,
+      borderColor: theme.colors.error,
+    },
   });

@@ -23,6 +23,7 @@ export const ForgePage = () => {
     handleSubmit,
     watch,
     setValue,
+    clearErrors,
     reset,
     formState: { errors },
     isLoading,
@@ -47,6 +48,9 @@ export const ForgePage = () => {
   const handleChangeLevelOfStudy = (value) => {
     setValue("levelOfStudy", value);
     setShowLevelOfStudy(false);
+    if (value !== "") {
+      clearErrors("levelOfStudy");
+    }
   };
 
   const handleEndEditingNumberOfQuestions = (event) => {
@@ -206,7 +210,7 @@ export const ForgePage = () => {
 
         <FormTextInput
           name="topic"
-          label="Topic"
+          label="Topic *"
           placeholder="e.g. Introductory Plant Biology"
           fullWidth
           {...{ control }}
@@ -214,7 +218,7 @@ export const ForgePage = () => {
 
         <FormTextInput
           name="field"
-          label="Field"
+          label="Field *"
           placeholder="e.g. Biology"
           fullWidth
           {...{ control }}
@@ -222,13 +226,14 @@ export const ForgePage = () => {
 
         {/* Level Of Study Picker */}
         <Menu
-          title="Level of Study"
+          title="Level of Study *"
           visible={showLevelOfStudy}
           setVisible={setShowLevelOfStudy}
           items={LEVEL_OF_STUDY}
           selectedItem={levelOfStudy}
           onSelect={handleChangeLevelOfStudy}
           placeholder="Select your level"
+          errorMessage={errors.levelOfStudy?.message}
         />
 
         {/* Number of Quiz Questions Slider */}

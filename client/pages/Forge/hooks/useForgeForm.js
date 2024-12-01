@@ -12,9 +12,9 @@ import { number, object, string } from "yup";
 
 const validationSchema = object({
   title: string().required("Resource title is required"),
-  topic: string(),
-  field: string(),
-  levelOfStudy: string(),
+  topic: string().required("Topic is required"),
+  field: string().required("Field is required"),
+  levelOfStudy: string().required("Level of study is required"),
   numberOfQuestions: number().positive().integer().min(10).max(40),
   sourceType: string(),
   textSource: string(),
