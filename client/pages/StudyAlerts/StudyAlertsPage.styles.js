@@ -9,14 +9,14 @@ export const useStyles = (theme) =>
     listContentContainer: {
       gap: 20,
       paddingTop: 20,
-      paddingBottom: 100,
+      paddingBottom: 120,
     },
     fab: {
       width: "auto",
       position: "absolute",
       margin: 16,
       right: 0,
-      bottom: 4,
+      bottom: 32,
       borderRadius: 50,
       backgroundColor: theme.colors.primary,
     },
