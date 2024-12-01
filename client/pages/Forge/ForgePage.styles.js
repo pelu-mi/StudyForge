@@ -59,10 +59,12 @@ export const useStyles = (theme) =>
     },
     fileLeftWrapper: {
       flexDirection: "row",
+      flex: 1,
       gap: 10,
     },
     fileLabel: {
       fontWeight: 600,
+      flex: 1,
     },
     sourceTextInput: {
       minHeight: 100,

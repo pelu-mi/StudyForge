@@ -133,7 +133,11 @@ export const ForgePage = () => {
               size={24}
               color={theme.colors.primary}
             />
-            <Text variant="titleMedium" style={styles.fileLabel}>
+            <Text
+              variant="titleMedium"
+              style={styles.fileLabel}
+              numberOfLines={1}
+            >
               {fileName}
             </Text>
           </View>
