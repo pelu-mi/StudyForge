@@ -326,7 +326,11 @@ export const ForgePage = () => {
           {renderSource()}
         </View>
 
-        <Button onPress={handleSubmit} disabled={isLoading}>
+        <Button
+          onPress={handleSubmit}
+          disabled={isLoading}
+          labelStyle={{ color: theme.colors.inverseOnSurface }}
+        >
           {isLoading ? "Generating..." : "Forge"}
         </Button>
       </Pressable>

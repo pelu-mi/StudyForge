@@ -14,8 +14,10 @@ import { useStyles } from "./LibraryPage.styles";
 import { TextInput } from "@/components/TextInput";
 import { ResourceItem } from "@/components/ResourceItem";
 import { useResourcesQuery } from "@/services/api/library/useResourcesQuery";
+import { useColorMode } from "@/context/ColorModeProvider";
 
 export const LibraryPage = () => {
+  const { colorMode } = useColorMode();
   const router = useRouter();
   const navigation = useNavigation();
   const theme = useTheme();
@@ -80,7 +82,12 @@ export const LibraryPage = () => {
 
       <View style={styles.toolsWrapper}>
         <TextInput
-          containerStyle={styles.searchTextInput}
+          containerStyle={styles.searchTextInputContainer}
+          style={
+            disabledTools && colorMode === "dark"
+              ? styles.searchDisabledTextInput
+              : {}
+          }
           left={
             <PaperTextInput.Icon
               icon="magnify"

@@ -62,7 +62,11 @@ export const ResourceInfoQuizDetailPage = () => {
             ]);
           }}
         >
-          <MaterialCommunityIcons name="close" size={24} color="black" />
+          <MaterialCommunityIcons
+            name="close"
+            size={24}
+            color={theme.colors.text}
+          />
         </TouchableOpacity>
       ),
     });

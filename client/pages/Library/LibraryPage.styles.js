@@ -17,8 +17,13 @@ export const useStyles = (theme) =>
       alignItems: "center",
       gap: 10,
     },
-    searchTextInput: {
+    searchTextInputContainer: {
       flex: 1,
+    },
+    searchDisabledTextInput: {
+      borderColor: theme.colors.outlineVariant2,
+      borderWidth: 1,
+      borderRadius: 10,
     },
     sortText: {
       color: theme.colors.onSurfaceVariant,
