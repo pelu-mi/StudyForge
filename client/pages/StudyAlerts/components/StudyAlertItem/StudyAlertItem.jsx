@@ -6,13 +6,17 @@ import { useStyles } from "./StudyAlertItem.styles";
 import Feather from "@expo/vector-icons/Feather";
 import { useUpdateStudyAlertMutation } from "@/services/api/studyAlerts/useUpdateStudyAlertMutation";
 import Toast from "react-native-toast-message";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const StudyAlertItem = ({ studyAlertId, time, days, status }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const formattedTime = dayjs(time).format("h:mm A");
   const [switchStatus, setSwitchStatus] = useState(status);
+
+  useEffect(() => {
+    setSwitchStatus(status);
+  }, [status]);
 
   const { mutateAsync: updateStudyAlert } = useUpdateStudyAlertMutation({
     onError: (error) => {
