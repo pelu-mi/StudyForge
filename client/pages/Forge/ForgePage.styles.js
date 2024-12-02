@@ -70,4 +70,18 @@ export const useStyles = (theme) =>
       minHeight: 100,
       maxHeight: 300,
     },
+    button: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 10,
+      paddingVertical: 8,
+      gap: 8,
+      backgroundColor: theme.colors.primaryContainer,
+    },
+    buttonText: {
+      color: theme.colors.primary,
+      fontSize: 16,
+      fontWeight: "600",
+    },
   });

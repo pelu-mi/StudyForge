@@ -152,19 +152,16 @@ export const ForgePage = () => {
         </View>
       ) : (
         <>
-          <Button
-            variant="tertiary"
-            onPress={handleSelectFile}
-            icon={({ color }) => (
-              <MaterialCommunityIcons
-                name="file-plus"
-                size={24}
-                color={color}
-              />
-            )}
-          >
-            Choose from files
-          </Button>
+          <TouchableOpacity onPress={handleSelectFile} style={styles.button}>
+            <MaterialCommunityIcons
+              name="file-plus"
+              size={24}
+              color={theme.colors.primary}
+            />
+            <Text variant="" style={styles.buttonText}>
+              Choose from files
+            </Text>
+          </TouchableOpacity>
           {errors.generatedTextFromFile?.message && (
             <HelperText type="error">
               {errors.generatedTextFromFile?.message}
