@@ -42,9 +42,8 @@ const sendScheduledMail = (payload) => {
 </head>
 <body>
   <div class="container">
-    <h1>Forgot Password</h1>
-    <p>I am sending you this email to remind you study. 😏</p>
-    <a class="button" href="#">Click To start studying </a>
+    <h1>TIME TO STUDY</h1>
+    <p>Get one more study session in and take a step towards your learning goals</p>
   </div>
 </body>
 </html>
@@ -52,7 +51,7 @@ const sendScheduledMail = (payload) => {
   const msg = {
     to: payload.to,
     from: {
-      name: "EMMANUEL",
+      name: "Study Forge",
       email: "aimuelemmanuel@gmail.com",
     },
     subject: payload.subject,
