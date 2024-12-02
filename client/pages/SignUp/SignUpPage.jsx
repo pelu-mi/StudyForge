@@ -1,4 +1,4 @@
-import { Image, useColorScheme, View } from "react-native";
+import { Image, View } from "react-native";
 import { Text } from "react-native-paper";
 import { styles as loginStyles } from "../Login/LoginPage.styles";
 import { styles } from "./SignUpPage.styles";
@@ -7,9 +7,10 @@ import { Link } from "expo-router";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useSignUpForm } from "./hooks/useSignUpForm";
+import { useColorMode } from "@/context/ColorModeProvider";
 
 export const SignUpPage = () => {
-  const colorScheme = useColorScheme();
+  const { colorMode } = useColorMode();
   const { control, handleSubmit } = useSignUpForm();
 
   return (
@@ -17,7 +18,7 @@ export const SignUpPage = () => {
       <View style={loginStyles.container}>
         <Image
           source={
-            colorScheme === "light"
+            colorMode === "light"
               ? require("@/assets/images/landscape-logo.png")
               : require("@/assets/images/landscape-logo-dark.png")
           }
