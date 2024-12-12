@@ -9,7 +9,7 @@ export const ResourceInfoPage = () => {
   const { resourceInfo } = useLocalSearchParams();
   const { title, topic, field, levelOfStudy, numberOfQuestions } =
     JSON.parse(resourceInfo);
-  console.log("resourceInfo", JSON.parse(resourceInfo));
+
   const INFOS = [
     { label: "Topic", value: topic },
     { label: "Field", value: field },

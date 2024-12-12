@@ -204,7 +204,6 @@ export const ResourceInfoQuizDetailPage = () => {
   };
 
   const handleClose = () => {
-    console.log("resourceInfoState", resourceInfoState);
     router.dismissTo({
       pathname: "/(modals)/resourceInfo/quizzes",
       params: { resourceInfo: JSON.stringify(resourceInfoState) },

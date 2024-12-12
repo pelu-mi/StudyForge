@@ -8,7 +8,6 @@ export default function TabLayout() {
   const { colorMode } = useColorMode();
   const { user } = useUser();
 
-  console.log("user", user);
   if (!user) {
     return <Redirect href="/login" />;
   }

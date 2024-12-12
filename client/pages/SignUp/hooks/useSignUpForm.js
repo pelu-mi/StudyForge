@@ -38,8 +38,6 @@ export const useSignUpForm = () => {
   const onSubmit = async ({ firstName, lastName, email, password }) => {
     const payload = { firstName, lastName, email, password };
 
-    // await createAccount(payload);
-    console.log("signup payload", payload);
     await signUp(payload);
   };
 

@@ -49,7 +49,6 @@ export const UserProvider = ({ children }) => {
           type: "success",
           text1: response.message,
         });
-        console.log("sign up successfully: ", response.message);
         router.dismiss();
       },
       onError: (error) => {
@@ -57,7 +56,6 @@ export const UserProvider = ({ children }) => {
           type: "error",
           text1: error.message,
         });
-        console.log("sign up error: ", error.message);
       },
     }
   );

@@ -139,7 +139,6 @@ export const useForgeForm = () => {
       generatedTextFromFile,
     };
 
-    console.log("payload", payload);
     // call api
     await generateResource(payload);
   };

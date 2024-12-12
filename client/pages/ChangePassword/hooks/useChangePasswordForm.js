@@ -43,7 +43,6 @@ export const useChangePasswordForm = () => {
 
   const onSubmit = async ({ newPassword }) => {
     const payload = { newPassword };
-    console.log("payload", payload);
 
     await changePassword(payload);
   };
