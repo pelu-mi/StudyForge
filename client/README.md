@@ -1,4 +1,3 @@
-
 # StudyForge - Client
 
 The client of this project was built with React Native working with Expo in Vite with HMR and some ESLint rules.
