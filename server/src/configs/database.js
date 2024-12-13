@@ -1,6 +1,12 @@
+/**
+ * Import Modules
+ */
 import mongoose from 'mongoose'
 
-
+/**
+ * Define function to connect to DB
+ * @param {string} ATLAS_URI - Environment variable
+ */
 const connectDB = async (ATLAS_URI) => {
 
   try {
@@ -12,5 +18,7 @@ const connectDB = async (ATLAS_URI) => {
   }
 };
 
-
+/**
+ * Export the function
+ */
 export default connectDB;

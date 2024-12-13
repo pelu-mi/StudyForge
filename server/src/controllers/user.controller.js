@@ -1,6 +1,16 @@
+/**
+ * Import Modules
+ */
 import usersServices from "../services/user.service.js";
 import extract from "../utils/extractText.js";
 
+
+/**
+ * createAccount - Create new account
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function createAccount(req, res) {
   try {
     const response = await usersServices.createAccount(req.body);
@@ -13,6 +23,12 @@ async function createAccount(req, res) {
   }
 }
 
+/**
+ * login - Login to existing account
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function login(req, res) {
   try {
     const response = await usersServices.login(req.body);
@@ -25,6 +41,12 @@ async function login(req, res) {
   }
 }
 
+/**
+ * createPublicKey - Create new public key
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function createPublicKey(req, res) {
   try {
     const response = await usersServices.createPublicKey(req.user, req.body);
@@ -37,6 +59,12 @@ async function createPublicKey(req, res) {
   }
 }
 
+/**
+ * verifyKey - Verify Public Key
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function verifyKey(req, res) {
   try {
     const response = await usersServices.verifyKey(req.user, req.body);
@@ -49,6 +77,12 @@ async function verifyKey(req, res) {
   }
 }
 
+/**
+ * getUser - Get User
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getUser(req, res) {
   try {
     const response = await usersServices.getUser(req.user);
@@ -61,6 +95,12 @@ async function getUser(req, res) {
   }
 }
 
+/**
+ * updateUser - Update existing user
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function updateUser(req, res) {
   try {
     const response = await usersServices.updateUser(req.user, req.body);
@@ -73,6 +113,12 @@ async function updateUser(req, res) {
   }
 }
 
+/**
+ * setStudyAlert - Set a study alert
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function setStudyAlert(req, res) {
   try {
     const response = await usersServices.setStudyAlert(req.user, req.body);
@@ -85,6 +131,12 @@ async function setStudyAlert(req, res) {
   }
 }
 
+/**
+ * generateResource - Generate a new Resource
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function generateResource(req, res) {
   try {
     const response = await usersServices.generateResource(req.user, req.body);
@@ -97,6 +149,12 @@ async function generateResource(req, res) {
   }
 }
 
+/**
+ * getUserStudyAlerts - Get all study alerts for a user
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getUserStudyAlerts(req, res) {
   try {
     const response = await usersServices.getUserStudyAlerts(req.user);
@@ -108,6 +166,13 @@ async function getUserStudyAlerts(req, res) {
     });
   }
 }
+
+/**
+ * getUserResources - Create all resources for a user
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getUserResources(req, res) {
   try {
     const response = await usersServices.getUserResources(req.user);
@@ -120,6 +185,12 @@ async function getUserResources(req, res) {
   }
 }
 
+/**
+ * getStudyAlert - Get a Study Alert
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getStudyAlert(req, res) {
   try {
     const response = await usersServices.getStudyAlert(req.params);
@@ -132,6 +203,12 @@ async function getStudyAlert(req, res) {
   }
 }
 
+/**
+ * deleteStudyAlert - Delete a study alert
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function deleteStudyAlert(req, res) {
   try {
     const response = await usersServices.deleteStudyAlert(req.body);
@@ -144,6 +221,12 @@ async function deleteStudyAlert(req, res) {
   }
 }
 
+/**
+ * deleteResource - Delete a Resoruce
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function deleteResource(req, res) {
   try {
     const response = await usersServices.deleteResource(req.body);
@@ -156,6 +239,12 @@ async function deleteResource(req, res) {
   }
 }
 
+/**
+ * updateStudyAlert - Update a study alert
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function updateStudyAlert(req, res) {
   try {
     const response = await usersServices.updateStudyAlert(req.user, req.body);
@@ -168,6 +257,12 @@ async function updateStudyAlert(req, res) {
   }
 }
 
+/**
+ * getResource - Get a resource
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getResource(req, res) {
   try {
     const response = await usersServices.getResource(req.params);
@@ -180,6 +275,12 @@ async function getResource(req, res) {
   }
 }
 
+/**
+ * extractTextFromPDF - Extract text from uploaded pdf
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 const extractTextFromPDF = async (req, res) => {
   const { file } = req;
   if (!file) {
@@ -202,6 +303,12 @@ const extractTextFromPDF = async (req, res) => {
   }
 };
 
+/**
+ * getUserOverview - Get user information for dashboard
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getUserOverview(req, res) {
   try {
     const response = await usersServices.getUserOverview(req.user);
@@ -214,6 +321,12 @@ async function getUserOverview(req, res) {
   }
 }
 
+/**
+ * getRecentResourcesAndAlerts - Get recent recources and alerts for a user
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function getRecentResourcesAndAlerts(req, res) {
   try {
     const response = await usersServices.getRecentResourcesAndAlerts(req.user);
@@ -226,7 +339,12 @@ async function getRecentResourcesAndAlerts(req, res) {
   }
 }
 
-
+/**
+ * updateResource - Update existing resource
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function updateResource(req, res) {
   try {
     const response = await usersServices.updateResource(req.user,req.body);
@@ -239,7 +357,12 @@ async function updateResource(req, res) {
   }
 }
 
-
+/**
+ * changePassword - Change user account password
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function changePassword(req, res) {
   try {
     const response = await usersServices.changePassword(req.user,req.body);
@@ -252,6 +375,9 @@ async function changePassword(req, res) {
   }
 }
 
+/**
+ * Export all functions
+ */
 export default {
   createAccount,
   login,

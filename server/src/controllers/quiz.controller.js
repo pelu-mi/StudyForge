@@ -1,6 +1,14 @@
+/**
+ * Import modules
+ */
 import quizService from "../services/quiz.service.js";
 
-
+/**
+ * updateAnsweredCorrectly - Update questions answered correctly
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function updateAnsweredCorrectly(req, res) {
   try {
     const response = await quizService.updateAnsweredCorrectly(req.body);
@@ -13,6 +21,12 @@ async function updateAnsweredCorrectly(req, res) {
   }
 }
 
+/**
+ * updateQuizCompletionStatus - Update quiz completion status
+ * 
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ */
 async function updateQuizCompletionStatus(req, res) {
     try {
       const response = await quizService.updateQuizCompletionStatus(req.body);
@@ -26,7 +40,9 @@ async function updateQuizCompletionStatus(req, res) {
   }
 
 
-
+/**
+ * Export all fuctions
+ */
 export default {
   updateAnsweredCorrectly,
   updateQuizCompletionStatus
