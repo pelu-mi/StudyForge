@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { getData } from "@/utils/getData";
 import { storeData } from "@/utils/storeData";
 import PropTypes from "prop-types";
@@ -8,6 +11,12 @@ export const COLOR_MODE_LOCAL_STORAGE_KEY = "colorMode";
 
 const ColorModeContext = createContext();
 
+/**
+ * ColorModeProvider
+ * 
+ * @param {*} props 
+ * @returns ColorModeProvider
+ */
 export const ColorModeProvider = ({ children }) => {
   const colorScheme = useColorScheme();
   const [colorMode, setColorMode] = useState("light");
@@ -51,6 +60,7 @@ export const ColorModeProvider = ({ children }) => {
  */
 export const useColorMode = () => useContext(ColorModeContext);
 
+// Specify types of props to be received by ColorModeProvider
 ColorModeProvider.propTypes = {
   children: PropTypes.node,
 };

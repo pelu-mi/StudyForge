@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+// Export Styles
 export const styles = StyleSheet.create({
   loading: {
     position: "absolute",

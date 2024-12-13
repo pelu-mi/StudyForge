@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import PropTypes from "prop-types";
 import { StatusBar } from "react-native";
 import Toast, { ErrorToast, SuccessToast } from "react-native-toast-message";
@@ -5,6 +8,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { styles } from "./ToastProvider.styles";
 import { useTheme } from "react-native-paper";
 
+/**
+ * ToastProvider
+ * 
+ * @param {*} props 
+ * @returns ToastProvider
+ */
 export const ToastProvider = ({ children }) => {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
@@ -48,6 +57,7 @@ export const ToastProvider = ({ children }) => {
   );
 };
 
+// Specify types of props to be received by ToastProvider
 ToastProvider.propTypes = {
   children: PropTypes.node,
 };

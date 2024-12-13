@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import { PaperProvider, Text, adaptNavigationTheme } from "react-native-paper";
@@ -12,6 +15,12 @@ import merge from "deepmerge";
 import PropTypes from "prop-types";
 import { useColorMode } from "../ColorModeProvider";
 
+/**
+ * ThemeProvider
+ * 
+ * @param {*} props 
+ * @returns ThemeProvider
+ */
 export const ThemeProvider = ({ children }) => {
   const [fontsLoaded] = useFonts({
     Inter: require("../../assets/fonts/Inter-VariableFont_opsz,wght.ttf"),
@@ -44,6 +53,7 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
+// Specify types of props to be used by ThemeProvider
 ThemeProvider.propTypes = {
   children: PropTypes.node,
 };
