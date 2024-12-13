@@ -1,8 +1,17 @@
+/**
+ * Import Modules
+ */
 import PropTypes from "prop-types";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ResourceItem.styles";
 
+/**
+ * ResourceItem - Resource Item
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 export const ResourceItem = ({
   topic,
   title,
@@ -84,6 +93,7 @@ export const ResourceItem = ({
   );
 };
 
+// Specify types of props to be received by ResourceItem
 ResourceItem.propTypes = {
   topic: PropTypes.string,
   title: PropTypes.string.isRequired,

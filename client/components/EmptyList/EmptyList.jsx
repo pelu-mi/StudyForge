@@ -1,9 +1,18 @@
+/**
+ * Import Modules
+ */
 import PropTypes from "prop-types";
 import { View } from "react-native";
 import { ActivityIndicator, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./EmptyList.styles";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+/**
+ * EmptyList - Specify the format for empty lists
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 export const EmptyList = ({
   containerStyle,
   iconName,
@@ -43,6 +52,7 @@ export const EmptyList = ({
   );
 };
 
+// Specify the types of props to be received by EmptyList
 EmptyList.propTypes = {
   containerStyle: PropTypes.object,
   iconName: PropTypes.string,

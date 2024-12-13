@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { TouchableOpacity, View } from "react-native";
 import {
   HelperText,
@@ -9,6 +12,12 @@ import { useStyles } from "./Menu.styles";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+/**
+ * Menu - Specify Menu
+ * 
+ * @param {*} props 
+ * @returns Menu
+ */
 export const Menu = ({
   visible,
   setVisible,
@@ -86,6 +95,7 @@ export const Menu = ({
   );
 };
 
+// Specify types of props to be received by Menu
 Menu.propTypes = {
   visible: PropTypes.bool.isRequired,
   setVisible: PropTypes.func.isRequired,

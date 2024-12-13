@@ -1,6 +1,15 @@
+/**
+ * Import Modules
+ */
 import Svg, { Path } from "react-native-svg";
 import PropTypes from "prop-types";
 
+/**
+ * FaceIDIcon - Specify format for FaceID Icons
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 export const FaceIDIcon = ({
   fill = "#2794D8",
   width = 24,
@@ -21,6 +30,7 @@ export const FaceIDIcon = ({
   </Svg>
 );
 
+// Specify types of props to be received by FaceID Icon
 FaceIDIcon.propTypes = {
   fill: PropTypes.string,
   width: PropTypes.number,

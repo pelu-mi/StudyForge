@@ -1,8 +1,17 @@
+/**
+ * Import Modules
+ */
 import { Link } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import PropTypes from "prop-types";
 import { Platform } from "react-native";
 
+/**
+ * ExternalLink
+ * 
+ * @param {*} props 
+ * @returns ExternalLink
+ */
 export function ExternalLink({ href, ...rest }) {
   return (
     <Link
@@ -21,6 +30,7 @@ export function ExternalLink({ href, ...rest }) {
   );
 }
 
+// Specify types of props to be received by ExternalLink
 ExternalLink.propTypes = {
   href: PropTypes.string,
 };

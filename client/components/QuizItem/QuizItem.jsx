@@ -1,9 +1,18 @@
+/**
+ * Import Modules
+ */
 import { TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./QuizItem.styles";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+/**
+ * QuizItem - Specify interface for each question
+ * 
+ * @param {*} props 
+ * @returns QuizItem
+ */
 export const QuizItem = ({ number, status, question, onButtonPress }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
@@ -92,6 +101,7 @@ export const QuizItem = ({ number, status, question, onButtonPress }) => {
   );
 };
 
+// Specify types of props to be received by QuizItem
 QuizItem.propTypes = {
   number: PropTypes.number.isRequired,
   status: PropTypes.oneOf(["correct", "wrong", "not attempt"]),

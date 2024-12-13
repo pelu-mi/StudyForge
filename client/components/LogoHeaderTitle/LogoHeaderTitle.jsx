@@ -1,6 +1,14 @@
+/**
+ * Import Modules
+ */
 import { useColorMode } from "@/context/ColorModeProvider";
 import { Image } from "react-native";
 
+/**
+ * LogoHeaderTitle - Specify LogoHeaderTitle
+ * 
+ * @returns LogoHeaderTitle
+ */
 export const LogoHeaderTitle = () => {
   const { colorMode } = useColorMode();
 
