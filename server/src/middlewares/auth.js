@@ -13,6 +13,7 @@ const authenticate = async (req, res, next) => {
         status: "failure",
       });
     }
+    // Find user using JWT token
     const token = authorization.substring(7);
 
     const decodedUser = await jwt.decode(token);
@@ -28,10 +29,10 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-/**
- * Export all functions
- */
 
+/**
+ * Export the function
+ */
 export default {
   authenticate,
 };
