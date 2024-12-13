@@ -71,7 +71,7 @@ To learn more about developing your project with Expo, look at the following res
 <!-- CONTACT -->
 ## Authors
 
-**James Kanin** - [@kaninnoothep](https://github.com/kaninnoothep) - -   [kaninnoothep@gmail.com](mailto:kaninnoothep@gmail.com)
+**Kanin Noothep** - [@kaninnoothep](https://github.com/kaninnoothep) - -   [kaninnoothep@gmail.com](mailto:kaninnoothep@gmail.com)
 
 **Emmanuel Aimuel** - [@Daxtterr](https://github.com/Daxtterr) - [aimuelemmanuel@gmail.com](mailto:aimuelemmanuel@gmail.com)
 
