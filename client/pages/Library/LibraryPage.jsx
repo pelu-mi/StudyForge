@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyList } from "@/components/EmptyList";
 import { useNavigation, useRouter } from "expo-router";
@@ -16,6 +19,11 @@ import { ResourceItem } from "@/components/ResourceItem";
 import { useResourcesQuery } from "@/services/api/library/useResourcesQuery";
 import { useColorMode } from "@/context/ColorModeProvider";
 
+/**
+ * LibraryPage
+ * 
+ * @returns LibraryPage
+ */
 export const LibraryPage = () => {
   const { colorMode } = useColorMode();
   const router = useRouter();

@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { Menu } from "@/components/Menu";
@@ -12,6 +15,11 @@ import { useDeleteResourceMutation } from "@/services/api/library/useDeleteResou
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 
+/**
+ * ResourceInfoSettingsPage
+ * 
+ * @returns ResourceInfoSettingsPage
+ */
 export const ResourceInfoSettingsPage = () => {
   const router = useRouter();
   const { resourceInfo } = useLocalSearchParams();

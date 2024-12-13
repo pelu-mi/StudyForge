@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Button } from "@/components/Button";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
@@ -9,6 +12,11 @@ import { FormTimePicker } from "@/components/Form/FormTimePicker/FormTimePicker"
 import { useDeleteStudyAlertMutation } from "@/services/api/studyAlerts/useDeleteStudyAlertMutation";
 import Toast from "react-native-toast-message";
 
+/**
+ * StudyAlertDetailPage
+ * 
+ * @returns StudyAlertDetailPage
+ */
 export const StudyAlertDetailPage = () => {
   const { studyAlertId } = useLocalSearchParams();
   const theme = useTheme();

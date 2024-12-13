@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useRouter } from "expo-router";
 import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
 import { FAB, Text, useTheme } from "react-native-paper";
@@ -6,6 +9,11 @@ import { StudyAlertItem } from "./components/StudyAlertItem";
 import { useStudyAlertsQuery } from "@/services/api/studyAlerts/useStudyAlertsQuery";
 import { EmptyList } from "@/components/EmptyList";
 
+/**
+ * StudyAlertsPage
+ * 
+ * @returns StudyAlertsPage
+ */
 export const StudyAlertsPage = () => {
   const router = useRouter();
   const theme = useTheme();

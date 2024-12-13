@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Dimensions, StyleSheet } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -16,6 +19,9 @@ export const overviewItemWidth =
 
 export const overviewEmptyItemWidth = windowWidth - totalHorizontalPadding;
 
+/**
+ * Specify Styles to use
+ */
 export const useStyles = () =>
   StyleSheet.create({
     container: {

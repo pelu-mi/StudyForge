@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useForm } from "@/hooks/useForm";
 import { useAddStudyAlertMutation } from "@/services/api/studyAlerts/useAddStudyAlertMutation";
 import { useUpdateStudyAlertMutation } from "@/services/api/studyAlerts/useUpdateStudyAlertMutation";
@@ -20,6 +23,11 @@ const validationSchema = object({
   time: string(),
 });
 
+/**
+ * useStudyAlertForm
+ * 
+ * @returns useStudyAlertForm
+ */
 export const useStudyAlertForm = () => {
   const router = useRouter();
   const { studyAlertId, studyAlert } = useLocalSearchParams();

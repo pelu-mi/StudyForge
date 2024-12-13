@@ -1,5 +1,11 @@
+/**
+ * Import Module
+ */
 import { StyleSheet } from "react-native";
 
+/**
+ * Styles to use
+ */
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

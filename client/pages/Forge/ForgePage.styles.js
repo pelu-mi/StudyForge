@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Dimensions, StyleSheet } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -8,6 +11,12 @@ const gapBetweenItems = 24;
 const sliderWidth =
   0.8 * windowWidth - (gapBetweenItems + totalHorizontalPadding);
 
+/**
+ * useStyles - Styles to use
+ * 
+ * @param {*} theme 
+ * @returns useStyles
+ */
 export const useStyles = (theme) =>
   StyleSheet.create({
     container: {

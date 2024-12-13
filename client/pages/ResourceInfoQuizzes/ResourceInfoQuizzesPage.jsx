@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { FlatList, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
@@ -7,6 +10,11 @@ import { EmptyList } from "@/components/EmptyList";
 import { useEffect } from "react";
 import { BackButton } from "@/components/BackButton";
 
+/**
+ * ResourceInfoQuizzesPage
+ * 
+ * @returns ResourceInfoQuizzesPage
+ */
 export const ResourceInfoQuizzesPage = () => {
   const router = useRouter();
   const navigation = useNavigation();

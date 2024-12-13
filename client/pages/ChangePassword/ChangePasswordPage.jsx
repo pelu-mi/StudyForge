@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { useChangePasswordForm } from "./hooks/useChangePasswordForm";
@@ -5,6 +8,11 @@ import { styles } from "./ChangePasswordPage.styles";
 import { Button } from "@/components/Button";
 import { Pressable } from "react-native";
 
+/**
+ * ChangePasswordPage
+ * 
+ * @returns ChangePasswordPage
+ */
 export const ChangePasswordPage = () => {
   const { control, handleSubmit } = useChangePasswordForm();
 

@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Dimensions, StyleSheet } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -11,6 +14,12 @@ const buttonWidth =
   (windowWidth - totalHorizontalPadding - gapBetweenItems * numGaps) /
   numVisibleItems;
 
+/**
+ * useStyles - Specify styles to use
+ * 
+ * @param {*} theme 
+ * @returns useStyles
+ */
 export const useStyles = (theme) =>
   StyleSheet.create({
     container: {

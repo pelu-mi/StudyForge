@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { TouchableOpacity, View, ScrollView, Pressable } from "react-native";
 import { Text, useTheme } from "react-native-paper";
@@ -5,6 +8,11 @@ import { useStyles } from "./ResourceInfoPage.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect } from "react";
 
+/**
+ * ResourceInfoPage
+ * 
+ * @returns ResourceInfoPage
+ */
 export const ResourceInfoPage = () => {
   const { resourceInfo } = useLocalSearchParams();
   const { title, topic, field, levelOfStudy, numberOfQuestions } =

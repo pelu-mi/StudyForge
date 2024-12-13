@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useEditProfileForm } from "./hooks/useEditProfileForm";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
@@ -7,6 +10,11 @@ import { Avatar, useTheme } from "react-native-paper";
 import { useUser } from "@/context/UserProvider";
 import { View } from "react-native";
 
+/**
+ * AccountPage
+ * 
+ * @returns AccountPage
+ */
 export const AccountPage = () => {
   const { user } = useUser();
   const theme = useTheme();

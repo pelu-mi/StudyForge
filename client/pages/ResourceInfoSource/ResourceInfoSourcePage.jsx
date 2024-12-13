@@ -1,8 +1,16 @@
+/**
+ * Import Modules
+ */
 import { useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./ResourceInfoSourcePage.styles";
 
+/**
+ * ResourceInfoSourcePage
+ * 
+ * @returns ResourceInfoSourcePage
+ */
 export const ResourceInfoSourcePage = () => {
   const { resourceInfo } = useLocalSearchParams();
   const { textSource, generatedTextFromFile } = JSON.parse(resourceInfo);

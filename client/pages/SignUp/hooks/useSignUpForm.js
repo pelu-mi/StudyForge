@@ -21,6 +21,11 @@ const validationSchema = object({
     .oneOf([ref("password"), undefined], "Passwords must match"),
 });
 
+/**
+ * useSignupForm
+ * 
+ * @returns useSignupForm
+ */
 export const useSignUpForm = () => {
   const { signUp } = useUser();
 

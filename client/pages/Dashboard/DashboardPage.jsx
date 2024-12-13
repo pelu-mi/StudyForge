@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useUser } from "@/context/UserProvider";
 import {
   FlatList,
@@ -23,6 +26,11 @@ import { useOverviewQuery } from "@/services/api/dashboard/useOverviewQuery";
 import { useMemo } from "react";
 import { EmptyList } from "@/components/EmptyList";
 
+/**
+ * DashboardPage
+ * 
+ * @returns DashboardPage
+ */
 export const DashboardPage = () => {
   const { user } = useUser();
   const theme = useTheme();

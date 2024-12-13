@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { Switch, View } from "react-native";
@@ -8,6 +11,12 @@ import { useUpdateStudyAlertMutation } from "@/services/api/studyAlerts/useUpdat
 import Toast from "react-native-toast-message";
 import { useEffect, useState } from "react";
 
+/**
+ * StudyAlertItem
+ * 
+ * @param {*} props 
+ * @returns StudyAlertItem
+ */
 export const StudyAlertItem = ({ studyAlertId, time, days, status }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
@@ -76,6 +85,7 @@ export const StudyAlertItem = ({ studyAlertId, time, days, status }) => {
   );
 };
 
+// Specify props types to be received by StudyAlertItem
 StudyAlertItem.propTypes = {
   studyAlertId: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,

@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useEffect, useMemo, useState } from "react";
 import { HelperText, Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ForgePage.styles";
@@ -17,6 +20,11 @@ import Toast from "react-native-toast-message";
 
 export const LEVEL_OF_STUDY = ["High School", "Undergraduate", "Graduate"];
 
+/**
+ * ForgePage
+ * 
+ * @returns ForgePage
+ */
 export const ForgePage = () => {
   const {
     control,

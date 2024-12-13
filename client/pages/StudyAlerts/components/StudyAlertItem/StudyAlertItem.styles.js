@@ -1,5 +1,11 @@
 import { StyleSheet } from "react-native";
 
+/**
+ * useStyles - Specfy styles to use
+ * 
+ * @param {*} theme 
+ * @returns useStyles
+ */
 export const useStyles = (theme) =>
   StyleSheet.create({
     alertContainer: {

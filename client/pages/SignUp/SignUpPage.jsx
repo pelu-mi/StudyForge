@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Image, View } from "react-native";
 import { Text } from "react-native-paper";
 import { styles as loginStyles } from "../Login/LoginPage.styles";
@@ -9,6 +12,11 @@ import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useSignUpForm } from "./hooks/useSignUpForm";
 import { useColorMode } from "@/context/ColorModeProvider";
 
+/**
+ * SignUpPage
+ * 
+ * @returns SignUpPage
+ */
 export const SignUpPage = () => {
   const { colorMode } = useColorMode();
   const { control, handleSubmit } = useSignUpForm();

@@ -1,5 +1,11 @@
+/**
+ * Import Module
+ */
 import { StyleSheet } from "react-native";
 
+/**
+ * Specify styles to use
+ */
 export const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,

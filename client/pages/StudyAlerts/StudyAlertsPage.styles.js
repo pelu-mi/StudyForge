@@ -1,5 +1,11 @@
 import { StyleSheet } from "react-native";
 
+/**
+ * useStyles - Styles to use
+ * 
+ * @param {*} theme 
+ * @returns useStyles
+ */
 export const useStyles = (theme) =>
   StyleSheet.create({
     container: {

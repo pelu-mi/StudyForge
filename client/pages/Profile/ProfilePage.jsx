@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { Button } from "@/components/Button";
 import { useUser } from "@/context/UserProvider";
 import {
@@ -15,6 +18,11 @@ import { useState } from "react";
 import { useColorMode } from "@/context/ColorModeProvider";
 import { useRouter } from "expo-router";
 
+/**
+ * ProfilePage
+ * 
+ * @returns ProfilePage
+ */
 export const ProfilePage = () => {
   const { user, logout } = useUser();
   const theme = useTheme();

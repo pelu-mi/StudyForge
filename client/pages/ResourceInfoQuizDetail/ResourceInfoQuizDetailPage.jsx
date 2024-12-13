@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
@@ -10,6 +13,11 @@ import { useUpdateQuizAnswerMutation } from "@/services/api/quiz/useUpdateQuizAn
 import Toast from "react-native-toast-message";
 import { useUpdateQuizCompletionMutation } from "@/services/api/quiz/useUpdateQuizCompletionMutation";
 
+/**
+ * ResourceInfoQuizDetailPage
+ * 
+ * @returns ResourceInfoQuizDetailPage
+ */
 export const ResourceInfoQuizDetailPage = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
