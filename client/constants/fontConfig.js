@@ -1,6 +1,9 @@
 // src/constants/fontConfig.js
 import { Platform } from "react-native";
 
+/**
+ * Export Font configuration
+ */
 export const fontConfig = {
   fontFamily: "Inter",
   displayLarge: { fontWeight: "700" },
