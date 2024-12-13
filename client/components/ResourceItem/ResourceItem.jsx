@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
 import { View } from "react-native";
-import {
-  // ProgressBar,
-  Text,
-  useTheme,
-} from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { useStyles } from "./ResourceItem.styles";
 
 export const ResourceItem = ({
@@ -19,11 +15,6 @@ export const ResourceItem = ({
 }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
-
-  // const progressValue = useMemo(
-  //   () => Math.round((completedQuiz / numberOfQuestions) * 100) / 100,
-  //   [completedQuiz, numberOfQuestions]
-  // );
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -88,13 +79,6 @@ export const ResourceItem = ({
             {isQuizCompleted ? "Completed" : "Ongoing"}
           </Text>
         </View>
-
-        {/* <ProgressBar
-          progress={progressValue}
-          color={isQuizCompleted ? theme.colors.success : theme.colors.primary}
-          theme={{ colors: { surfaceVariant: theme.colors.progressBarTrack } }}
-          style={styles.progressBar}
-        /> */}
       </View>
     </View>
   );

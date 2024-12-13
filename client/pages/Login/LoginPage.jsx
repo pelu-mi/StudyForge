@@ -3,20 +3,15 @@ import { Text } from "react-native-paper";
 import { styles } from "./LoginPage.styles";
 import { Button } from "@/components/Button";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-// import { FaceIDIcon } from "@/components/Icons";
 import { Link } from "expo-router";
 import { SafeKeyboardScrollView } from "@/components/SafeKeyboardScrollView";
 import { FormTextInput } from "@/components/Form/FormTextInput";
 import { useLoginForm } from "./hooks/useLoginForm";
-// import { useSettings } from "@/hooks/useSettings";
-// import { useUser } from "@/context/UserProvider";
 import { useColorMode } from "@/context/ColorModeProvider";
 
 export const LoginPage = () => {
   const { colorMode } = useColorMode();
   const { control, handleSubmit } = useLoginForm();
-  // const { biometricLogin } = useUser();
-  // const { biometricAuth, isBiometricSupported } = useSettings();
 
   return (
     <SafeKeyboardScrollView edges={["top"]}>
@@ -65,17 +60,6 @@ export const LoginPage = () => {
           >
             Login
           </Button>
-
-          {/* {biometricAuth.isFaceIDEnabled && isBiometricSupported && (
-            <Button
-              variant="secondary"
-              icon={({ color }) => <FaceIDIcon fill={color} />}
-              iconRight
-              onPress={biometricLogin}
-            >
-              Login with Face ID
-            </Button>
-          )} */}
 
           <View style={styles.signUpWrapper}>
             <Text variant="bodyMedium">Don&apos;t have an account?</Text>

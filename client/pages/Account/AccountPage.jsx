@@ -17,29 +17,13 @@ export const AccountPage = () => {
       ignoreSafeArea
       contentContainerStyle={styles.container}
     >
-      {/* <TouchableOpacity onPress={() => {}}> */}
       <View style={styles.avatarContainer}>
         <Avatar.Text
           size={80}
           label={`${user.firstName[0]}${user.lastName[0]}`}
           style={{ backgroundColor: theme.colors.primary }}
         />
-
-        {/* <View
-          style={[
-            styles.iconContainer,
-            { backgroundColor: theme.colors.background },
-          ]}
-        >
-          <MaterialCommunityIcons
-            name="plus-circle"
-            size={24}
-            color={theme.colors.textSecondary}
-            style={styles.icon}
-          />
-        </View> */}
       </View>
-      {/* </TouchableOpacity> */}
 
       <FormTextInput
         name="firstName"

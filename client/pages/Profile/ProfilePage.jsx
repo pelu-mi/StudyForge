@@ -1,11 +1,9 @@
 import { Button } from "@/components/Button";
 import { useUser } from "@/context/UserProvider";
-// import { useSettings } from "@/hooks/useSettings";
 import {
   Alert,
   Pressable,
   ScrollView,
-  // Switch,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -19,8 +17,6 @@ import { useRouter } from "expo-router";
 
 export const ProfilePage = () => {
   const { user, logout } = useUser();
-  // const { biometricAuth, enableBiometricAuth, isBiometricSupported } =
-  // useSettings();
   const theme = useTheme();
   const { colorMode, changeColorMode } = useColorMode();
   const router = useRouter();
@@ -127,29 +123,6 @@ export const ProfilePage = () => {
             </View>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity onPress={() => {}}>
-          <View
-            style={[
-              styles.listContainer,
-              { borderColor: theme.colors.outline },
-            ]}
-          >
-            <View style={styles.leftWrapper}>
-              <MaterialCommunityIcons
-                name="trophy"
-                size={24}
-                color={theme.colors.warning}
-              />
-              <Text variant="bodyLarge">Achievements & Badges</Text>
-            </View>
-            <MaterialCommunityIcons
-              name="chevron-right"
-              size={24}
-              color={theme.colors.textSecondary}
-            />
-          </View>
-        </TouchableOpacity> */}
-
           {/* Preferences section */}
           <View style={styles.preferences}>
             <Text variant="titleMedium" style={styles.preferencesText}>
@@ -196,20 +169,6 @@ export const ProfilePage = () => {
                 />
               </Menu>
             </View>
-            {/* {isBiometricSupported && (
-              <View
-                style={[
-                  styles.listContainer,
-                  { paddingVertical: 12, borderColor: theme.colors.outline },
-                ]}
-              >
-                <Text variant="bodyLarge">Enable Login with Face ID</Text>
-                <Switch
-                  value={biometricAuth.isFaceIDEnabled}
-                  onValueChange={() => enableBiometricAuth("FaceID")}
-                />
-              </View>
-            )} */}
           </View>
         </View>
         {/* Logout button */}

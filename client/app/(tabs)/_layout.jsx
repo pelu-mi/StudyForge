@@ -54,15 +54,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      {/* <Tabs.Screen
-        name="sessions"
-        options={{
-          title: "Sessions",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="notebook" size={24} color={color} />
-          ),
-        }}
-      /> */}
       <Tabs.Screen
         name="profile"
         options={{

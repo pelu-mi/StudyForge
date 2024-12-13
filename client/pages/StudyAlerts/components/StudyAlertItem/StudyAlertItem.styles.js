@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export const useStyles = (theme) =>
   StyleSheet.create({
     alertContainer: {
-      // flex: 1, // Uncomment for full height on the dashboard page
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
