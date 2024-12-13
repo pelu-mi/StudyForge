@@ -1,6 +1,14 @@
+/**
+ * Import Modules
+ */
 import { AppProvider } from "@/context/AppProvider";
 import { Stack } from "expo-router";
 
+/**
+ * App Layout
+ * 
+ * @returns App's root layout
+ */
 export default function RootLayout() {
   return (
     <AppProvider>

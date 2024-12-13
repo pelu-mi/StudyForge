@@ -1,9 +1,17 @@
+/**
+ * Import Modules
+ */
 import { Redirect, Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Colors } from "@/constants/Colors";
 import { useUser } from "@/context/UserProvider";
 import { useColorMode } from "@/context/ColorModeProvider";
 
+/**
+ * Specify Tab Layout
+ * 
+ * @returns TabLayout
+ */
 export default function TabLayout() {
   const { colorMode } = useColorMode();
   const { user } = useUser();

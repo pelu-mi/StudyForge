@@ -1,7 +1,15 @@
+/**
+ * Import Modules
+ */
 import { Link, Stack } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
+/**
+ * Define interface for page not found
+ * 
+ * @returns NotFoundScreen
+ */
 export default function NotFoundScreen() {
   return (
     <>

@@ -1,7 +1,15 @@
+/**
+ * Import Modules
+ */
 import { BackButton } from "@/components/BackButton";
 import { LogoHeaderTitle } from "@/components/LogoHeaderTitle";
 import { Stack } from "expo-router";
 
+/**
+ * Specify profile layout
+ * 
+ * @returns ProfileLayout
+ */
 export default function ProfileLayout() {
   return (
     <Stack
