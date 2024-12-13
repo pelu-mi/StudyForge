@@ -1,3 +1,11 @@
+/**
+ * buildFailureResponse - Build Failure response
+ * 
+ * @param {String} message - Message
+ * @param {String} statusCode - Status Code
+ * @param {String} data - Data
+ * @returns - Failure Response
+ */
 const buildFailureResponse = (message, statusCode, data) => {
   if (data) {
     return {
@@ -15,6 +23,14 @@ const buildFailureResponse = (message, statusCode, data) => {
   };
 };
 
+/**
+ * buildSuccessResponse - Build Success response
+ * 
+ * @param {String} message - Message
+ * @param {String} statusCode - Status Code
+ * @param {String} data - Data
+ * @returns - Success Response
+ */
 const buildSuccessResponse = (message, statusCode, data) => {
   if (data) {
     return {
@@ -31,6 +47,9 @@ const buildSuccessResponse = (message, statusCode, data) => {
   };
 };
 
+/**
+ * Export all functions
+ */
 export default {
   buildFailureResponse,
   buildSuccessResponse,

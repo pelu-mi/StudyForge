@@ -1,7 +1,11 @@
+/**
+ * Import Modules
+ */
 import nodeCron from "node-cron";
 import sendMail from "../utils/sendMail.js";
 import StudyAlert from "../models/studyAlert.js";
 
+// Create cron job
 const job = nodeCron.schedule("* * * * *", async () => {
   try {
     const currentTime = new Date()
@@ -41,4 +45,7 @@ const job = nodeCron.schedule("* * * * *", async () => {
   }
 });
 
+/**
+ * Export function
+ */
 export default job;

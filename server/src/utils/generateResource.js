@@ -11,6 +11,13 @@ const openai = new OpenAI({
   apiKey:process.env.OPENAI_KEY
 });
 
+/**
+ * parseTextWithGPT - Generate resource using GPT4o model
+ * 
+ * @param {string} source_text - Extracted text or text source
+ * @param {string} num_questions - Number of questions to generate
+ * @returns 
+ */
 async function parseTextWithGPT(source_text, num_questions) {
   // Get text from PDF
   //const source_text = await extractTextFromPDF(pdfPath);
@@ -28,7 +35,7 @@ async function parseTextWithGPT(source_text, num_questions) {
       system_text;
   }
 
-  // Specify zod JSON Schema format for Reesource object
+  // Specify zod JSON Schema format for Resource object
   const questionSchema = z.object({
     question: z.string(),
     option_A: z.string(),
@@ -64,5 +71,8 @@ async function parseTextWithGPT(source_text, num_questions) {
   return event; // Print the response to console
 }
 
+/**
+ * Export function
+ */
 export default parseTextWithGPT;
 /**/

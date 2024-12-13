@@ -28,7 +28,12 @@ const pdfParse = require("pdf-parse");
 //   // NOTE: Warning messages "TT: undefined function" are bad font recovery messages
 //   // Means that the problem is with document fonts not the function
 // }
-
+/**
+ * extractTextFromPDF - Extract text from pdf
+ * 
+ * @param {string} filePath - Path to file
+ * @returns 
+ */
 async function extractTextFromPDF(filePath) {
   const pdfBuffer = fs.readFileSync(filePath);
   const pdfData = await pdfParse(pdfBuffer);
@@ -38,8 +43,12 @@ async function extractTextFromPDF(filePath) {
   return response.buildSuccessResponse("Text Extracted", 200, pdfData.text);
 }
 
+// Delete file
 async function deleteFile(filePath) {
   fs.unlinkSync(filePath);
 }
 
+/**
+ * Export all functions
+ */
 export default { extractTextFromPDF, deleteFile };
