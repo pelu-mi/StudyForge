@@ -1,3 +1,6 @@
+/**
+ * Import Modules
+ */
 import dotenv from "dotenv";
 import users from "../models/user.model.js";
 import responses from "../utils/response.js";
@@ -9,21 +12,31 @@ import resource from "../models/resource.model.js";
 
 dotenv.config();
 
+/**
+ * createAccount - Create new user account
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function createAccount(payload) {
   const { firstName, lastName, email } = payload;
 
+  // Ensure all required fields exist
   if (!firstName || !lastName || !payload.password || !email) {
     return responses.buildFailureResponse("Missing required fields", 400);
   }
 
+  // Check if email exists in database
   const foundEmail = await users.findOne({ email: email });
   if (foundEmail) {
     return responses.buildFailureResponse("Account already exists", 400);
   }
 
+  // Save hashed password instead of raw password
   const hashedPassword = await bcrypt.hash(payload.password, 10);
   payload.password = hashedPassword;
 
+  // Create new user
   const newUser = await users.create(payload);
   return responses.buildSuccessResponse(
     "Account created succesfully",
@@ -32,17 +45,27 @@ async function createAccount(payload) {
   );
 }
 
+/**
+ * login - Login to existing user account
+ *
+ * @param {Object} payload - Data to use for login to an existing account
+ * @returns Success or failure status
+ */
 async function login(payload) {
   const { email, password } = payload;
+  // Check if acount exists in database using email
   const foundAccount = await users.findOne({ email: email }).lean();
   if (!foundAccount) {
     return responses.buildFailureResponse("Account does not exist", 400);
   }
 
+  // Compare password entered against actual password
   const passwordMatch = await bcrypt.compare(password, foundAccount.password);
   if (!passwordMatch) {
     return responses.buildFailureResponse("Passwords do not match", 400);
   }
+
+  // Create JWT token
   const token = jwt.sign(
     {
       _id: foundAccount._id,
@@ -57,15 +80,23 @@ async function login(payload) {
   return responses.buildSuccessResponse("Login Successful", 200, foundAccount);
 }
 
+/**
+ * createPublicKey - Create public key
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function createPublicKey(user, payload) {
   const { publicKey } = payload;
 
+  // Find user using userid
   const foundUser = await users.findOne({ _id: user._id });
 
   if (!foundUser) {
     return responses.buildFailureResponse("User does not exist", 400);
   }
 
+  // Update user with public key
   const updatedUser = await users.findOneAndUpdate(
     { _id: user._id },
     { $set: { publicKeyCredential: publicKey } },
@@ -79,6 +110,12 @@ async function createPublicKey(user, payload) {
   );
 }
 
+/**
+ * getUser - Get existing User
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getUser(payload) {
   const foundUser = await users.findOne({ _id: payload });
 
@@ -89,12 +126,19 @@ async function getUser(payload) {
   return responses.buildSuccessResponse("User details found", 200, foundUser);
 }
 
+/**
+ * updateUser - Update existing user
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function updateUser(user, payload) {
   const currentUser = await users.findById(user._id);
   if (!currentUser) {
     return responses.buildFailureResponse("User not found", 400);
   }
 
+  // Update user using payload
   const updatedUser = await users.findByIdAndUpdate(
     user._id,
     { $set: payload },
@@ -108,6 +152,12 @@ async function updateUser(user, payload) {
   );
 }
 
+/**
+ * setStudyAlert - Set Study Alert
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function setStudyAlert(user, payload) {
   const currentUser = await users.findById(user._id);
   if (!currentUser) {
@@ -123,6 +173,7 @@ async function setStudyAlert(user, payload) {
     time: payload.time,
   });
 
+  // If a study alert with the same information exists, do not create it
   if (existingAlert) {
     return responses.buildFailureResponse(
       "A study alert with the same day and time already exists",
@@ -138,6 +189,12 @@ async function setStudyAlert(user, payload) {
   );
 }
 
+/**
+ * getUserStudyAlerts - Get all study alerts for a user
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getUserStudyAlerts(user) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -145,6 +202,7 @@ async function getUserStudyAlerts(user) {
     return responses.buildFailureResponse("User does not exist", 400);
   }
 
+  // Find study alerts for the user
   const foundAlert = await studyAlert.find({ user: user._id });
   if (!foundAlert) {
     return responses.buildFailureResponse("No study alert set", 400);
@@ -157,12 +215,19 @@ async function getUserStudyAlerts(user) {
   };
 }
 
+/**
+ * deleteStudyAlert - Delete existing study alert
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function deleteStudyAlert(payload) {
   const foundAlert = await studyAlert.findOne({ _id: payload.id });
   if (!foundAlert) {
     return responses.buildFailureResponse("This alert doesn't exist", 400);
   }
 
+  // Delete study alert
   const deletedAlert = await studyAlert.findOneAndDelete({ _id: payload.id });
 
   return responses.buildSuccessResponse(
@@ -172,12 +237,19 @@ async function deleteStudyAlert(payload) {
   );
 }
 
+/**
+ * deleteResource - Delete existing resource
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function deleteResource(payload) {
   const foundResource = await resource.findOne({ _id: payload.id });
   if (!foundResource) {
     return responses.buildFailureResponse("This resource doesn't exist", 400);
   }
 
+  // Delete Resource
   const deletedResource = await resource.findOneAndDelete({
     _id: payload.id,
   });
@@ -189,12 +261,19 @@ async function deleteResource(payload) {
   );
 }
 
+/**
+ * updateStudyAlert - Update existing Study alert
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function updateStudyAlert(user, payload) {
   const foundAlert = await studyAlert.findOne({ _id: payload.id });
   if (!foundAlert) {
     return responses.buildFailureResponse("This alert doesn't exist", 400);
   }
 
+  // Update study alert
   const updatedAlert = await studyAlert.findByIdAndUpdate(
     payload.id,
     { $set: payload },
@@ -208,6 +287,12 @@ async function updateStudyAlert(user, payload) {
   );
 }
 
+/**
+ * getStudyAlert - Get Study Alert
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getStudyAlert(payload) {
   const { alertId } = payload;
   const foundAlert = await studyAlert.findOne({ _id: alertId });
@@ -218,6 +303,12 @@ async function getStudyAlert(payload) {
   return responses.buildSuccessResponse("Study alert found", 200, foundAlert);
 }
 
+/**
+ * verifyKey - Verify public key
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function verifyKey(user, payload) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -230,6 +321,7 @@ async function verifyKey(user, payload) {
   const verifier = crypto.createVerify("RSA-SHA256");
   verifier.update(payload);
 
+  // Verify public key
   const isVerified = verifier.verify(
     `-----BEGIN PUBLIC KEY-----\n${publicKeyCredential}\n-----END PUBLIC KEY-----`,
     signature,
@@ -246,6 +338,12 @@ async function verifyKey(user, payload) {
   return responses.buildSuccessResponse("Face ID verified", 200);
 }
 
+/**
+ * generateResource - generate new Resource
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function generateResource(user, payload) {
   const {
     title,
@@ -278,6 +376,12 @@ async function generateResource(user, payload) {
   );
 }
 
+/**
+ * getResource - Get existing Resource
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getResource(payload) {
   const { resourceId } = payload;
   const foundResource = await resource.findOne({ _id: resourceId });
@@ -288,6 +392,12 @@ async function getResource(payload) {
   return responses.buildSuccessResponse("Resource found", 200, foundResource);
 }
 
+/**
+ * getUserResources - Get all resources for a user
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getUserResources(user) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -295,6 +405,7 @@ async function getUserResources(user) {
     return responses.buildFailureResponse("User does not exist", 400);
   }
 
+  // Find all resources for a user
   const foundResources = await resource.find({ userID: user._id });
   if (!foundResources) {
     return responses.buildFailureResponse("No resources for this user", 400);
@@ -307,6 +418,12 @@ async function getUserResources(user) {
   };
 }
 
+/**
+ * getUserOverview - Get user key analytics
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getUserOverview(user) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -340,6 +457,12 @@ async function getUserOverview(user) {
   );
 }
 
+/**
+ * getRecentResourcesAndAlerts - Get recent resources and alerts
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function getRecentResourcesAndAlerts(user) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -367,6 +490,12 @@ async function getRecentResourcesAndAlerts(user) {
   );
 }
 
+/**
+ * updateResource - Update existing Resource
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function updateResource(user, payload) {
   const { resourceID, ...updateFields } = payload;
 
@@ -379,6 +508,7 @@ async function updateResource(user, payload) {
     return responses.buildFailureResponse("Resource not found", 404);
   }
 
+  // Update resource
   const updatedResource = await resource.findByIdAndUpdate(
     resourceID,
     { $set: updateFields },
@@ -404,6 +534,12 @@ async function updateResource(user, payload) {
   );
 }
 
+/**
+ * changePassword - Change user password
+ *
+ * @param {Object} payload - Data to use
+ * @returns Success or failure status
+ */
 async function changePassword(user, payload) {
   const foundUser = await users.findOne({ _id: user._id });
 
@@ -426,6 +562,9 @@ async function changePassword(user, payload) {
   );
 }
 
+/**
+ * Export all functions
+ */
 export default {
   createAccount,
   login,
