@@ -1,5 +1,11 @@
+/**
+ * Import Modules
+ */
 import mongoose, { Mongoose } from "mongoose";
 
+/**
+ * Define StudyAlert Model for database
+ */
 const studyAlertSchema = mongoose.Schema(
   {
     day: [
@@ -41,4 +47,7 @@ const studyAlertSchema = mongoose.Schema(
   }
 );
 
+/**
+ * Export Study Alert Model
+ */
 export default mongoose.model("studyAlert", studyAlertSchema);

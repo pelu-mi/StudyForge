@@ -1,5 +1,11 @@
+/**
+ * Import Modules
+ */
 import mongoose from "mongoose";
 
+/**
+ * Devine resource model for database
+ */
 const resourceSchema = mongoose.Schema(
   {
     userID: {
@@ -88,4 +94,7 @@ const resourceSchema = mongoose.Schema(
   }
 );
 
+/**
+ * Export Resource Model
+ */
 export default mongoose.model("Resource", resourceSchema);
