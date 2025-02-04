@@ -16,7 +16,7 @@
     <a href="https://github.com/pelu-mi/StudyForge"><strong>Explore »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/pelu-mi/StudyForge">View Demo</a>
+    <a href="https://youtu.be/yFcq1lhb3EE?si=SagEhu7-1p8TOmSU">View Demo</a>
     ·
     <a href="https://github.com/pelu-mi/StudyForge/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
